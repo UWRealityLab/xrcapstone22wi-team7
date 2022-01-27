@@ -27,8 +27,6 @@ public class NetworkPlayer : MonoBehaviour
         leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
         rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
 
-        /*
-        // TODO: have own hands/avatar version of yourself attached to XR origin (non-network), currently with code below it won't show any "hands"
         // Don't display the network avatar version of yourself
         if (photonView.IsMine)
         {
@@ -37,7 +35,6 @@ public class NetworkPlayer : MonoBehaviour
                 item.enabled = false;
             }
         }
-        */
     }
 
     // Update is called once per frame
