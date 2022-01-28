@@ -8,10 +8,14 @@ using Unity.XR.CoreUtils;
 
 public class NetworkPlayer : MonoBehaviour
 {
+    public Transform body;
     public Transform head;
     public Transform leftHand;
     public Transform rightHand;
     private PhotonView photonView;
+
+    public Vector3 trackingPositionOffset;
+    public Vector3 trackingRotationOffset;
 
     private Transform headRig;
     private Transform leftHandRig;
@@ -35,6 +39,7 @@ public class NetworkPlayer : MonoBehaviour
                 item.enabled = false;
             }
         }
+        
     }
 
     // Update is called once per frame
@@ -43,7 +48,10 @@ public class NetworkPlayer : MonoBehaviour
         if (photonView.IsMine)
         {
             // Only update positions for your avatar
-            MapPosition(head, headRig);
+            head.rotation = headRig.rotation;
+            Vector3 bodyPos = new Vector3(headRig.position.x, 0, headRig.position.z);
+            body.position = bodyPos;
+            body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
             MapPosition(leftHand, leftHandRig);
             MapPosition(rightHand, rightHandRig);
         }
@@ -51,7 +59,11 @@ public class NetworkPlayer : MonoBehaviour
 
     public void MapPosition(Transform target, Transform rigTransform)
     {
-        target.position = rigTransform.position;
-        target.rotation = rigTransform.rotation;
+        //target.position = rigTransform.position;
+        //target.rotation = rigTransform.rotation;
+
+        target.position = rigTransform.TransformPoint(trackingPositionOffset);
+        target.rotation = rigTransform.rotation * Quaternion.Euler(trackingRotationOffset);
+
     }
 }

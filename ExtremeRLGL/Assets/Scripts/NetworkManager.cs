@@ -1,8 +1,8 @@
  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using Photon.Realtime;
+using Photon.Pun;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -94,8 +94,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a room.");
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         Debug.Log("A new player joined the room.");
     }
+
 }
