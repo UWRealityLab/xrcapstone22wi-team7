@@ -8,17 +8,18 @@ public class TimerManager : MonoBehaviour
     public static event TimeUpAction OnTimeUp;
 
     private static Dictionary<string, Timer> timers;
-    
+    private static List<string> removingTimers;
+
     // Start is called before the first frame update
     void Start()
     {
         timers = new Dictionary<string, Timer>();
+        removingTimers = new List<string>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        List<string> removingTimers = new List<string>();
         foreach (KeyValuePair<string, Timer> entry in timers)
         {
             Timer timer = entry.Value;
@@ -28,14 +29,19 @@ public class TimerManager : MonoBehaviour
                 if (timer.timeLeft <= 0)
                 {
                     removingTimers.Add(entry.Key);
+                    timer.on = false;
                     if (OnTimeUp != null)
                         OnTimeUp(entry.Key);
                 }
             }
         }
-        foreach (string timerId in removingTimers)
-            timers.Remove(timerId);
+  
 
+        foreach (string timerId in removingTimers)
+        {
+            timers.Remove(timerId);
+        }
+        removingTimers.Clear();
     }
 
     public static void AddTimer(string id, float time)
@@ -68,6 +74,12 @@ public class TimerManager : MonoBehaviour
     public static bool IsTimerOn(string id)
     {
         return timers[id].on;
+    }
+
+    public static void ClearTimers()
+    {
+        if (timers != null)
+            timers.Clear();
     }
 
     class Timer
