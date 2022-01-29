@@ -7,8 +7,8 @@ using TMPro;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public GameObject connectButton;
-    public GameObject connectedText;
+    public GameObject menu;
+    public GameObject connectingText;
 
     public GameObject roomUI;
     public GameObject createUI;
@@ -40,9 +40,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void ConnectToServer()
     {
+        connectingText.SetActive(true);
+        StartCoroutine(RemoveAfterSeconds(2, connectingText));
         Debug.Log("Trying to connect to server...");
         PhotonNetwork.ConnectUsingSettings();
         PhotonNetwork.GameVersion = gameVersion;
+    }
+
+    public void Disconnect()
+    {
+        Debug.Log("Disconnecting.");
+        PhotonNetwork.Disconnect();
     }
     public void QuickMatch()
     {
@@ -96,38 +104,40 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // TODO: Let person who created room start game (probably switch scene)
         // PhotonNetwork.LoadLevel(levelName);
     }
-
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Connected to master server.");
-        PhotonNetwork.JoinLobby();
-
-        // Hiding connect button UI only if actually connected.
-        // In case of no internet, player will not be able to succesfully connect (but they won't crash either).
-        // Probably want to handle better later.
-        connectButton.SetActive(false);
-        roomUI.SetActive(true);
-        connectedText.SetActive(true);
-        StartCoroutine(RemoveAfterSeconds(3, connectedText));
-    }
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
     {
         yield return new WaitForSeconds(seconds);
         obj.SetActive(false);
     }
 
+    public override void OnConnectedToMaster()
+    {
+        Debug.Log("Connected to master server.");
+        PhotonNetwork.JoinLobby();
+
+        // Hiding UI only if actually connected.
+        // In case of no internet, player will not be able to succesfully connect (but they won't crash either).
+        // Probably want to handle better later.
+        connectingText.SetActive(false);
+        menu.SetActive(false);
+        roomUI.SetActive(true);
+    }
+    public override void OnJoinedLobby()
+    {
+        Debug.Log("Joined the lobby.");
+    }
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        Debug.Log("OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
+
+        // We failed to join a random room, maybe none exists or they are all full - create a new room.
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+    }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         // Create another room if failed (e.g. current name already used)
         Debug.Log("Failed to create room.");
         CreateRoom();
-    }
-
-    public override void OnJoinRoomFailed(short returnCode, string message)
-    {
-        Debug.Log("Failed to join room: " + message);
-        joinErrorText.SetActive(true);
-        StartCoroutine(RemoveAfterSeconds(3, joinErrorText));
     }
     public override void OnJoinedRoom()
     {
@@ -136,27 +146,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         joinUI.SetActive(false);
     }
 
-    public override void OnLeftRoom()
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("Left room.");
+        Debug.Log("Failed to join room: " + message);
+        joinErrorText.SetActive(true);
+        StartCoroutine(RemoveAfterSeconds(3, joinErrorText));
     }
-
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log("A new player joined the room.");
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public override void OnLeftRoom()
     {
-        Debug.Log("OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
-
-        // We failed to join a random room, maybe none exists or they are all full - create a new room.
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
-    }
-
-    public override void OnJoinedLobby()
-    {
-        Debug.Log("Joined the lobby.");
+        Debug.Log("Left room.");
     }
 
     public override void OnDisconnected(DisconnectCause cause)
