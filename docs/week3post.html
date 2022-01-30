@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Extreme Red Light Green Light</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">Extreme Red Light Green Light</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="deliverables.html">Deliverables</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>Week 3</h1>
+                            <!-- <h2 class="subheading">Subheading here?</h2> -->
+                            <span class="meta">
+                                Posted by
+                                <a href="about.html">AR/VR Capstone Team 7</a>
+                                on January 28, 2022
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <h3 class="mb-3">Weekly Updates</h3>
+                        <ul>
+                            <li>This week, we worked on figuring out some of the key technical features used in our game. 
+                                We will probably have a bit more changes to make as we make some tweaks and adjustments, but we are currently still on track to meet our milestones.</li>
+                            <li>Shane: Worked on the game manager (timing, basic game logic) and helped with the motion detection.</li>
+                            <li>Sharon: Worked on setting up multiplayer. The tutorial on Thursday (and updated demo scene) was very similar to what we did. </li>
+                            <li>Shelly: Worked on player models - used a free model from the asset store to make a prefab for the player's network model. </li>
+                            <li>Thompson: Worked on motion detection - had the script recognize movement by checking if the distance between the initial and current position/rotation coordinates of the headset and controllers are greater than a certain threshold.</li>
+                        </ul>
+                        <h3 class="mb-3">New Features/Functionality</h3>
+                        <ul>
+                            <li>Motion detection - detect whether or not player is moving using controllers and headset.</li>
+                            <li>Multiplayer - players can connect to a room with other players. 
+                                Currently there is a connect button that the player can press to join a random room (will create a new room if it's full or there isn't one yet). We are thinking of adding an option to create and join specific rooms as well. </li>
+                            <li>Player models - player models show up in multiplayer and hand movements and head rotation are tracked and shown to other users. Players can see the models of others (but not their own model) and see their own hands as cubes (will probably replace for a hand model). 
+                                Currently there are no leg animations yet. These changes have not yet been pushed to the master branch (as we are considering changing the model we use) and are in the basic-player-model branch. </li>
+                        </ul>
+                        <h3 class="mb-3">Code Review</h3>
+                        <ul>
+                            <li>MotionDetection.cs - This script is what detects whether the headset or the controllers are moving. Is there anything we can do or change to make our code more proficient and neat?</li>
+                            <li>ThompsonScene.unity - This scene should have the thresholds we set for the controllers and the headset. Please let us know if they should be readjusted.</li>
+                            <li>MotionDetection.apk - This file can be used to test out the script and the thresholds that were set.</li>
+                            <li>mini-rlgl.apk - A demo that implements the most basic game logic of red light, green light (without multiplayer).</li>
+                        </ul>
+                        <h3 class="mb-3">Blocking Issues</h3>
+                        <ul>
+                            <li> Nothing currently blocking. </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div> -->
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
