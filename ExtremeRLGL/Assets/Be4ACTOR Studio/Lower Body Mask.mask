@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lower Body Mask
+  m_Mask: 01000000000000000000000001000000010000000000000000000000000000000000000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg/bone_LeftLeg
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg/bone_LeftLeg/bone_LeftFoot
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg/bone_LeftLeg/bone_LeftFoot/bone_LeftToeBase
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg/bone_LeftLeg/bone_LeftFoot/bone_LeftToeBase/bone_LeftToe_End
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg/bone_LeftLeg/bone_LeftFoot/bone_LeftToeBase/bone_LeftToe_End/bone_LeftToe_End_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_LeftUpLeg/bone_LeftLeg/bone_LeftFoot/bone_LeftToeBase/bone_LeftToe_End/bone_LeftToe_End_end/bone_LeftToe_End_end_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg/bone_RightLeg
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg/bone_RightLeg/bone_RightFoot
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg/bone_RightLeg/bone_RightFoot/bone_RightToeBase
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg/bone_RightLeg/bone_RightFoot/bone_RightToeBase/bone_RightToe_End
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg/bone_RightLeg/bone_RightFoot/bone_RightToeBase/bone_RightToe_End/bone_RightToe_End_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_RightUpLeg/bone_RightLeg/bone_RightFoot/bone_RightToeBase/bone_RightToe_End/bone_RightToe_End_end/bone_RightToe_End_end_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand/bone_LeftHandIndex1
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand/bone_LeftHandIndex1/bone_LeftHandIndex2
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand/bone_LeftHandIndex1/bone_LeftHandIndex2/bone_LeftHandIndex3
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand/bone_LeftHandIndex1/bone_LeftHandIndex2/bone_LeftHandIndex3/bone_LeftHandIndex4
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand/bone_LeftHandIndex1/bone_LeftHandIndex2/bone_LeftHandIndex3/bone_LeftHandIndex4/bone_LeftHandIndex4_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_LeftShoulder/bone_LeftArm/bone_LeftForeArm/bone_LeftHand/bone_LeftHandIndex1/bone_LeftHandIndex2/bone_LeftHandIndex3/bone_LeftHandIndex4/bone_LeftHandIndex4_end/bone_LeftHandIndex4_end_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_Neck
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_Neck/bone_Head
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_Neck/bone_Head/bone_HeadTop_End
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_Neck/bone_Head/bone_HeadTop_End/bone_HeadTop_End_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_Neck/bone_Head/bone_HeadTop_End/bone_HeadTop_End_end/bone_HeadTop_End_end_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand/bone_RightHandIndex1
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand/bone_RightHandIndex1/bone_RightHandIndex2
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand/bone_RightHandIndex1/bone_RightHandIndex2/bone_RightHandIndex3
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand/bone_RightHandIndex1/bone_RightHandIndex2/bone_RightHandIndex3/bone_RightHandIndex4
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand/bone_RightHandIndex1/bone_RightHandIndex2/bone_RightHandIndex3/bone_RightHandIndex4/bone_RightHandIndex4_end
+    m_Weight: 1
+  - m_Path: Armature/bone_Hips/bone_Spine/bone_Spine1/bone_Spine2/bone_RightShoulder/bone_RightArm/bone_RightForeArm/bone_RightHand/bone_RightHandIndex1/bone_RightHandIndex2/bone_RightHandIndex3/bone_RightHandIndex4/bone_RightHandIndex4_end/bone_RightHandIndex4_end_end
+    m_Weight: 1
+  - m_Path: body
+    m_Weight: 1
