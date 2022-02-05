@@ -7,6 +7,7 @@ using Unity.XR.CoreUtils;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    public GameObject playerBody;
     public TextMeshProUGUI debugText;
     public float timeToHold = 2f;
     public float timeToFall = 4f;
@@ -15,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     private XROrigin rig;
     private Camera mainCamera;
     private Camera fallenCamera;
+    private NetworkPlayer networkPlayer;
     private float startTime;
 
     // Start is called before the first frame update
@@ -33,6 +35,8 @@ public class PlayerInteraction : MonoBehaviour
         fallenCamera = GameObject.FindWithTag("FallCamera").GetComponent<Camera>();
         mainCamera.enabled = true;
         fallenCamera.enabled = false;
+
+        networkPlayer = GetComponent<NetworkPlayer>();
     }
 
     // Update is called once per frame
@@ -88,15 +92,30 @@ public class PlayerInteraction : MonoBehaviour
 
     public IEnumerator fallForDuration(float seconds)
     {
-        // Move camera to where player is 
-        fallenCamera.transform.position = gameObject.transform.position;
+        if (photonView.IsMine)
+        {
+            // Stop body from moving (stop tracking position) and rotate it so it "falls"
+            networkPlayer.stopped = true;
+            playerBody.transform.Rotate(90, 0, 0, Space.Self);
 
-        fallenCamera.enabled = true;
-        mainCamera.enabled = false;
-        rig.gameObject.SetActive(false);
-        yield return new WaitForSeconds(seconds);
-        rig.gameObject.SetActive(true);
-        fallenCamera.enabled = false;
-        mainCamera.enabled = true;
+            // Move camera to where player is 
+            fallenCamera.transform.position = gameObject.transform.position;
+
+            // Enable fallen camera (and disable rig to not see controller rays)
+            fallenCamera.enabled = true;
+            mainCamera.enabled = false;
+            rig.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(seconds);
+            
+            // Re-enable main camera
+            rig.gameObject.SetActive(true);
+            fallenCamera.enabled = false;
+            mainCamera.enabled = true;
+
+            // Undo rotation and re-track movement
+            playerBody.transform.Rotate(-90, 0, 0, Space.Self);
+            networkPlayer.stopped = false;
+        }
     }
 }

@@ -716,6 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8976f4b0ff4190d4fb0ed3790c5c38f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stopped: 0
   body: {fileID: 4229346236841038615}
   head: {fileID: 4412153811660851462}
   leftHand: {fileID: 4412153812178973765}
@@ -855,6 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8776220d4c44da54886ad0951c053100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBody: {fileID: 3601322046471784877}
   debugText: {fileID: 8148068065867541337}
   timeToHold: 2
   timeToFall: 4
