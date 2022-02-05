@@ -8,6 +8,8 @@ using Unity.XR.CoreUtils;
 
 public class NetworkPlayer : MonoBehaviour
 {
+    public bool stopped;
+
     public Transform body;
     public Transform head;
     public Transform leftHand;
@@ -24,6 +26,7 @@ public class NetworkPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        stopped = false;
         photonView = GetComponent<PhotonView>();
 
         XROrigin rig = FindObjectOfType<XROrigin>();
@@ -45,7 +48,7 @@ public class NetworkPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && !stopped)
         {
             // Only update positions for your avatar
             head.rotation = headRig.rotation;
