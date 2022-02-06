@@ -858,7 +858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 3601322046471784877}
   debugText: {fileID: 8148068065867541337}
-  timeToHold: 2
+  timeToHold: 3
   timeToFall: 4
 --- !u!64 &1061485009357257936
 MeshCollider:

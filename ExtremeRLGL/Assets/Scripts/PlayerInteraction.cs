@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     public GameObject playerBody;
     public TextMeshProUGUI debugText;
-    public float timeToHold = 2f;
+    public float timeToHold = 3f;
     public float timeToFall = 4f;
 
     private PhotonView photonView;
