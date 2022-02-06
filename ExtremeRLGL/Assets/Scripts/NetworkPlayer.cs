@@ -48,13 +48,15 @@ public class NetworkPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Only update positions for your avatar
         if (photonView.IsMine && !stopped)
         {
-            // Only update positions for your avatar
-            head.rotation = headRig.rotation;
-            Vector3 bodyPos = new Vector3(headRig.position.x, 0, headRig.position.z);
-            body.position = bodyPos;
-            body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
+            // currently commented out so only movement scripts affect position/rotation
+            // can uncomment head.rotation part if we want others to see direction player is looking at, but it does look weird at times (e.g. 180 rotations twist neck)
+            // head.rotation = headRig.rotation;
+            //Vector3 bodyPos = new Vector3(headRig.position.x, 0, headRig.position.z);
+            //body.position = bodyPos;
+            //body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
             MapPosition(leftHand, leftHandRig);
             MapPosition(rightHand, rightHandRig);
         }

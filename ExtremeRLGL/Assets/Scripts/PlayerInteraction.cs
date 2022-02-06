@@ -12,6 +12,8 @@ public class PlayerInteraction : MonoBehaviour
     public float timeToHold = 3f;
     public float timeToFall = 4f;
 
+    public Animator animator;
+
     private PhotonView photonView;
     private XROrigin rig;
     private Camera mainCamera;
@@ -95,6 +97,7 @@ public class PlayerInteraction : MonoBehaviour
         if (photonView.IsMine)
         {
             // Stop body from moving (stop tracking position) and rotate it so it "falls"
+            animator.SetBool("isMoving", false);
             networkPlayer.stopped = true;
             playerBody.transform.Rotate(90, 0, 0, Space.Self);
 
