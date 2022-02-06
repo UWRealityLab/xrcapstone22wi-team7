@@ -56,6 +56,13 @@ public class RunningMovementMultiplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
+        // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
+        rig = FindObjectOfType<XROrigin>();
+        MainCamera = rig.transform.Find("Camera Offset/Main Camera");
+        LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
+        RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+
         if (photonView.IsMine && !networkPlayer.stopped)
         {
             // Rotate the container depending on the rotation of the left controller
