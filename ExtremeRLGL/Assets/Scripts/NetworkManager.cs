@@ -104,7 +104,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Starting game.");
         PhotonNetwork.CurrentRoom.IsOpen = false;
         // TODO: Let person who created room start game (probably switch scene)
-        // PhotonNetwork.LoadLevel(levelName);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("ShellyGameScene");
+        }
     }
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
     {
