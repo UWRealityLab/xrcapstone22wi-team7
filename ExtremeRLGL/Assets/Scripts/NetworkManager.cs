@@ -15,6 +15,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject joinUI;
     public GameObject joinErrorText;
     public GameObject joinInput;
+    public GameObject singleUI;
     public TextMeshProUGUI createdRoomCode;
 
     [SerializeField] private byte maxPlayersPerRoom = 10;
@@ -51,6 +52,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Disconnecting.");
         PhotonNetwork.Disconnect();
+        GameManager.isOnline = false;
     }
     public void QuickMatch()
     {
@@ -121,6 +123,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         connectingText.SetActive(false);
         menu.SetActive(false);
         roomUI.SetActive(true);
+        GameManager.isOnline = true;
     }
     public override void OnJoinedLobby()
     {
@@ -167,4 +170,26 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
     }
 
+    // Single player UI part
+    public void PlaySingleGame()
+    {
+        GameManager.isOnline = false;
+        menu.SetActive(false);
+        singleUI.SetActive(true);
+        Debug.Log("Selected single player");
+    }
+
+    public void BackToMenu()
+    {
+        singleUI.SetActive(false);
+        menu.SetActive(true);
+        Debug.Log("Backing to the main menu");
+    }
+
+    public void StartSingleGame()
+    {
+        GameManager.gameManager.GameStart();
+        singleUI.SetActive(false);
+        Debug.Log("Starting the game");
+    }
 }

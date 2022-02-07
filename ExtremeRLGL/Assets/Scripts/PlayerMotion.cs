@@ -52,7 +52,7 @@ public class PlayerMotion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (LightManager.on && LightManager.redLightOn)
+        if (LightManager.RedlightAllOn())
         {
             // Get current position coordinates
             currCameraPos = MainCamera.transform.position;

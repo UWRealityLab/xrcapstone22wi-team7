@@ -2,16 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerStage 
+public class FinishLine : MonoBehaviour
 {
-    Moving,
-    Stopping
-}
-
-public class PlayerState : MonoBehaviour
-{
-    public PlayerStage stage;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,4 +16,8 @@ public class PlayerState : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        GameManager.gameManager.PlayerFinished(other.gameObject);
+    }
 }
