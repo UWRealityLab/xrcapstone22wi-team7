@@ -37,6 +37,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Start()
     {
         // ConnectToServer();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void ConnectToServer()
@@ -58,7 +59,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // The first we try to do is to join a potential existing room. 
         // If there is, good, else, we'll be called back with OnJoinRandomFailed()
+        //if (PhotonNetwork.IsMasterClient)
+        //{
+        PhotonNetwork.LoadLevel("MultiplayerGameScene");
+        //}
         PhotonNetwork.JoinRandomRoom();
+
 
         // Once enough players are in scene, we can start game? 
         // Or some sort of manual start?
@@ -106,8 +112,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // TODO: Let person who created room start game (probably switch scene)
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("ShellyGameScene");
+            PhotonNetwork.LoadLevel("MultiplayerGameScene");
         }
+
     }
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
     {
