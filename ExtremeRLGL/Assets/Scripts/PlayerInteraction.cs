@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Photon.Pun;
 using Unity.XR.CoreUtils;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -38,12 +39,20 @@ public class PlayerInteraction : MonoBehaviour
         mainCamera.enabled = true;
         fallenCamera.enabled = false;
 
+        // getting interaction manager
+        XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
+        simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
+
         networkPlayer = GetComponent<NetworkPlayer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // getting interaction manager again in case of scene change
+        // TODO: clean up code/make it so it doesn't always have to do this
+        XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
+        simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
     }
 
     public void startNetworkedPush()
@@ -96,6 +105,15 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (photonView.IsMine)
         {
+            // current fix to setting up camera on scene change is to just keep finding them, so when scene changes, it will find them again
+            // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
+            rig = FindObjectOfType<XROrigin>();
+            mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+            fallenCamera = GameObject.FindWithTag("FallCamera").GetComponent<Camera>();
+
+            mainCamera.enabled = true;
+            fallenCamera.enabled = false;
+
             // Stop body from moving (stop tracking position) and rotate it so it "falls"
             animator.SetBool("isMoving", false);
             networkPlayer.stopped = true;
