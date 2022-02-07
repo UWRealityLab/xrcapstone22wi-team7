@@ -37,6 +37,8 @@ public class NetworkPlayer : MonoBehaviour
         leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
         rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
 
+        //DontDestroyOnLoad(rig);
+
         // Don't display the network avatar version of yourself
         if (photonView.IsMine)
         {
@@ -51,19 +53,24 @@ public class NetworkPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
-        // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
-        XROrigin rig = FindObjectOfType<XROrigin>();
-        headRig = rig.transform.Find("Camera Offset/Main Camera");
-        leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
-        rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
 
         // Only update positions for your avatar
         if (photonView.IsMine && !stopped)
         {
+            // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
+            // TODO: make it so that it doesn't have to do this everytime
+            // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
+            XROrigin rig = FindObjectOfType<XROrigin>();
+            if (rig != null)
+            {
+                headRig = rig.transform.Find("Camera Offset/Main Camera");
+                leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
+                rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
+            }
+
             // currently commented out so only movement scripts affect position/rotation
             // can uncomment head.rotation part if we want others to see direction player is looking at, but it does look weird at times (e.g. 180 rotations twist neck)
-            // head.rotation = headRig.rotation;
+            head.rotation = headRig.rotation;
             //Vector3 bodyPos = new Vector3(headRig.position.x, 0, headRig.position.z);
             //body.position = bodyPos;
             //body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
