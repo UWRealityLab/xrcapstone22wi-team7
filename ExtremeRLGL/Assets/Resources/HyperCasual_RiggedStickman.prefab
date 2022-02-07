@@ -540,6 +540,9 @@ GameObject:
   - component: {fileID: -3577592721953823161}
   - component: {fileID: -3379580022601284308}
   - component: {fileID: 1061485009357257936}
+  - component: {fileID: 1303227632118198882}
+  - component: {fileID: -1549997215884751634}
+  - component: {fileID: 2439450006051917942}
   m_Layer: 0
   m_Name: HyperCasual_RiggedStickman
   m_TagString: Untagged
@@ -682,6 +685,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 4412153811984381091}
+  - {fileID: 2439450006051917942}
   - {fileID: 4412153811660851460}
   - {fileID: 4412153810452599221}
   - {fileID: 4412153812178973764}
@@ -860,6 +864,7 @@ MonoBehaviour:
   debugText: {fileID: 8148068065867541337}
   timeToHold: 3
   timeToFall: 4
+  animator: {fileID: 4412153811984381101}
 --- !u!64 &1061485009357257936
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -874,6 +879,67 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8545447256379345787, guid: 893bf226a45c7f54e91ea5fb82d6212d, type: 3}
+--- !u!114 &1303227632118198882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601322046471784877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc46180f5d5b4c6488a4636cf2a1b74d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
+  MainCamera: {fileID: 0}
+  RunningContainer: {fileID: 3601322046471784877}
+  speed: 80
+--- !u!114 &-1549997215884751634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601322046471784877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42532b4f73b536e44b2efb706a0a2160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainCamera: {fileID: 0}
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
+  cameraPosThreshold: 4
+  handPosThreshold: 3
+  cameraRotThreshold: 8
+  handRotThreshold: 6
+  animator: {fileID: 4412153811984381101}
+--- !u!114 &2439450006051917942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601322046471784877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 0
+    Name: Blend
+  - Type: 4
+    SynchronizeType: 2
+    Name: isMoving
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &3635936008634394327
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,6 +29,9 @@ public class NetworkPlayer : MonoBehaviour
         stopped = false;
         photonView = GetComponent<PhotonView>();
 
+        // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+        DontDestroyOnLoad(this.gameObject);
+
         XROrigin rig = FindObjectOfType<XROrigin>();
         headRig = rig.transform.Find("Camera Offset/Main Camera");
         leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
@@ -48,13 +51,22 @@ public class NetworkPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
+        // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
+        XROrigin rig = FindObjectOfType<XROrigin>();
+        headRig = rig.transform.Find("Camera Offset/Main Camera");
+        leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
+        rightHandRig = rig.transform.Find("Camera Offset/RightHand Controller");
+
+        // Only update positions for your avatar
         if (photonView.IsMine && !stopped)
         {
-            // Only update positions for your avatar
-            head.rotation = headRig.rotation;
-            Vector3 bodyPos = new Vector3(headRig.position.x, 0, headRig.position.z);
-            body.position = bodyPos;
-            body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
+            // currently commented out so only movement scripts affect position/rotation
+            // can uncomment head.rotation part if we want others to see direction player is looking at, but it does look weird at times (e.g. 180 rotations twist neck)
+            // head.rotation = headRig.rotation;
+            //Vector3 bodyPos = new Vector3(headRig.position.x, 0, headRig.position.z);
+            //body.position = bodyPos;
+            //body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
             MapPosition(leftHand, leftHandRig);
             MapPosition(rightHand, rightHandRig);
         }
