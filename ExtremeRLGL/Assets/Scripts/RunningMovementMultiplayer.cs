@@ -73,8 +73,8 @@ public class RunningMovementMultiplayer : MonoBehaviour
         if (scene.name == "MultiplayerGameScene")
         {
             Debug.Log("Initializing on scene loaded");
-            LeftRunningContainer = GameObject.Find("LeftRunning");
-            RightRunningContainer = GameObject.Find("RightRunning");
+            LeftRunningContainer = gameObject.transform.Find("LeftRunning").gameObject;
+            RightRunningContainer = gameObject.transform.Find("RightRunning").gameObject;
         }
     }
 

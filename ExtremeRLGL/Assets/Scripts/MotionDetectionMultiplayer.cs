@@ -90,7 +90,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         {
             Debug.Log("Initializing on scene loaded");
             startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
-            movingState = GameObject.Find("MovingState").GetComponent<TextMeshProUGUI>();
+            movingState = gameObject.transform.Find("MovingState").GetComponent<TextMeshProUGUI>();
             movingState.text = " ";
             if (photonView.IsMine && Time.timeSinceLevelLoad > 1f)
             {
