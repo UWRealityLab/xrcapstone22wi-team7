@@ -148,16 +148,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a room.");
         joinErrorText.SetActive(false);
         joinUI.SetActive(false);
-<<<<<<< HEAD
-        GameManager.isOnline = true;
-=======
 
         // master client will load scene upon joining room
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel("MultiplayerGameScene");
         }
->>>>>>> 911ed0a56767f0f9187346c461b0e51847f8b7c0
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
