@@ -157,6 +157,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a room.");
         joinErrorText.SetActive(false);
         joinUI.SetActive(false);
+        GameManager.isOnline = true;
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
