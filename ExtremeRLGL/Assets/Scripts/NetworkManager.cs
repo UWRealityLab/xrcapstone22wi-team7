@@ -105,6 +105,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Starting game.");
         PhotonNetwork.CurrentRoom.IsOpen = false;
+        if (PhotonNetwork.IsMasterClient)
+            GameManager.gameManager.GameStart();
     }
 
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)

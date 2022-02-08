@@ -544,8 +544,8 @@ GameObject:
   - component: {fileID: -1549997215884751634}
   - component: {fileID: 2439450006051917942}
   m_Layer: 0
-  m_Name: HyperCasual_RiggedStickman
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

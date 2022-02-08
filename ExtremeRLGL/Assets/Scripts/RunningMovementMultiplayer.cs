@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.XR;
 using Unity.XR.CoreUtils;
+using UnityEngine.SceneManagement;
 
 public class RunningMovementMultiplayer : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class RunningMovementMultiplayer : MonoBehaviour
     public Transform LeftHand;
     public Transform RightHand;
     public Transform MainCamera;
-    public GameObject RunningContainer;
+    public GameObject LeftRunningContainer;
+    public GameObject RightRunningContainer;
 
     // Initial position coordinates
     private Vector3 initLeftPos;
@@ -31,6 +33,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
     public float speed = 80;
 
     private XROrigin rig;
+    private bool leftOrRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,11 +56,32 @@ public class RunningMovementMultiplayer : MonoBehaviour
         }
     }
 
+    public void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    public void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded");
+        Debug.Log(scene.name);
+        if (scene.name == "MultiplayerGameScene")
+        {
+            Debug.Log("Initializing on scene loaded");
+            LeftRunningContainer = GameObject.Find("LeftRunning");
+            RightRunningContainer = GameObject.Find("RightRunning");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-
-        if (photonView.IsMine && !networkPlayer.stopped)
+        if (photonView.IsMine && !networkPlayer.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing)
         {
             // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
             // TODO: make it so that it doesn't have to do this everytime
@@ -71,7 +95,8 @@ public class RunningMovementMultiplayer : MonoBehaviour
             }
 
             // Rotate the container depending on the rotation of the left controller
-            RunningContainer.transform.eulerAngles = new Vector3(0, LeftHand.transform.eulerAngles.y, 0);
+            LeftRunningContainer.transform.eulerAngles = new Vector3(0, LeftHand.transform.eulerAngles.y, 0);
+            RightRunningContainer.transform.eulerAngles = new Vector3(0, RightHand.transform.eulerAngles.y, 0);
 
             // Get current position coordinates
             currLeftPos = LeftHand.position;
@@ -84,8 +109,14 @@ public class RunningMovementMultiplayer : MonoBehaviour
             float rightDist = Vector3.Distance(initRightPos, currRightPos) - playerDist;
 
             // Calculate how much the player moves forward
-            rig.transform.position += RunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
-            RunningContainer.transform.position = rig.transform.position;
+            if (leftOrRight)
+                rig.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+            else
+                rig.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+            LeftRunningContainer.transform.position = rig.transform.position;
+            RightRunningContainer.transform.position = rig.transform.position;
+
+            leftOrRight = !leftOrRight;
 
             // Set current position coordinates as initial position coordinates
             initLeftPos = currLeftPos;

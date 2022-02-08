@@ -10,6 +10,8 @@ public class TimerManager : MonoBehaviour
     private static Dictionary<string, Timer> timers;
     private static List<string> removingTimers;
 
+ 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +83,7 @@ public class TimerManager : MonoBehaviour
         if (timers != null)
             timers.Clear();
     }
+
 
     class Timer
     {
