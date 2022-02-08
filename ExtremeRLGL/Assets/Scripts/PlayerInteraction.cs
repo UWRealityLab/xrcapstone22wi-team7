@@ -120,7 +120,9 @@ public class PlayerInteraction : MonoBehaviour
             playerBody.transform.Rotate(90, 0, 0, Space.Self);
 
             // Move camera to where player is 
-            fallenCamera.transform.position = gameObject.transform.position;
+            Vector3 newCamPos = gameObject.transform.position;
+            newCamPos.y = 0.5f;
+            fallenCamera.transform.position = newCamPos;
 
             // Enable fallen camera (and disable rig to not see controller rays)
             fallenCamera.enabled = true;
