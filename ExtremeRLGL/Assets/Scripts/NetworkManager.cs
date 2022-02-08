@@ -57,13 +57,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     }
     public void QuickMatch()
     {
+        PhotonNetwork.JoinRandomRoom();
         // The first we try to do is to join a potential existing room. 
         // If there is, good, else, we'll be called back with OnJoinRandomFailed()
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        PhotonNetwork.LoadLevel("MultiplayerGameScene");
-        //}
-        PhotonNetwork.JoinRandomRoom();
 
 
         // Once enough players are in scene, we can start game? 
@@ -109,13 +105,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Starting game.");
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        // TODO: Let person who created room start game (probably switch scene)
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("MultiplayerGameScene");
-        }
-
     }
+
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
     {
         yield return new WaitForSeconds(seconds);
@@ -157,7 +148,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a room.");
         joinErrorText.SetActive(false);
         joinUI.SetActive(false);
+<<<<<<< HEAD
         GameManager.isOnline = true;
+=======
+
+        // master client will load scene upon joining room
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("MultiplayerGameScene");
+        }
+>>>>>>> 911ed0a56767f0f9187346c461b0e51847f8b7c0
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
