@@ -10,6 +10,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject menu;
     public GameObject connectingText;
 
+    public GameObject quickUI;
     public GameObject roomUI;
     public GameObject createUI;
     public GameObject joinUI;
@@ -58,6 +59,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void QuickMatch()
     {
         PhotonNetwork.JoinRandomRoom();
+
         // The first we try to do is to join a potential existing room. 
         // If there is, good, else, we'll be called back with OnJoinRandomFailed()
 
@@ -138,6 +140,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         // We failed to join a random room, maybe none exists or they are all full - create a new room.
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+
+        // we created the room so let us start it - TODO: might change later
+        quickUI.SetActive(true);
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
