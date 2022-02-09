@@ -117,8 +117,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
                 rig.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
             else
                 rig.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
-            LeftRunningContainer.transform.position = rig.transform.position;
-            RightRunningContainer.transform.position = rig.transform.position;
+            gameObject.transform.position = rig.transform.position;
 
             leftOrRight = !leftOrRight;
 
@@ -126,6 +125,12 @@ public class RunningMovementMultiplayer : MonoBehaviour
             initLeftPos = currLeftPos;
             initRightPos = currRightPos;
             initPlayerPos = currPlayerPos;
+        }
+        else 
+        {
+            initPlayerPos = rig.transform.position;
+            initLeftPos = LeftHand.position;
+            initRightPos = RightHand.position;
         }
     }
 }

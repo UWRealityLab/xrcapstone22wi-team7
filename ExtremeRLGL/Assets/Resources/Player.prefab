@@ -1106,7 +1106,7 @@ MonoBehaviour:
   MainCamera: {fileID: 0}
   LeftRunningContainer: {fileID: 1574509008}
   RightRunningContainer: {fileID: 2011617098}
-  speed: 240
+  speed: 120
 --- !u!114 &-1549997215884751634
 MonoBehaviour:
   m_ObjectHideFlags: 0

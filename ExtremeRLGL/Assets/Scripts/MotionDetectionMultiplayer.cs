@@ -45,6 +45,8 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     public float cameraRotThreshold;
     public float handRotThreshold;
 
+    private bool resetPosition;
+
     private NetworkPlayer networkPlayer;
     private Collider startLine;
     public TextMeshProUGUI movingState;
@@ -67,17 +69,16 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         if (photonView.IsMine)
             movingState.text = "";
         triggered = false;
+        resetPosition = false;
     }
 
     public void OnEnable()
     {
-        LightManager.OnRedOn += OnRedOn;
         SceneManager.sceneLoaded += OnSceneLoaded;
     } 
 
     public void OnDisable()
     {
-        LightManager.OnRedOn -= OnRedOn;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -111,6 +112,12 @@ public class MotionDetectionMultiplayer : MonoBehaviour
 
         if (photonView.IsMine && startLine != null && GameManager.gameStage == GameStage.Playing && LightManager.RedlightAllOn())
         {
+            if (!resetPosition)
+            {
+                ResetInitialPositions();
+                resetPosition = true;
+            }
+
             // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
             // TODO: make it so that it doesn't have to do this everytime
             // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
@@ -162,13 +169,12 @@ public class MotionDetectionMultiplayer : MonoBehaviour
                 animator.SetBool("isMoving", false);
             }
         }
+        else if (!LightManager.RedlightAllOn())
+        {
+            resetPosition = false;
+        }
     }
 
-    private void OnRedOn()
-    {
-        Debug.Log("Turned all red!");
-        ResetInitialPositions();
-    }
 
     public void ResetInitialPositions()
     {

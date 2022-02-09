@@ -8,9 +8,6 @@ using Photon.Realtime;
 
 public class LightManager : MonoBehaviour, IPunObservable
 {
-    public delegate void RedOn();
-    public static event RedOn OnRedOn;
-
     private PhotonView photonView;
 
     public static LightManager lightManager;
@@ -116,9 +113,6 @@ public class LightManager : MonoBehaviour, IPunObservable
             redLightOn[2] = true;
             yield return new WaitForSeconds(1.0f);
             redLightOn[3] = true;
-            if (OnRedOn != null)
-                OnRedOn();
-            Debug.Log("Sent out Red light all on event!");
             yield return new WaitForSeconds(GetRandomTime(redLightTimeMean, redLightTimeStd));
             for (int i = 0; i < redLightOn.Length; i++)
             {
