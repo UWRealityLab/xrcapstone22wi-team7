@@ -47,7 +47,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
 
     private NetworkPlayer networkPlayer;
     private Collider startLine;
-    private TextMeshProUGUI movingState;
+    public TextMeshProUGUI movingState;
     private bool triggered;
     private XROrigin rig;
 
@@ -64,10 +64,9 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
         RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
         networkPlayer = gameObject.GetComponent<NetworkPlayer>();
-        
+        if (photonView.IsMine)
+            movingState.text = "";
         triggered = false;
-        
-        
     }
 
     public void OnEnable()
@@ -90,8 +89,10 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         {
             Debug.Log("Initializing on scene loaded");
             startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
-            movingState = gameObject.transform.Find("MovingState").GetComponent<TextMeshProUGUI>();
-            movingState.text = " ";
+            if (startLine == null)
+            {
+                Debug.LogError("Start line is empty!");
+            }
             if (photonView.IsMine && Time.timeSinceLevelLoad > 1f)
             {
                 ResetInitialPositions();
@@ -102,6 +103,11 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (startLine == null)
+        {
+            startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
+            Debug.Log("Tried to find start line");
+        }
 
         if (photonView.IsMine && startLine != null && GameManager.gameStage == GameStage.Playing && LightManager.RedlightAllOn())
         {
@@ -166,6 +172,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
 
     public void ResetInitialPositions()
     {
+        Debug.Log("Reset Archor Position");
         rig = FindObjectOfType<XROrigin>();
         MainCamera = rig.transform.Find("Camera Offset/Main Camera");
         LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
@@ -181,12 +188,14 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         initLeftRot = LeftHand.transform.rotation.eulerAngles;
         initRightRot = RightHand.transform.rotation.eulerAngles;
 
-        movingState.text = " ";
+        if (photonView.IsMine)
+            movingState.text = " ";
     }
 
     private void OnMoved()
     {
-        movingState.text = "You moved!";
+        if (photonView.IsMine)
+            movingState.text = "You moved!";
         networkPlayer.stopped = true;
         StartCoroutine(MovePlayer());
         triggered = true;
@@ -201,7 +210,8 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             Random.Range(startLine.bounds.min.y, startLine.bounds.max.y),
             Random.Range(startLine.bounds.min.z, startLine.bounds.max.z)
         );
-        movingState.text = "";
+        if (photonView.IsMine)
+            movingState.text = "";
         networkPlayer.stopped = false;
         rig = FindObjectOfType<XROrigin>();
         rig.transform.position = randomPoint;

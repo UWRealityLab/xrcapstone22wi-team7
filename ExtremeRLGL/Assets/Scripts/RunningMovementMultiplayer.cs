@@ -17,12 +17,12 @@ public class RunningMovementMultiplayer : MonoBehaviour
     public Transform RightHand;
     public Transform MainCamera;
     public GameObject LeftRunningContainer;
-    public GameObject RightRunningContainer;
+    public GameObject RightRunningContainer; 
 
     // Initial position coordinates
     private Vector3 initLeftPos;
     private Vector3 initRightPos;
-    private Vector3 initPlayerPos;
+    private Vector3 initPlayerPos; 
 
     // Current position coordinates
     private Vector3 currLeftPos;
@@ -73,8 +73,12 @@ public class RunningMovementMultiplayer : MonoBehaviour
         if (scene.name == "MultiplayerGameScene")
         {
             Debug.Log("Initializing on scene loaded");
-            LeftRunningContainer = gameObject.transform.Find("LeftRunning").gameObject;
-            RightRunningContainer = gameObject.transform.Find("RightRunning").gameObject;
+            // LeftRunningContainer = gameObject.transform.Find("LeftRunning").gameObject;
+            // RightRunningContainer = gameObject.transform.Find("RightRunning").gameObject;
+            Debug.Log("LeftContainer:");
+            Debug.Log(LeftRunningContainer);
+            Debug.Log("RightContainer:");
+            Debug.Log(RightRunningContainer);
         }
     }
 

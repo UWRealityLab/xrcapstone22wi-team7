@@ -49,14 +49,12 @@ public class GameManager : MonoBehaviour, IPunObservable
             // We own this player: send the others our data
             stream.SendNext(gameStage);
             stream.SendNext(timeLeft);
-            stream.SendNext(finishedPlayer);
         }
         else
         {
             // Network player, receive data
             gameStage = (GameStage)stream.ReceiveNext();
             timeLeft = (float)stream.ReceiveNext();
-            finishedPlayer = (List<FinishedPlayer>)stream.ReceiveNext();
         }
     }
 
