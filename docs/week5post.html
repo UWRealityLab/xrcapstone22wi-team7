@@ -38,93 +38,64 @@
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>Team 7 Blog</h1>
-                            <span class="subheading">AR/VR Capstone</span>
+                        <div class="post-heading">
+                            <h1>Week 5</h1>
+                            <!-- <h2 class="subheading">Subheading here?</h2> -->
+                            <span class="meta">
+                                Posted by
+                                <a href="about.html">AR/VR Capstone Team 7</a>
+                                on February 11, 2022
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <!-- Main Content-->
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                     <!-- Post preview-->
-                     <div class="post-preview">
-                        <a href="week5post.html">
-                            <h2 class="post-title">Week 5</h2>
-                            <!-- <h3 class="post-subtitle">Placeholder</h3> -->
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="about.html">AR/VR Capstone Team 7</a>
-                            on February 11, 2022
-                        </p>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <h3 class="mb-3">Weekly Updates</h3>
+                        <ul>
+                            <li>This week, we finished up our MVP and presented it. 
+                                We are somewhat behind schedule because we severely underestimated how long merging together our changes to make it work properly in multiplayer would take.
+                                Rather than working on adding a new obstacle (climbing), most of us spent a lot of time fixing bugs to get our MVP to a viable state. 
+                            </li>
+                            <li>Shane: Put together game logic and multiplayer for MVP. </li>
+                            <li>Sharon: Got player interaction working. Added basic instructions page to the menu. 
+                                Also worked on fixing bugs with multiplayer. 
+                                Added start button to quick match menu for player who ends up joining first.     
+                            </li>
+                            <li>Shelly: Merged multiplayer and player interaction together with player movement. Worked on fixing bugs with multiplayer and helped debug. </li>
+                            <li>Thompson: Worked on climbing movement. </li>
+                        </ul>
+                        <h3 class="mb-3">New Features/Functionality</h3>
+                        <ul>
+                            <li>
+                                Mostly functional MVP multiplayer gamemode.
+                            </li>
+                            <li> 
+                                Player Interaction - 
+                                Players push each other by hovering their controller over another player and holding the grip (grab) button for 3 seconds. 
+                                There is a slight vibration at the start of the button press, and a stronger vibration after 3 seconds to indicate that you can let go.
+                                Do note that if a player releases before the vibration fully finishes it sometimes does not seem to register (could also maybe be lag).
+                                When a player is pushed, their camera swaps and they get frozen for a short period of time. To other players, their player model rotates flat on the ground for now, though we might want to replace for an actual animation.
+                            </li>
+                            <li>Started implementing climbing. </li>
+                        </ul>
+                        <h3 class="mb-3">Code Review</h3>
+                        <ul>
+                            <li> No files are in need of review.</li>
+                        </ul>
+                        <h3 class="mb-3">Blocking Issues</h3>
+                        <ul>
+                            <li> Nothing currently blocking. </li>
+                        </ul>
                     </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="week4post.html">
-                            <h2 class="post-title">Week 4</h2>
-                            <!-- <h3 class="post-subtitle">Placeholder</h3> -->
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="about.html">AR/VR Capstone Team 7</a>
-                            on February 4, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="week3post.html">
-                            <h2 class="post-title">Week 3</h2>
-                            <!-- <h3 class="post-subtitle">Placeholder</h3> -->
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="about.html">AR/VR Capstone Team 7</a>
-                            on January 28, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="week2post.html">
-                            <h2 class="post-title">Week 2</h2>
-                            <!-- <h3 class="post-subtitle">Placeholder</h3> -->
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="about.html">AR/VR Capstone Team 7</a>
-                            on January 20, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="week1post.html">
-                            <h2 class="post-title">Week 1</h2>
-                            <!-- <h3 class="post-subtitle">Placeholder</h3> -->
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="about.html">AR/VR Capstone Team 7</a>
-                            on January 13, 2022
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Pager-->
-                    <!-- <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div> -->
                 </div>
             </div>
-        </div>
+        </article>
         <!-- Footer-->
         <footer class="border-top">
             <div class="container px-4 px-lg-5">
