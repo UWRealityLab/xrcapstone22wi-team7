@@ -68,7 +68,7 @@
                                 Added start button to quick match menu for player who ends up joining first.     
                             </li>
                             <li>Shelly: Merged multiplayer and player interaction together with player movement. Worked on fixing bugs with multiplayer and helped debug. </li>
-                            <li>Thompson: Worked on climbing movement. </li>
+                            <li>Thompson: Worked on player movement - made a climbing wall along with scripts for the player's hands/movement and their interactions with the wall.</li>
                         </ul>
                         <h3 class="mb-3">New Features/Functionality</h3>
                         <ul>
@@ -83,15 +83,30 @@
                                 When a player is pushed, their camera swaps and they get frozen for a short period of time. To other players, their player model rotates flat on the ground for now, though we might want to replace for an actual animation.
                             </li>
                             <li>Player models now play walking animation when motion is detected. </li>
-                            <li>Started implementing climbing. </li>
+                            <li>
+                                Player Movement - Players can climb a wall by grabbing (using the grip button) onto any of the various knobs on the wall. 
+                                When this is happening, the running movement script is deactivated to avoid players moving forward due to the movement of their controllers.
+                                If the player releases both hands, they will simply fall off of the wall.
+                            </li>
                         </ul>
                         <h3 class="mb-3">Code Review</h3>
                         <ul>
-                            <li> No files are in need of review.</li>
+                            <li>ClimbingMovement.cs - This script implements the movement of the player when climbing the wall.</li>
+                            <li>ClimbingInteractable.cs - This script implements the interaction between the player's hands and the wall.</li>
+                            <li>ClimbingMovement.apk - This file can be used to test the scripts/features mentioned above.</li>
                         </ul>
                         <h3 class="mb-3">Blocking Issues</h3>
                         <ul>
-                            <li> Nothing currently blocking. </li>
+                            <li>
+                                When the game starts, the player is sometimes either flung far away from the origin or off the map. 
+                                Restarting the application or pointing the left controller in the opposite direction is the only way to avoid this so far.
+                                This may just only occur in the Climbing Scene in particular and hopefully, it won't happen when the climbing is added to the main scene.
+                            </li>
+                            <li>
+                                Once the player reaches of the top of the wall, it is very difficult for them to actually stand on top of it in order to advance to the next stage.
+                                Currently, there is a smaller wall on top of it that players can use to get onto the bigger wall, however, this doesn't always work.
+                                A solution we thought of is teleporting the players to the top of the wall once they are able to reach a certain height (i.e. the knobs at the top of the wall).
+                            </li>
                         </ul>
                     </div>
                 </div>
