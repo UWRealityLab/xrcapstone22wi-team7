@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Extreme Red Light Green Light</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">Extreme Red Light Green Light</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="deliverables.html">Deliverables</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>Week 5</h1>
+                            <!-- <h2 class="subheading">Subheading here?</h2> -->
+                            <span class="meta">
+                                Posted by
+                                <a href="about.html">AR/VR Capstone Team 7</a>
+                                on February 11, 2022
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <h3 class="mb-3">Weekly Updates</h3>
+                        <ul>
+                            <li>This week, we finished up our MVP and presented it. 
+                                We are somewhat behind schedule because we severely underestimated how long merging together our changes to make it work properly in multiplayer would take.
+                                Rather than working on adding a new obstacle (climbing), most of us spent a lot of time fixing bugs to get our MVP to a viable state. 
+                            </li>
+                            <li>Shane: Put together game logic and multiplayer for MVP. </li>
+                            <li>Sharon: Got player interaction working. Added basic instructions page to the menu. 
+                                Also worked on fixing bugs with multiplayer. 
+                                Added start button to quick match menu for player who ends up joining first.     
+                            </li>
+                            <li>Shelly: Merged multiplayer and player interaction together with player movement. Worked on fixing bugs with multiplayer and helped debug. </li>
+                            <li>Thompson: Worked on player movement - made a climbing wall along with scripts for the player's hands/movement and their interactions with the wall.</li>
+                        </ul>
+                        <h3 class="mb-3">New Features/Functionality</h3>
+                        <ul>
+                            <li>
+                                Mostly functional MVP multiplayer gamemode.
+                            </li>
+                            <li> 
+                                Player Interaction - 
+                                Players push each other by hovering their controller over another player and holding the grip (grab) button for 3 seconds. 
+                                There is a slight vibration at the start of the button press, and a stronger vibration after 3 seconds to indicate that you can let go.
+                                Do note that if a player releases before the vibration fully finishes it sometimes does not seem to register (could also maybe be lag).
+                                When a player is pushed, their camera swaps and they get frozen for a short period of time. To other players, their player model rotates flat on the ground for now, though we might want to replace for an actual animation.
+                            </li>
+                            <li>Player models now play walking animation when motion is detected. </li>
+                            <li>
+                                Player Movement - Players can climb a wall by grabbing (using the grip button) onto any of the various knobs on the wall. 
+                                When this is happening, the running movement script is deactivated to avoid players moving forward due to the movement of their controllers.
+                                If the player releases both hands, they will simply fall off of the wall.
+                            </li>
+                        </ul>
+                        <h3 class="mb-3">Code Review</h3>
+                        <ul>
+                            <li>ClimbingMovement.cs - This script implements the movement of the player when climbing the wall.</li>
+                            <li>ClimbingInteractable.cs - This script implements the interaction between the player's hands and the wall.</li>
+                            <li>ClimbingMovement.apk - This file can be used to test the scripts/features mentioned above.</li>
+                        </ul>
+                        <h3 class="mb-3">Blocking Issues</h3>
+                        <ul>
+                            <li>
+                                When the game starts, the player is sometimes either flung far away from the origin or off the map. 
+                                Restarting the application or pointing the left controller in the opposite direction is the only way to avoid this so far.
+                                This may just only occur in the Climbing Scene in particular and hopefully, it won't happen when the climbing is added to the main scene.
+                            </li>
+                            <li>
+                                Once the player reaches of the top of the wall, it is very difficult for them to actually stand on top of it in order to advance to the next stage.
+                                Currently, there is a smaller wall on top of it that players can use to get onto the bigger wall, however, this doesn't always work.
+                                A solution we thought of is teleporting the players to the top of the wall once they are able to reach a certain height (i.e. the knobs at the top of the wall).
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div> -->
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
