@@ -8,7 +8,8 @@ public class RunningMovement : MonoBehaviour
     public GameObject LeftHand;
     public GameObject RightHand;
     public GameObject MainCamera;
-    public GameObject RunningContainer;
+    public GameObject LeftRunningContainer;
+    public GameObject RightRunningContainer;
 
     // Initial position coordinates
     private Vector3 initLeftPos;
@@ -22,6 +23,7 @@ public class RunningMovement : MonoBehaviour
 
     // Speed variable to determine how far the player moves forward
     public float speed = 80;
+    private bool leftOrRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +38,8 @@ public class RunningMovement : MonoBehaviour
     void Update()
     {
         // Rotate the container depending on the rotation of the left controller
-        RunningContainer.transform.eulerAngles = new Vector3(0, LeftHand.transform.eulerAngles.y, 0);
+        LeftRunningContainer.transform.eulerAngles = new Vector3(0, LeftHand.transform.eulerAngles.y, 0);
+        RightRunningContainer.transform.eulerAngles = new Vector3(0, RightHand.transform.eulerAngles.y, 0);
 
         // Get current position coordinates
         currLeftPos = LeftHand.transform.position;
@@ -49,7 +52,12 @@ public class RunningMovement : MonoBehaviour
         float rightDist = Vector3.Distance(initRightPos, currRightPos) - playerDist;
   
         // Calculate how much the player moves forward
-        transform.position += RunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+        if (leftOrRight)
+            transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+        else
+            transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+
+        leftOrRight = !leftOrRight;
 
         // Set current position coordinates as initial position coordinates
         initLeftPos = currLeftPos;

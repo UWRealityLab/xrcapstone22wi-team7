@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Unity.XR.CoreUtils;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class MotionDetectionMultiplayer : MonoBehaviour
@@ -43,6 +45,14 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     public float cameraRotThreshold;
     public float handRotThreshold;
 
+    private bool resetPosition;
+
+    private NetworkPlayer networkPlayer;
+    private Collider startLine;
+    public TextMeshProUGUI movingState;
+    private bool triggered;
+    private XROrigin rig;
+
     // Animator
     public Animator animator;
 
@@ -51,31 +61,63 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
 
-        XROrigin rig = FindObjectOfType<XROrigin>();
+        rig = FindObjectOfType<XROrigin>();
         MainCamera = rig.transform.Find("Camera Offset/Main Camera");
         LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
         RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+        networkPlayer = gameObject.GetComponent<NetworkPlayer>();
+        if (photonView.IsMine)
+            movingState.text = "";
+        triggered = false;
+        resetPosition = false;
+    }
 
-        if (photonView.IsMine && Time.timeSinceLevelLoad > 1f)
+    public void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    } 
+
+    public void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded");
+        Debug.Log(scene.name);
+        if (scene.name == "MultiplayerGameScene")
         {
-            // Get initial position coordinates
-            initCameraPos = MainCamera.position;
-            initLeftPos = LeftHand.position;
-            initRightPos = RightHand.position;
-
-            // Get initial rotation coordinates
-            initCameraRot = MainCamera.rotation.eulerAngles;
-            initLeftRot = LeftHand.rotation.eulerAngles;
-            initRightRot = RightHand.rotation.eulerAngles;
+            Debug.Log("Initializing on scene loaded");
+            startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
+            if (startLine == null)
+            {
+                Debug.LogError("Start line is empty!");
+            }
+            if (photonView.IsMine && Time.timeSinceLevelLoad > 1f)
+            {
+                ResetInitialPositions();
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (photonView.IsMine)
+        if (startLine == null)
         {
+            startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
+            Debug.Log("Tried to find start line");
+        }
+
+        if (photonView.IsMine && startLine != null && GameManager.gameStage == GameStage.Playing && LightManager.RedlightAllOn())
+        {
+            if (!resetPosition)
+            {
+                ResetInitialPositions();
+                resetPosition = true;
+            }
+
             // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
             // TODO: make it so that it doesn't have to do this everytime
             // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
@@ -112,17 +154,8 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             if (cameraPosDist > cameraPosThreshold || leftPosDist > handPosThreshold || rightPosDist > handPosThreshold ||
                 cameraRotDist > cameraRotThreshold || leftRotDist > handRotThreshold || rightRotDist > handRotThreshold)
             {
-                // Set current position coordinates as initial position coordinates
-                initCameraPos = currCameraPos;
-                initLeftPos = currLeftPos;
-                initRightPos = currRightPos;
-
-                // Set current rotation coordinates as initial rotation coordinates 
-                initCameraRot = currCameraRot;
-                initLeftRot = currLeftRot;
-                initRightRot = currRightRot;
-                //Debug.Log("Move");
-                // GetComponent<Renderer>().material.color = Color.green;
+                if (!triggered)
+                    OnMoved();
 
                 animator.SetBool("isMoving", true);
             }
@@ -136,5 +169,60 @@ public class MotionDetectionMultiplayer : MonoBehaviour
                 animator.SetBool("isMoving", false);
             }
         }
+        else if (!LightManager.RedlightAllOn())
+        {
+            resetPosition = false;
+        }
+    }
+
+
+    public void ResetInitialPositions()
+    {
+        Debug.Log("Reset Archor Position");
+        rig = FindObjectOfType<XROrigin>();
+        MainCamera = rig.transform.Find("Camera Offset/Main Camera");
+        LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
+        RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+        
+        // Get initial position coordinates
+        initCameraPos = MainCamera.transform.position;
+        initLeftPos = LeftHand.transform.position;
+        initRightPos = RightHand.transform.position;
+
+        // Get initial rotation coordinates
+        initCameraRot = MainCamera.transform.rotation.eulerAngles;
+        initLeftRot = LeftHand.transform.rotation.eulerAngles;
+        initRightRot = RightHand.transform.rotation.eulerAngles;
+
+        if (photonView.IsMine)
+            movingState.text = " ";
+    }
+
+    private void OnMoved()
+    {
+        if (photonView.IsMine)
+            movingState.text = "You moved!";
+        networkPlayer.stopped = true;
+        StartCoroutine(MovePlayer());
+        triggered = true;
+        Debug.Log("You moved!");
+    }
+
+    IEnumerator MovePlayer()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Vector3 randomPoint = new Vector3(
+            Random.Range(startLine.bounds.min.x, startLine.bounds.max.x),
+            Random.Range(startLine.bounds.min.y, startLine.bounds.max.y),
+            Random.Range(startLine.bounds.min.z, startLine.bounds.max.z)
+        );
+        if (photonView.IsMine)
+            movingState.text = "";
+        networkPlayer.stopped = false;
+        rig = FindObjectOfType<XROrigin>();
+        rig.transform.position = randomPoint;
+        ResetInitialPositions();
+        triggered = false;
+        Debug.Log("Has been punished.");
     }
 }
