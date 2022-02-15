@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - FallCamera
+  - Goal
+  - StartLine
+  - Bot
   layers:
   - Default
   - TransparentFX

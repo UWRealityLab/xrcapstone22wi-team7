@@ -10,11 +10,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject menu;
     public GameObject connectingText;
 
+    public GameObject quickUI;
     public GameObject roomUI;
     public GameObject createUI;
     public GameObject joinUI;
     public GameObject joinErrorText;
     public GameObject joinInput;
+    public GameObject singleUI;
     public TextMeshProUGUI createdRoomCode;
 
     [SerializeField] private byte maxPlayersPerRoom = 10;
@@ -52,10 +54,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Disconnecting.");
         PhotonNetwork.Disconnect();
+        GameManager.isOnline = false;
     }
     public void QuickMatch()
     {
         PhotonNetwork.JoinRandomRoom();
+
         // The first we try to do is to join a potential existing room. 
         // If there is, good, else, we'll be called back with OnJoinRandomFailed()
 
@@ -103,6 +107,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Starting game.");
         PhotonNetwork.CurrentRoom.IsOpen = false;
+        if (PhotonNetwork.IsMasterClient)
+            GameManager.gameManager.GameStart();
     }
 
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
@@ -122,6 +128,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         connectingText.SetActive(false);
         menu.SetActive(false);
         roomUI.SetActive(true);
+        GameManager.isOnline = true;
     }
     public override void OnJoinedLobby()
     {
@@ -133,6 +140,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         // We failed to join a random room, maybe none exists or they are all full - create a new room.
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+
+        // we created the room so let us start it - TODO: might change later
+        quickUI.SetActive(true);
     }
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
@@ -174,4 +184,26 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
     }
 
+    // Single player UI part
+    public void PlaySingleGame()
+    {
+        GameManager.isOnline = false;
+        menu.SetActive(false);
+        singleUI.SetActive(true);
+        Debug.Log("Selected single player");
+    }
+
+    public void BackToMenu()
+    {
+        singleUI.SetActive(false);
+        menu.SetActive(true);
+        Debug.Log("Backing to the main menu");
+    }
+
+    public void StartSingleGame()
+    {
+        GameManager.gameManager.GameStart();
+        singleUI.SetActive(false);
+        Debug.Log("Starting the game");
+    }
 }
