@@ -9,6 +9,7 @@ TagManager:
   - Goal
   - StartLine
   - Bot
+  - Water
   layers:
   - Default
   - TransparentFX
