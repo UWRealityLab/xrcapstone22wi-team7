@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 
 
 public class LightManager : MonoBehaviour, IPunObservable
 {
+    private PhotonView photonView;
+
     public static LightManager lightManager;
     public double greenLightTimeMean;
     public double greenLightTimeStd;
     public double redLightTimeMean;
     public double redLightTimeStd;
-    public PlayerMotion playerMotion;
 
     public Image[] lights;
     public GameObject lightPlate;
@@ -46,25 +48,28 @@ public class LightManager : MonoBehaviour, IPunObservable
         redLightOn = new bool[4];
         previousGameStage = GameStage.Waiting;
         turningThread = TurnOnLightThread();
+        photonView = PhotonView.Get(this);
         TurnOffLights();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (previousGameStage != GameManager.gameStage)
+        if (previousGameStage != GameManager.gameStage && PhotonNetwork.IsMasterClient)
         {
             if (GameManager.gameStage == GameStage.Playing)
             {
+                Debug.Log("Turn on lights!");
                 TurnOnLights();
             }
             else if (GameManager.gameStage == GameStage.Ending)
             {
+                Debug.Log("Turn off lights!");
                 TurnOffLights();
             }
             previousGameStage = GameManager.gameStage;
         }
-
 
         for (int i = 0; i < redLightOn.Length; i++)
         {
@@ -72,13 +77,12 @@ public class LightManager : MonoBehaviour, IPunObservable
                 SetActive(false);
             else
                 SetActive(true);
-            
+
             if (redLightOn[i])
                 lights[i].color = Color.red;
             else
                 lights[i].color = Color.green;
         }
-
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -109,12 +113,12 @@ public class LightManager : MonoBehaviour, IPunObservable
             redLightOn[2] = true;
             yield return new WaitForSeconds(1.0f);
             redLightOn[3] = true;
-            playerMotion.ResetInitialPositions();
             yield return new WaitForSeconds(GetRandomTime(redLightTimeMean, redLightTimeStd));
             for (int i = 0; i < redLightOn.Length; i++)
             {
                 redLightOn[i] = false;
             }
+            Debug.Log("Turnning every light back to green");
         }
     }
 

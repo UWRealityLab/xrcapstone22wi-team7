@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerMotion : MonoBehaviour
 {
     public Text movingState;
+    public Collider startLine;
 
     // Headset and controller game objects
     public GameObject MainCamera;
@@ -40,9 +41,13 @@ public class PlayerMotion : MonoBehaviour
     public float cameraRotThreshold;
     public float handRotThreshold;
 
+    private bool triggered;
+
     // Start is called before the first frame update
     void Start()
     {
+        startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
+        triggered = false;
         if (Time.timeSinceLevelLoad > 1f)
         {
             ResetInitialPositions();
@@ -78,7 +83,8 @@ public class PlayerMotion : MonoBehaviour
             if (cameraPosDist > cameraPosThreshold || leftPosDist > handPosThreshold || rightPosDist > handPosThreshold ||
                 cameraRotDist > cameraRotThreshold || leftRotDist > handRotThreshold || rightRotDist > handRotThreshold)
             {
-                OnMoved();
+                if (!triggered)
+                    OnMoved();
             }
         }
 
@@ -97,11 +103,26 @@ public class PlayerMotion : MonoBehaviour
         initLeftRot = LeftHand.transform.rotation.eulerAngles;
         initRightRot = RightHand.transform.rotation.eulerAngles;
 
-        movingState.text = "You are ok!";
+        movingState.text = "";
     }
 
     private void OnMoved()
     {
         movingState.text = "You moved!";
+        StartCoroutine(MovePlayer());
+        triggered = true;
+    }
+
+    IEnumerator MovePlayer()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Vector3 randomPoint = new Vector3(
+            Random.Range(startLine.bounds.min.x, startLine.bounds.max.x),
+            Random.Range(startLine.bounds.min.y, startLine.bounds.max.y),
+            Random.Range(startLine.bounds.min.z, startLine.bounds.max.z)
+        );
+        movingState.text = "";
+        gameObject.transform.position = randomPoint;
+        triggered = false;
     }
 }

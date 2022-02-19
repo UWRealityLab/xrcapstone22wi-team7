@@ -425,6 +425,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 40057052}
+  - {fileID: 40057059}
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5427,6 +5428,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256866597}
   m_CullTransparentMesh: 1
+--- !u!1 &1301069754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301069757}
+  - component: {fileID: 1301069756}
+  - component: {fileID: 1301069755}
+  m_Layer: 0
+  m_Name: Start Line
+  m_TagString: StartLine
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1301069755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301069754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d747d965aec37344c975c67e85a00045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1301069756
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301069754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 38, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1301069757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301069754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.69, y: 1.5, z: -15.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1319337471
 GameObject:
   m_ObjectHideFlags: 0
@@ -7267,6 +7325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingState: {fileID: 575126785}
+  startLine: {fileID: 0}
   MainCamera: {fileID: 284440931}
   LeftHand: {fileID: 253991952}
   RightHand: {fileID: 2045844326}
@@ -8105,4 +8164,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameLength: 60
-  botPrefab: {fileID: 0}
+  botPrefab: {fileID: 4750680335584677398, guid: d414608fb5cceae4a984767b47f8b5cb, type: 3}

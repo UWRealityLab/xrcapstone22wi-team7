@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public enum GameStage 
 {
@@ -9,8 +10,10 @@ public enum GameStage
     Ending
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IPunObservable
 {
+    
+
     struct FinishedPlayer
     {
         public GameObject player;
@@ -33,12 +36,32 @@ public class GameManager : MonoBehaviour
     public float gameLength;
     public static float timeLeft;
     public GameObject botPrefab;
-    
+    private Collider startLine;
+    private int playerNum;
+
     private List<FinishedPlayer> finishedPlayer;
 
-    private void Awake()
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // We own this player: send the others our data
+            stream.SendNext(gameStage);
+            stream.SendNext(timeLeft);
+        }
+        else
+        {
+            // Network player, receive data
+            gameStage = (GameStage)stream.ReceiveNext();
+            timeLeft = (float)stream.ReceiveNext();
+        }
+    }
+
+    void Awake()
     {
         gameManager = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -54,27 +77,40 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Counting down timer
-        if (gameStage == GameStage.Playing)
+        if (!isOnline || PhotonNetwork.IsMasterClient)
         {
-            timeLeft -= Time.deltaTime;
-            if (timeLeft <= 0)
-                GameEnd();
+            // Counting down timer
+            if (gameStage == GameStage.Playing)
+            {
+                timeLeft -= Time.deltaTime;
+                if (timeLeft <= 0)
+                    GameEnd();
+            }
         }
+        
     }
 
     public void GameStart()
     {
-        StartCoroutine(StartingGame());
+        if (!isOnline || PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            playerNum = players.Length;
+            Debug.Log("Starting the game");
+            StartCoroutine(StartingGame());
+        }
     }
 
     public void resetTimer()
     {
-        timeLeft = gameLength;
+        if (!isOnline || PhotonNetwork.IsMasterClient)
+            timeLeft = gameLength;
     }
 
     IEnumerator StartingGame()
     {
+        startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
         // Turning on the UI that goes along with the player
         FrontUIManager.frontUIManager.ShowWarning();
         for (int i = 10; i >= 0; i--)
@@ -85,25 +121,46 @@ public class GameManager : MonoBehaviour
         FrontUIManager.frontUIManager.HideWarning();
         resetTimer();
         FrontUIManager.frontUIManager.ShowTimer();
-        CreateBots();
+        // CreateBots();
         gameStage = GameStage.Playing;
     }
 
     public void CreateBots()
     {
-        // hardcode 1 for now
-        int numOfBot = 1;
-        GameObject.Instantiate(botPrefab);
+        if (!isOnline || PhotonNetwork.IsMasterClient)
+        {
+            // hardcode 1 for now
+            int numOfBot = 1;
+            Vector3 randomPoint = new Vector3(
+               Random.Range(startLine.bounds.min.x, startLine.bounds.max.x),
+               Random.Range(startLine.bounds.min.y, startLine.bounds.max.y),
+               Random.Range(startLine.bounds.min.z, startLine.bounds.max.z)
+            );
+            for (int i = 0; i < numOfBot; i++)
+                PhotonNetwork.Instantiate(botPrefab.name, randomPoint, transform.rotation);
+        }
     }
 
     public void PlayerFinished(GameObject player)
     {
-        finishedPlayer.Add(new FinishedPlayer(player, timeLeft, 1));
-        LightManager.lightManager.TurnOffLights();
+        if (!isOnline || PhotonNetwork.IsMasterClient)
+        {
+            finishedPlayer.Add(new FinishedPlayer(player, timeLeft, 1));
+            player.GetComponent<NetworkPlayer>().stopped = true;
+        }
     }
 
     public void GameEnd() 
     {
-        gameStage = GameStage.Ending;
+        if (!isOnline || PhotonNetwork.IsMasterClient)
+        {
+            FrontUIManager.frontUIManager.ShowWarning();
+            FrontUIManager.frontUIManager.SetWarning("Game Over");
+            Debug.Log("Game Over");
+            gameStage = GameStage.Ending;
+        }
+            
     }
+
+    
 }
