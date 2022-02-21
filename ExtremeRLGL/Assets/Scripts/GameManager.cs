@@ -98,6 +98,8 @@ public class GameManager : MonoBehaviour, IPunObservable
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
             playerNum = players.Length;
             Debug.Log("Starting the game");
+            startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
+            CreateBots();
             StartCoroutine(StartingGame());
         }
     }
@@ -110,7 +112,6 @@ public class GameManager : MonoBehaviour, IPunObservable
 
     IEnumerator StartingGame()
     {
-        startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
         // Turning on the UI that goes along with the player
         FrontUIManager.frontUIManager.ShowWarning();
         for (int i = 10; i >= 0; i--)
@@ -121,7 +122,6 @@ public class GameManager : MonoBehaviour, IPunObservable
         FrontUIManager.frontUIManager.HideWarning();
         resetTimer();
         FrontUIManager.frontUIManager.ShowTimer();
-        // CreateBots();
         gameStage = GameStage.Playing;
     }
 
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         if (!isOnline || PhotonNetwork.IsMasterClient)
         {
             finishedPlayer.Add(new FinishedPlayer(player, timeLeft, 1));
-            player.GetComponent<NetworkPlayer>().stopped = true;
+            player.GetComponent<PlayerInteraction>().stopped = true;
         }
     }
 

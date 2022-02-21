@@ -751,6 +751,7 @@ GameObject:
   - component: {fileID: 1303227632118198882}
   - component: {fileID: -1549997215884751634}
   - component: {fileID: 2439450006051917942}
+  - component: {fileID: -7270375831412029562}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -930,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8976f4b0ff4190d4fb0ed3790c5c38f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopped: 0
   body: {fileID: 4229346236841038615}
   head: {fileID: 4412153811660851462}
   leftHand: {fileID: 4412153812178973765}
@@ -1074,6 +1074,8 @@ MonoBehaviour:
   debugText: {fileID: 8148068065867541337}
   timeToHold: 3
   timeToFall: 4
+  stopped: 0
+  isRobot: 0
   animator: {fileID: 4412153811984381101}
 --- !u!64 &1061485009357257936
 MeshCollider:
@@ -1082,11 +1084,11 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3601322046471784877}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f0fb1fbb89e83d348ae08f6497f7eb1f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8545447256379345787, guid: 893bf226a45c7f54e91ea5fb82d6212d, type: 3}
 --- !u!114 &1303227632118198882
@@ -1152,6 +1154,22 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!54 &-7270375831412029562
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601322046471784877}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &3635936008634394327
 GameObject:
   m_ObjectHideFlags: 0

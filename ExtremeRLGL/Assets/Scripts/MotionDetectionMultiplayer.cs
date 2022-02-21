@@ -47,7 +47,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
 
     private bool resetPosition;
 
-    private NetworkPlayer networkPlayer;
+    private PlayerInteraction playerInteraction;
     private Collider startLine;
     public TextMeshProUGUI movingState;
     private bool triggered;
@@ -65,7 +65,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         MainCamera = rig.transform.Find("Camera Offset/Main Camera");
         LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
         RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
-        networkPlayer = gameObject.GetComponent<NetworkPlayer>();
+        playerInteraction = gameObject.GetComponent<PlayerInteraction>();
         if (photonView.IsMine)
             movingState.text = "";
         triggered = false;
@@ -202,7 +202,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     {
         if (photonView.IsMine)
             movingState.text = "You moved!";
-        networkPlayer.stopped = true;
+        playerInteraction.stopped = true;
         StartCoroutine(MovePlayer());
         triggered = true;
         Debug.Log("You moved!");
@@ -218,7 +218,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         );
         if (photonView.IsMine)
             movingState.text = "";
-        networkPlayer.stopped = false;
+        playerInteraction.stopped = false;
         rig = FindObjectOfType<XROrigin>();
         rig.transform.position = randomPoint;
         ResetInitialPositions();
