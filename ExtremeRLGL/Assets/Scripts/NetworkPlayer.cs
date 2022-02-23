@@ -8,8 +8,6 @@ using Unity.XR.CoreUtils;
 
 public class NetworkPlayer : MonoBehaviour
 {
-    public bool stopped;
-
     public Transform body;
     public Transform head;
     public Transform leftHand;
@@ -23,10 +21,12 @@ public class NetworkPlayer : MonoBehaviour
     private Transform leftHandRig;
     private Transform rightHandRig;
 
+    private PlayerInteraction playerInteraction;
+
     // Start is called before the first frame update
     void Start()
     {
-        stopped = false;
+        playerInteraction = GetComponent<PlayerInteraction>();
         photonView = GetComponent<PhotonView>();
 
         // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
@@ -55,7 +55,7 @@ public class NetworkPlayer : MonoBehaviour
     {
 
         // Only update positions for your avatar
-        if (photonView.IsMine && !stopped)
+        if (photonView.IsMine && playerInteraction.stopped)
         {
             // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
             // TODO: make it so that it doesn't have to do this everytime

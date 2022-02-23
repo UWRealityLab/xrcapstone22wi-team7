@@ -12,6 +12,8 @@ public class PlayerInteraction : MonoBehaviour
     public TextMeshProUGUI debugText;
     public float timeToHold = 3f;
     public float timeToFall = 4f;
+    public bool stopped;
+    public bool isRobot;
 
     public Animator animator;
 
@@ -19,8 +21,8 @@ public class PlayerInteraction : MonoBehaviour
     private XROrigin rig;
     private Camera mainCamera;
     private Camera fallenCamera;
-    private NetworkPlayer networkPlayer;
     private float startTime;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -38,12 +40,11 @@ public class PlayerInteraction : MonoBehaviour
         fallenCamera = GameObject.FindWithTag("FallCamera").GetComponent<Camera>();
         mainCamera.enabled = true;
         fallenCamera.enabled = false;
+        stopped = false;
 
         // getting interaction manager
         XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
         simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
-
-        networkPlayer = GetComponent<NetworkPlayer>();
     }
 
     // Update is called once per frame
@@ -107,38 +108,44 @@ public class PlayerInteraction : MonoBehaviour
         {
             // current fix to setting up camera on scene change is to just keep finding them, so when scene changes, it will find them again
             // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
-            rig = FindObjectOfType<XROrigin>();
-            mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-            fallenCamera = GameObject.FindWithTag("FallCamera").GetComponent<Camera>();
+            if (!isRobot)
+            {
+                rig = FindObjectOfType<XROrigin>();
+                mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+                fallenCamera = GameObject.FindWithTag("FallCamera").GetComponent<Camera>();
 
-            mainCamera.enabled = true;
-            fallenCamera.enabled = false;
+                mainCamera.enabled = true;
+                fallenCamera.enabled = false;
+
+                // Move camera to where player is 
+                Vector3 newCamPos = gameObject.transform.position;
+                newCamPos.y = 0.5f;
+                fallenCamera.transform.position = newCamPos;
+
+                // Enable fallen camera (and disable rig to not see controller rays)
+                fallenCamera.enabled = true;
+                mainCamera.enabled = false;
+                rig.gameObject.SetActive(false);
+            }
 
             // Stop body from moving (stop tracking position) and rotate it so it "falls"
             animator.SetBool("isMoving", false);
-            networkPlayer.stopped = true;
+            stopped = true;
             playerBody.transform.Rotate(90, 0, 0, Space.Self);
 
-            // Move camera to where player is 
-            Vector3 newCamPos = gameObject.transform.position;
-            newCamPos.y = 0.5f;
-            fallenCamera.transform.position = newCamPos;
-
-            // Enable fallen camera (and disable rig to not see controller rays)
-            fallenCamera.enabled = true;
-            mainCamera.enabled = false;
-            rig.gameObject.SetActive(false);
-
             yield return new WaitForSeconds(seconds);
-            
-            // Re-enable main camera
-            rig.gameObject.SetActive(true);
-            fallenCamera.enabled = false;
-            mainCamera.enabled = true;
 
+            if (!isRobot)
+            {
+                // Re-enable main camera
+                rig.gameObject.SetActive(true);
+                fallenCamera.enabled = false;
+                mainCamera.enabled = true;
+            }
             // Undo rotation and re-track movement
             playerBody.transform.Rotate(-90, 0, 0, Space.Self);
-            networkPlayer.stopped = false;
+            stopped = false;
+            
         }
     }
 }
