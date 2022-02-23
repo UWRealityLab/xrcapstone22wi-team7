@@ -211,16 +211,18 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     IEnumerator MovePlayer()
     {
         yield return new WaitForSeconds(3.0f);
-        Vector3 randomPoint = new Vector3(
-            Random.Range(startLine.bounds.min.x, startLine.bounds.max.x),
-            Random.Range(startLine.bounds.min.y, startLine.bounds.max.y),
-            Random.Range(startLine.bounds.min.z, startLine.bounds.max.z)
-        );
         if (photonView.IsMine)
             movingState.text = "";
         playerInteraction.stopped = false;
-        rig = FindObjectOfType<XROrigin>();
-        rig.transform.position = randomPoint;
+        Teleport t = gameObject.GetComponent<Teleport>();
+        if (t != null) // if it's a player
+        {
+            t.ToStartLine();
+        }
+        else // if it's a bot
+        {
+            gameObject.transform.position = startLine.GetComponent<StartLine>().GetNextPos();
+        }
         ResetInitialPositions();
         triggered = false;
         Debug.Log("Has been punished.");

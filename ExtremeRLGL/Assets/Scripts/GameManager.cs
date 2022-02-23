@@ -130,14 +130,9 @@ public class GameManager : MonoBehaviour, IPunObservable
         if (!isOnline || PhotonNetwork.IsMasterClient)
         {
             // hardcode 1 for now
-            int numOfBot = 1;
-            Vector3 randomPoint = new Vector3(
-               Random.Range(startLine.bounds.min.x, startLine.bounds.max.x),
-               Random.Range(startLine.bounds.min.y, startLine.bounds.max.y),
-               Random.Range(startLine.bounds.min.z, startLine.bounds.max.z)
-            );
+            int numOfBot = 3;
             for (int i = 0; i < numOfBot; i++)
-                PhotonNetwork.Instantiate(botPrefab.name, randomPoint, transform.rotation);
+                PhotonNetwork.Instantiate(botPrefab.name, startLine.GetComponent<StartLine>().GetNextPos(), transform.rotation);
         }
     }
 
@@ -159,8 +154,32 @@ public class GameManager : MonoBehaviour, IPunObservable
             Debug.Log("Game Over");
             gameStage = GameStage.Ending;
         }
-            
     }
 
-    
+    [PunRPC]
+    public void AllPlayerBack(GameObject[] players)
+    {
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<Teleport>().ToStartLine();
+        }
+    }
+
+    public void GameRestart()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            AllPlayerBack(players);
+            GameObject[] bots = GameObject.FindGameObjectsWithTag("Bot");
+            foreach (GameObject bot in bots)
+            {
+                PhotonNetwork.Destroy(bot);
+            }
+            gameStage = GameStage.Waiting;
+            FrontUIManager.frontUIManager.HideTimer();
+            GameStart();
+        }
+    }
+
 }

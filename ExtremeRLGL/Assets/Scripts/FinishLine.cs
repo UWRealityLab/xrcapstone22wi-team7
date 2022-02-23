@@ -21,7 +21,7 @@ public class FinishLine : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Player hit the finishing line!");
-        if (PhotonNetwork.IsMasterClient && GameManager.gameStage == GameStage.Playing && other.gameObject.tag.Equals("Player"))
+        if (PhotonNetwork.IsMasterClient && GameManager.gameStage == GameStage.Playing && (other.gameObject.tag.Equals("Player") || other.gameObject.tag.Equals("Bot")))
         {
             // GameManager.gameManager.PlayerFinished(other.gameObject);
             Debug.Log("Player hit the finishing line!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
