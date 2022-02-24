@@ -10526,7 +10526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fdb83fd116c2a4599b6ad59a9820a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameLength: 300
+  gameLength: 80
   botPrefab: {fileID: 3601322046471784877, guid: 1438f6af57996c7438a547e66302ec51, type: 3}
 --- !u!4 &7007643782106782989
 Transform:
