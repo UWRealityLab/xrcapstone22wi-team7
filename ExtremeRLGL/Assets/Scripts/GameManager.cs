@@ -61,7 +61,6 @@ public class GameManager : MonoBehaviour, IPunObservable
     void Awake()
     {
         gameManager = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
