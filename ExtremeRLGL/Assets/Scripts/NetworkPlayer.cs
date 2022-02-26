@@ -53,9 +53,8 @@ public class NetworkPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // Only update positions for your avatar
-        if (photonView.IsMine && playerInteraction.stopped)
+        if (photonView.IsMine && !playerInteraction.stopped)
         {
             // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
             // TODO: make it so that it doesn't have to do this everytime

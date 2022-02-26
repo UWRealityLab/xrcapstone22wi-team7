@@ -17,7 +17,10 @@ public class RunningMovementMultiplayer : MonoBehaviour
     public Transform RightHand;
     public Transform MainCamera;
     public GameObject LeftRunningContainer;
-    public GameObject RightRunningContainer; 
+    public GameObject RightRunningContainer;
+
+    // For moving up slopes
+    public RaycastHit slopeHit;
 
     // Initial position coordinates
     private Vector3 initLeftPos;
@@ -107,7 +110,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
             // Get current position coordinates
             currLeftPos = LeftHand.position;
             currRightPos = RightHand.position;
-            currPlayerPos = rig.transform.position;
+            currPlayerPos = gameObject.transform.position;
 
             // Get distance between initial and current position coordinates
             float playerDist = Vector3.Distance(initPlayerPos, currPlayerPos);
@@ -115,11 +118,29 @@ public class RunningMovementMultiplayer : MonoBehaviour
             float rightDist = Vector3.Distance(initRightPos, currRightPos) - playerDist;
 
             // Calculate how much the player moves forward
+
+            /*
             if (leftOrRight)
                 rig.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
             else
                 rig.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
             gameObject.transform.position = rig.transform.position;
+            */
+
+            if (!OnSlope())
+            {
+                if (leftOrRight)
+                    gameObject.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+                else
+                    gameObject.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+            }
+            else
+            {
+                if (leftOrRight)
+                    gameObject.transform.position += Vector3.ProjectOnPlane(LeftRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * speed * Time.deltaTime;
+                else
+                    gameObject.transform.position += Vector3.ProjectOnPlane(RightRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * speed * Time.deltaTime;
+            }
 
             leftOrRight = !leftOrRight;
 
@@ -130,9 +151,22 @@ public class RunningMovementMultiplayer : MonoBehaviour
         }
         else 
         {
-            initPlayerPos = rig.transform.position;
+            initPlayerPos = gameObject.transform.position;
             initLeftPos = LeftHand.position;
             initRightPos = RightHand.position;
         }
+    }
+
+    public bool OnSlope()
+    {
+        // Check if player is on a slope
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, 1.6f))
+        {
+            if (slopeHit.normal != Vector3.up)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

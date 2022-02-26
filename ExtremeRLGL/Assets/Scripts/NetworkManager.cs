@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -182,6 +183,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
+
+        // Go back to lobby scene and hide the mini menu (active by default so we can find it when we first start the game)
+        SceneManager.LoadScene("LobbyRestartScene"); // lobby scene but without don't destroy objects so there aren't duplicates
+        MenuButtonReactor.miniMenu.SetActive(false);
     }
 
     // Single player UI part
