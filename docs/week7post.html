@@ -66,20 +66,49 @@
                                 Currently running behind the ideal schedule (supposed to be working on power-ups by now) but hoping to catch up significantly over this weekend. 
                             </li>
                             <li>Shelly: Helped Sharon with debugging and testing. Still working on jump movement (currently fixing some bugs with it). Planning to finish it up over the weekend and will also try to catch up to the ideal schedule.</li>
-                            <li>Thompson: </li>
+                            <li>Thompson: Modified the climbing/rowing scripts to work with multiplayer and added the obstacles to the course (though they don't quite work as intended yet, as there are still issues).</li>
                         </ul>
                         <h3 class="mb-3">New Features/Functionality</h3>
                         <ul>
                             <li>Ability to leave game by using menu button on the left controller. </li>
-                            <li>Player can now move up/down slopes (instead of only flat terrain)</li>
+                            <li>Player can now move up/down slopes (instead of only flat terrain).</li>
+                            <li>Climbing wall and water have been added to the multiplayer scene.</li>
                         </ul>
                         <h3 class="mb-3">Code Review</h3>
                         <ul>
-                            <li> No files are in need of review.</li>
+                            <li>
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7/blob/movement-multiplayer/ExtremeRLGL/Assets/Scripts/WaterMultiplayer.cs">WaterMultiplayer.cs</a> - 
+                                This script detects when the player steps on water.
+                            </li>
+                            <li>
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7/blob/movement-multiplayer/ExtremeRLGL/Assets/Scripts/ClimbingMovement.cs">ClimbingMovement.cs</a> - 
+                                This script implements the movement of the player when climbing the wall (modified by adding Photon).
+                            </li>
+                            <li>
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7/blob/movement-multiplayer/ExtremeRLGL/Assets/Scripts/HandPhysicalMovement.cs">HandPhysicalMovement.cs</a> - 
+                                This script implements the movement of the player's hands (modified by adding Photon).
+                            </li>
+                            <li>
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7/blob/movement-multiplayer/ExtremeRLGL/Assets/Scenes/MultiplayerGameScene.unity">MultiplayerGameScene.unity</a> - 
+                                This file is the scene where the new scripts and the obstacles were added to.
+                            </li>
+                            <li>
+                                <a href="https://github.com/UWRealityLab/xrcapstone22wi-team7/blob/movement-multiplayer/ExtremeRLGL/MovementMultiplayer.apk">MovementMultiplayer.apk</a> - 
+                                This file is the current multiplayer scene with the obstacles added.
+                            </li>
                         </ul>
                         <h3 class="mb-3">Blocking Issues</h3>
                         <ul>
-                            <li> Nothing currently blocking. </li>
+                            <li>
+                                The rowing movement works in multiplayer the exact same way it worked without it, however, the same can't be said for the new water script. 
+                                The water script is supposed to detect if the player steps on water, but it is only able to do so sometimes. More often than not, the
+                                water script isn't able to detect the collision between the player and the water objects.
+                            </li>
+                            <li>
+                                Even though the controllers vibrate when trying to climb the wall using the grip buttons, you aren't actually able to climb the wall like in
+                                the original scene. In fact, the player is able to just simply go through the wall. The latter problem can be solved by adding a capsule collider,
+                                however, that not only doesn't solve the first problem, but it also causes the player to randomly move even when they're not moving.
+                            </li>
                         </ul>
                     </div>
                 </div>
