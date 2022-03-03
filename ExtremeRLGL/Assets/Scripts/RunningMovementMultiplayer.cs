@@ -110,7 +110,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
             // Get current position coordinates
             currLeftPos = LeftHand.position;
             currRightPos = RightHand.position;
-            currPlayerPos = gameObject.transform.position;
+            currPlayerPos = rig.transform.position;
 
             // Get distance between initial and current position coordinates
             float playerDist = Vector3.Distance(initPlayerPos, currPlayerPos);
