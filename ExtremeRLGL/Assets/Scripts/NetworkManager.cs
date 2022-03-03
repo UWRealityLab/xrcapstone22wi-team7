@@ -22,6 +22,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI createdRoomCode;
     public GameObject hostUI;
     public GameObject waitingUI;
+    public TextMeshProUGUI roomCode;
 
     [SerializeField] private byte maxPlayersPerRoom = 10;
     string gameVersion = "1";
@@ -113,6 +114,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         MenuButtonReactor.miniMenu.SetActive(false);
         menu.SetActive(false);
         roomUI.SetActive(true);
+        roomCode.text = "<b>Room Code:</b> ";
     }
 
     public void StartGame()
@@ -124,10 +126,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             GameManager.gameManager.GameStart();
 
             // Send event for others to hide UI on game start
-            object[] content = new object[] { "Waiting UI" };
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
-            PhotonNetwork.RaiseEvent(HideUIEventCode, content, raiseEventOptions, SendOptions.SendReliable);
+            SendHideUIEvent("Waiting UI");
+            SendHideUIEvent("Room Code");
         }
+    }
+
+    public void SendHideUIEvent(string objectName)
+    {
+        object[] content = new object[] { objectName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(HideUIEventCode, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
@@ -174,6 +182,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a room.");
         joinErrorText.SetActive(false);
         joinUI.SetActive(false);
+        roomCode.text = "<b>Room Code:</b> " + PhotonNetwork.CurrentRoom.Name;
 
         // master client will load scene upon joining room
         if (PhotonNetwork.IsMasterClient)
