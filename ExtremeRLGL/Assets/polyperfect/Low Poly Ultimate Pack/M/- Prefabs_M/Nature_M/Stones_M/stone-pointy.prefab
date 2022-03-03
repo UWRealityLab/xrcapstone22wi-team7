@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -4865314399521566570}
   m_Layer: 0
   m_Name: stone-pointy
-  m_TagString: Untagged
+  m_TagString: ClimbingPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

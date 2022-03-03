@@ -4393,12 +4393,12 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Climber, Assembly-CSharp
+      - m_Target: {fileID: 1338201725}
+        m_TargetAssemblyTypeName: ClimbingMovement, Assembly-CSharp
         m_MethodName: handClimbGrab
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 916014487}
           m_ObjectArgumentAssemblyTypeName: ClimberHand, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4408,12 +4408,12 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Climber, Assembly-CSharp
+      - m_Target: {fileID: 1338201725}
+        m_TargetAssemblyTypeName: ClimbingMovement, Assembly-CSharp
         m_MethodName: handClimbRelease
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 916014487}
           m_ObjectArgumentAssemblyTypeName: ClimberHand, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -6477,8 +6477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e29ec4dd36e3e54a8cf1d6117fc71a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RightHand: {fileID: 0}
-  LeftHand: {fileID: 916014487}
+  RightHand: {fileID: 916014487}
+  LeftHand: {fileID: 1716726987}
   rightButton:
     m_UseReference: 0
     m_Action:
@@ -8589,12 +8589,12 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Climber, Assembly-CSharp
+      - m_Target: {fileID: 1338201725}
+        m_TargetAssemblyTypeName: ClimbingMovement, Assembly-CSharp
         m_MethodName: handClimbGrab
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 1716726987}
           m_ObjectArgumentAssemblyTypeName: ClimberHand, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -8604,12 +8604,12 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Climber, Assembly-CSharp
+      - m_Target: {fileID: 1338201725}
+        m_TargetAssemblyTypeName: ClimbingMovement, Assembly-CSharp
         m_MethodName: handClimbRelease
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 1716726987}
           m_ObjectArgumentAssemblyTypeName: ClimberHand, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0

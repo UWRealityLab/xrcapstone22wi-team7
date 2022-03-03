@@ -1560,7 +1560,7 @@ MonoBehaviour:
   LeftRunningContainer: {fileID: 1574509008}
   RightRunningContainer: {fileID: 2011617098}
   speedUpScale: 4
-  speed: 480
+  speed: 240
 --- !u!114 &-1549997215884751634
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -65,6 +65,7 @@ public class ClimbingMovement : MonoBehaviour
             // Calculates the target position of the climbing container based on the ActiveHand, floatingHand, and offset variables
             var activeHandBuff = ClimbingContainer.transform.position - ActiveHand.floatingHand.position + ActiveHand.floatingHand.forward * -offset.magnitude;
             ClimbingContainer.targetPosition = -((ActiveHand.transform.position + activeHandBuff) - transform.position);
+            Debug.Log(-((ActiveHand.transform.position + activeHandBuff) - transform.position));
         }
     }
 
