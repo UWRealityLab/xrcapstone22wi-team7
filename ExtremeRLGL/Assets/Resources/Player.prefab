@@ -815,7 +815,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 23
   m_InteractionLayers:
-    m_Bits: 23
+    m_Bits: 22
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -928,6 +928,7 @@ MonoBehaviour:
   trackPos: 1
   trackRot: 1
   rigidBody: {fileID: 0}
+  climbingMovement: {fileID: 8824185701360900147}
   velocityDamping: 1
   angVelocityDamping: 1
   velocityScale: 0.5
@@ -1395,6 +1396,10 @@ MonoBehaviour:
   head: {fileID: 4412153811660851462}
   leftHand: {fileID: 4412153812178973765}
   rightHand: {fileID: 4412153810452599222}
+  climbingLeftHand: {fileID: 8680662399879066418}
+  climbingRightHand: {fileID: 1505984769512049782}
+  climbingLeftInteractor: {fileID: 293480237028769749}
+  climbingRightInteractor: {fileID: 1594179264672560726}
   trackingPositionOffset: {x: 0, y: 0, z: 0}
   trackingRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &7727260620874272152
@@ -3832,7 +3837,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 23
   m_InteractionLayers:
-    m_Bits: 23
+    m_Bits: 22
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -3945,6 +3950,7 @@ MonoBehaviour:
   trackPos: 1
   trackRot: 1
   rigidBody: {fileID: 0}
+  climbingMovement: {fileID: 8824185701360900147}
   velocityDamping: 1
   angVelocityDamping: 1
   velocityScale: 0.5

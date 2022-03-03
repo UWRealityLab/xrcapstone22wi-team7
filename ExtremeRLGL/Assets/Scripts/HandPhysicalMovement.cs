@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class HandPhysicalMovement : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HandPhysicalMovement : MonoBehaviour
     public bool trackPos = true;
     public bool trackRot = true;
     public Rigidbody rigidBody = null;
+    public ClimbingMovement climbingMovement;
 
     // Serialized fields so variables can show up in the editor
     [SerializeField, Range(0f, 10f)]
@@ -29,9 +31,12 @@ public class HandPhysicalMovement : MonoBehaviour
     public Vector3 offset = new Vector3();
     public bool isLeftHand = false;
 
+    private PhotonView photonView;
+
     // Start is called before the first frame update
     void Start()
     {
+        photonView = PhotonView.Get(this);
         rigidBody = m_TargetToMove.GetComponent<Rigidbody>();
         targetAttach = transform;
     }
@@ -44,6 +49,10 @@ public class HandPhysicalMovement : MonoBehaviour
 
     // updateHand is called every fixed frame-rate frame
     void updateHand(float deltaTime){
+        // Only apply velocity when we are actually climbing
+        if (!climbingMovement.Climbing || !photonView.IsMine)
+            return;
+
         // Executes if the position is being tracked
         if (trackPos)
         {
@@ -73,30 +82,35 @@ public class HandPhysicalMovement : MonoBehaviour
 
     // reduceJitter is called every fixed frame-rate frame
     void reduceJitter(){
-        // Executes if the target to move has a FixedJoint component
-        if (m_TargetToMove.GetComponent<FixedJoint>()) {
-            // Executes if the other hand's target to move has a FixedJoint component
-            if (otherHand.m_TargetToMove.GetComponent<FixedJoint>()) {
-                float handDist = Vector3.Distance(m_TargetToMove.transform.position, otherHand.m_TargetToMove.transform.position);
-                float controllerDist = Vector3.Distance(transform.position, otherHand.transform.position);
-                float distRatio = Mathf.Pow(controllerDist / handDist, 2);
-                velocityScale = Mathf.Clamp((distRatio >= 1 ? 1f / distRatio : 1f * distRatio), 0.0f, 1f);
-                angVelocityScale = Mathf.Clamp((distRatio >= 1 ? 1f / distRatio : 1f * distRatio), 0.0f, 1f);
+        if (photonView.IsMine)
+        {
+            // Executes if the target to move has a FixedJoint component
+            if (m_TargetToMove.GetComponent<FixedJoint>())
+            {
+                // Executes if the other hand's target to move has a FixedJoint component
+                if (otherHand.m_TargetToMove.GetComponent<FixedJoint>())
+                {
+                    float handDist = Vector3.Distance(m_TargetToMove.transform.position, otherHand.m_TargetToMove.transform.position);
+                    float controllerDist = Vector3.Distance(transform.position, otherHand.transform.position);
+                    float distRatio = Mathf.Pow(controllerDist / handDist, 2);
+                    velocityScale = Mathf.Clamp((distRatio >= 1 ? 1f / distRatio : 1f * distRatio), 0.0f, 1f);
+                    angVelocityScale = Mathf.Clamp((distRatio >= 1 ? 1f / distRatio : 1f * distRatio), 0.0f, 1f);
+                }
+
+                // Executes if the other hand's target to move doesn't have a FixedJoint component
+                else
+                {
+                    velocityScale = Mathf.Clamp(1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
+                    angVelocityScale = Mathf.Clamp(1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
+                }
             }
 
-            // Executes if the other hand's target to move doesn't have a FixedJoint component
+            // Executes if the target to move doesn't have a FixedJoint component
             else
             {
-                velocityScale = Mathf.Clamp( 1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
-                angVelocityScale = Mathf.Clamp( 1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
+                velocityScale = 1f;
+                angVelocityScale = 1f;
             }
-        }
-
-        // Executes if the target to move doesn't have a FixedJoint component
-        else
-        {
-            velocityScale = 1f;
-            angVelocityScale = 1f;
         }
     }
 }

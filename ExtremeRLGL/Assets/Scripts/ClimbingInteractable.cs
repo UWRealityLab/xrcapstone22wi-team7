@@ -23,6 +23,7 @@ public class ClimbingInteractable : XRBaseInteractable
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         interactorList.Add(args.interactor);
+        Debug.Log(args.interactor.name);
 
         // Executes if fixedJointList is empty
         if (fixedJointList.Count == 0) 
