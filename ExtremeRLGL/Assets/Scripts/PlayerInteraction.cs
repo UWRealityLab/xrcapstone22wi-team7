@@ -22,7 +22,8 @@ public class PlayerInteraction : MonoBehaviour
     private Camera mainCamera;
     private Camera fallenCamera;
     private float startTime;
-    
+
+    private PlayerPowerup playerPowerup;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,8 @@ public class PlayerInteraction : MonoBehaviour
         // getting interaction manager
         XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
         simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
+
+        playerPowerup = GetComponent<PlayerPowerup>();
     }
 
     // Update is called once per frame
@@ -77,7 +80,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         float endTime = Time.time;
         float diff = endTime - startTime;
-        if (diff >= timeToHold)
+        if (diff >= timeToHold && !playerPowerup.isActivate(PowerUpType.INVINCIBLE))
         {
             // actually push if charged long enough
             photonView.RPC("pushPlayer", RpcTarget.All);

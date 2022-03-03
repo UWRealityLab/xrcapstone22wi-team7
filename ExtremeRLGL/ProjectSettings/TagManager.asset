@@ -10,6 +10,9 @@ TagManager:
   - StartLine
   - Bot
   - Water
+  - Terrain
+  - Climbable
+  - Powerup
   layers:
   - Default
   - TransparentFX
