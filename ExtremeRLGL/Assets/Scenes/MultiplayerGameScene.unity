@@ -770,6 +770,8 @@ MonoBehaviour:
   joinInput: {fileID: 468604719}
   singleUI: {fileID: 0}
   createdRoomCode: {fileID: 1043063258}
+  hostUI: {fileID: 0}
+  waitingUI: {fileID: 0}
   maxPlayersPerRoom: 10
 --- !u!4 &193860467
 Transform:
@@ -6755,6 +6757,10 @@ PrefabInstance:
     - target: {fileID: 4037942552796177059, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063881783265440968, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
+      propertyPath: m_Convex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
