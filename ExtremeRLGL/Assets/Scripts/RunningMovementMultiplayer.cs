@@ -141,6 +141,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
                 else
                     gameObject.transform.position += Vector3.ProjectOnPlane(RightRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * speed * Time.deltaTime;
             }
+            rig.transform.position = gameObject.transform.position;
 
             leftOrRight = !leftOrRight;
 
@@ -151,7 +152,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
         }
         else 
         {
-            initPlayerPos = gameObject.transform.position;
+            initPlayerPos = rig.transform.position;
             initLeftPos = LeftHand.position;
             initRightPos = RightHand.position;
         }

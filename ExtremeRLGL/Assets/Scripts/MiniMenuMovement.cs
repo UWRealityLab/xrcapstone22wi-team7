@@ -4,7 +4,7 @@ using UnityEngine;
 using Unity.XR.CoreUtils;
 using Photon.Pun;
 
-public class CameraMovement : MonoBehaviour
+public class MiniMenuMovement : MonoBehaviour
 {
     private PhotonView photonView;
 
@@ -19,11 +19,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            // Move XROrigin based on player position
-            XROrigin rig = FindObjectOfType<XROrigin>();
-            rig.transform.position = gameObject.transform.position;
-            rig.transform.rotation = new Quaternion(rig.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1);
-
+            // Move menu to player
             MenuButtonReactor.miniMenu.transform.position = gameObject.transform.position + new Vector3(0f, 1.4f, 2.4f);
         }
     }
