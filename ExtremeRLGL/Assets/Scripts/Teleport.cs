@@ -17,12 +17,13 @@ public class Teleport : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   /*
         if (photonView.IsMine && !initialized)
         {
             ToStartLine();
             initialized = true;
         }
+        */
     }
 
     public void ToStartLine()
@@ -33,6 +34,7 @@ public class Teleport : MonoBehaviour
             XROrigin rig = FindObjectOfType<XROrigin>();
             Vector3 position = startLineScript.GetNextPos();
             gameObject.transform.position = new Vector3(position.x, position.y + 2.0f, position.z);
+            rig.transform.position = new Vector3(position.x, position.y + 2.0f, position.z);
         }
     }
 }

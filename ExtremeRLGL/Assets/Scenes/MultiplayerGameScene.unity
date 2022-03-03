@@ -1820,8 +1820,9 @@ GameObject:
   - component: {fileID: 414508639}
   - component: {fileID: 414508638}
   - component: {fileID: 414508642}
+  - component: {fileID: 414508643}
   m_Layer: 0
-  m_Name: LeftHand Controller Ray
+  m_Name: LeftHand Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1840,8 +1841,8 @@ Transform:
   m_Children:
   - {fileID: 926347143}
   - {fileID: 1580886996}
-  m_Father: {fileID: 1716726982}
-  m_RootOrder: 0
+  m_Father: {fileID: 1631857978}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &414508638
 MonoBehaviour:
@@ -2353,6 +2354,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToWait: 3.2
+--- !u!54 &414508643
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414508636}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &468074134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3023,6 +3040,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573670292}
   m_CullTransparentMesh: 1
+--- !u!1001 &586669963
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1338201722}
+    m_Modifications:
+    - target: {fileID: 6468191152703759461, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_Name
+      value: ClimbingMovement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759461, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.9499998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5900002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+--- !u!4 &586669964 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+  m_PrefabInstance: {fileID: 586669963}
+  m_PrefabAsset: {fileID: 0}
+--- !u!153 &586669965 stripped
+ConfigurableJoint:
+  m_CorrespondingSourceObject: {fileID: 6468191152703759463, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+  m_PrefabInstance: {fileID: 586669963}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &589328151
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,8 +4327,10 @@ GameObject:
   - component: {fileID: 916014486}
   - component: {fileID: 916014485}
   - component: {fileID: 916014484}
+  - component: {fileID: 916014488}
+  - component: {fileID: 916014487}
   m_Layer: 20
-  m_Name: RightHand Controller
+  m_Name: RightHand Controller Direct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4244,10 +4346,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1754946738}
+  m_Children: []
   m_Father: {fileID: 1631857978}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &916014484
 SphereCollider:
@@ -4530,6 +4631,47 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 875253871413052681, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ButtonPressPoint: 0.5
+--- !u!114 &916014487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916014482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e4ca84d703b434396422f1565862d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatingHand: {fileID: 1754946738}
+  touchCount: 0
+  isGrabbing: 0
+--- !u!114 &916014488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 916014482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfd37a0b43b360459f7bbef63e8bd20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackPos: 1
+  trackRot: 1
+  rigidBody: {fileID: 0}
+  climbingMovement: {fileID: 1338201725}
+  velocityDamping: 1
+  angVelocityDamping: 1
+  velocityScale: 0.5
+  angVelocityScale: 0.5
+  m_TargetToMove: {fileID: 1754946738}
+  targetAttach: {fileID: 0}
+  m_TargetAttachPointTransform: {fileID: 207759005}
+  otherHand: {fileID: 1716726986}
+  offset: {x: 0, y: 0, z: 0}
+  isLeftHand: 0
 --- !u!1 &926347142
 GameObject:
   m_ObjectHideFlags: 0
@@ -6252,6 +6394,7 @@ GameObject:
   - component: {fileID: 1338201721}
   - component: {fileID: 1338201723}
   - component: {fileID: 1338201724}
+  - component: {fileID: 1338201725}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -6287,6 +6430,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 586669964}
   - {fileID: 1631857978}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -6317,10 +6461,70 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1338201725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338201720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e29ec4dd36e3e54a8cf1d6117fc71a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RightHand: {fileID: 0}
+  LeftHand: {fileID: 916014487}
+  rightButton:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Right Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: b32ca7bb-c8e0-46db-8da0-9e238e35dbd7
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: c0729dcc-dd18-4854-817b-b9af040e2847
+        m_Path: <XRController>{RightHand}/grip
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Right Button
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  leftButton:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Left Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 98f4e7a9-da55-43fb-bac9-e6c44c7a4ac9
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 8b83d75f-9bb9-4791-9b2d-3d961262ac1e
+        m_Path: <XRController>{LeftHand}/grip
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Left Button
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  ClimbingContainer: {fileID: 586669965}
+  Climbing: 0
+  ActiveHand: {fileID: 0}
+  handSide: 
+  movedRigidbody: {fileID: 1338201724}
+  eachHandHolds: 0
 --- !u!1 &1344539212
 GameObject:
   m_ObjectHideFlags: 0
@@ -7899,10 +8103,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1650555055}
+  - {fileID: 414508637}
   - {fileID: 1716726982}
+  - {fileID: 1754946738}
   - {fileID: 916014483}
   m_Father: {fileID: 1338201722}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645897008
 GameObject:
@@ -8137,7 +8343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671925584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.1, z: 34}
+  m_LocalPosition: {x: 0.15, y: 0.1, z: 116.7}
   m_LocalScale: {x: 0.4, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8317,8 +8523,10 @@ GameObject:
   - component: {fileID: 1716726985}
   - component: {fileID: 1716726984}
   - component: {fileID: 1716726983}
+  - component: {fileID: 1716726986}
+  - component: {fileID: 1716726987}
   m_Layer: 20
-  m_Name: LeftHand Controller
+  m_Name: LeftHand Controller Direct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8334,10 +8542,9 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 414508637}
+  m_Children: []
   m_Father: {fileID: 1631857978}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1716726983
 SphereCollider:
@@ -8620,6 +8827,47 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 7779212132400271959, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ButtonPressPoint: 0.5
+--- !u!114 &1716726986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716726981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfd37a0b43b360459f7bbef63e8bd20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackPos: 1
+  trackRot: 1
+  rigidBody: {fileID: 0}
+  climbingMovement: {fileID: 1338201725}
+  velocityDamping: 1
+  angVelocityDamping: 1
+  velocityScale: 0.5
+  angVelocityScale: 0.5
+  m_TargetToMove: {fileID: 414508637}
+  targetAttach: {fileID: 0}
+  m_TargetAttachPointTransform: {fileID: 1580886996}
+  otherHand: {fileID: 916014488}
+  offset: {x: 0, y: 0, z: 0}
+  isLeftHand: 1
+--- !u!114 &1716726987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716726981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e4ca84d703b434396422f1565862d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatingHand: {fileID: 414508637}
+  touchCount: 0
+  isGrabbing: 0
 --- !u!1 &1723028953
 GameObject:
   m_ObjectHideFlags: 0
@@ -8950,8 +9198,9 @@ GameObject:
   - component: {fileID: 1754946740}
   - component: {fileID: 1754946739}
   - component: {fileID: 1754946743}
+  - component: {fileID: 1754946744}
   m_Layer: 0
-  m_Name: RightHand Controller Ray
+  m_Name: RightHand Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8970,8 +9219,8 @@ Transform:
   m_Children:
   - {fileID: 1451071970}
   - {fileID: 207759005}
-  m_Father: {fileID: 916014483}
-  m_RootOrder: 0
+  m_Father: {fileID: 1631857978}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1754946739
 MonoBehaviour:
@@ -9483,6 +9732,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsToWait: 3.2
+--- !u!54 &1754946744
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754946737}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1759021286
 GameObject:
   m_ObjectHideFlags: 0

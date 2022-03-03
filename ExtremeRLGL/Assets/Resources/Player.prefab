@@ -1560,7 +1560,7 @@ MonoBehaviour:
   LeftRunningContainer: {fileID: 1574509008}
   RightRunningContainer: {fileID: 2011617098}
   speedUpScale: 4
-  speed: 120
+  speed: 480
 --- !u!114 &-1549997215884751634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3601322046471784877}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e29ec4dd36e3e54a8cf1d6117fc71a1, type: 3}
   m_Name: 
