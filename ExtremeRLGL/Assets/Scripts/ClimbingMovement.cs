@@ -22,7 +22,7 @@ public class ClimbingMovement : MonoBehaviour
     public bool eachHandHolds = false;
 
     // Private variables
-    private RunningMovement runningMovement;
+    private RunningMovementMultiplayer runningMovement;
     private CapsuleCollider capsule = null;
     private Vector3 offset = Vector3.zero;
 
@@ -40,7 +40,7 @@ public class ClimbingMovement : MonoBehaviour
         // Get RigidBody, CapsulCollider, and RunningMovement components
         movedRigidbody = GetComponent<Rigidbody>();
         capsule = GetComponent<CapsuleCollider>();
-        runningMovement = GetComponent<RunningMovement>();
+        runningMovement = GetComponent<RunningMovementMultiplayer>();
     }
 
     // FixedUpdate is called every fixed frame-rate frame
