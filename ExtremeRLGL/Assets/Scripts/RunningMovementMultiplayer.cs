@@ -11,6 +11,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
 
     private PhotonView photonView;
     private PlayerInteraction playerInteraction;
+    private PlayerPowerup playerPowerup;
 
     // Headset, controller, and container game objects
     public Transform LeftHand;
@@ -21,6 +22,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
 
     // For moving up slopes
     public RaycastHit slopeHit;
+    public int speedUpScale;
 
     // Initial position coordinates
     private Vector3 initLeftPos;
@@ -38,6 +40,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
     private XROrigin rig;
     private bool leftOrRight = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +52,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
         RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
 
         playerInteraction = GetComponent<PlayerInteraction>();
+        playerPowerup = GetComponent<PlayerPowerup>();
 
         if (photonView.IsMine) 
         { 
@@ -98,6 +102,13 @@ public class RunningMovementMultiplayer : MonoBehaviour
 
         if (photonView.IsMine && !playerInteraction.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing)
         {
+            // Powerup: SpeedUp
+            float currentSpeed;
+            if (playerPowerup.isActivate(PowerUpType.SPEED_UP))
+                currentSpeed = speed * speedUpScale;
+            else
+                currentSpeed = speed;
+
             // current fix to setting up camera/controller on scene change is to just keep finding them, so when scene changes, it will find them again
             // TODO: make it so that it doesn't have to do this everytime
             // if I make them DontDestroyOnLoad, the network model moves, but the player themselves don't see the movement
@@ -130,16 +141,16 @@ public class RunningMovementMultiplayer : MonoBehaviour
             if (!OnSlope())
             {
                 if (leftOrRight)
-                    gameObject.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+                    gameObject.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
                 else
-                    gameObject.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
+                    gameObject.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
             }
             else
             {
                 if (leftOrRight)
-                    gameObject.transform.position += Vector3.ProjectOnPlane(LeftRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * speed * Time.deltaTime;
+                    gameObject.transform.position += Vector3.ProjectOnPlane(LeftRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
                 else
-                    gameObject.transform.position += Vector3.ProjectOnPlane(RightRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * speed * Time.deltaTime;
+                    gameObject.transform.position += Vector3.ProjectOnPlane(RightRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
             }
             rig.transform.position = gameObject.transform.position;
 

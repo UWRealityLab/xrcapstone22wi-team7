@@ -58,7 +58,7 @@ public class StartLine : MonoBehaviour, IPunObservable
         Debug.Log("Current startLine Index:" + currentIdx);
         Vector3 pos = gameObject.GetComponent<Collider>().bounds.min;
         pos[coordinateIdx] = pos[coordinateIdx] + playerWidth * (currentIdx % length);
-        pos[1] = pos[1] + 2.0f;
+        pos[1] = pos[1] + 0.5f;
         currentIdx++;
         Debug.Log(pos);
         return pos;

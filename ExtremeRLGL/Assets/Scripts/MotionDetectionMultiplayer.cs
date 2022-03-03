@@ -48,6 +48,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     private bool resetPosition;
 
     private PlayerInteraction playerInteraction;
+    private PlayerPowerup playerPowerup;
     private Collider startLine;
     public TextMeshProUGUI movingState;
     private bool triggered;
@@ -66,6 +67,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
         RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
         playerInteraction = gameObject.GetComponent<PlayerInteraction>();
+        playerPowerup = gameObject.GetComponent<PlayerPowerup>();
         if (photonView.IsMine)
             movingState.text = "";
         triggered = false;
@@ -154,7 +156,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             if (cameraPosDist > cameraPosThreshold || leftPosDist > handPosThreshold || rightPosDist > handPosThreshold ||
                 cameraRotDist > cameraRotThreshold || leftRotDist > handRotThreshold || rightRotDist > handRotThreshold)
             {
-                if (!triggered)
+                if (!triggered && !playerPowerup.isActivate(PowerUpType.UNSTOPPABLE))
                     OnMoved();
 
                 animator.SetBool("isMoving", true);
