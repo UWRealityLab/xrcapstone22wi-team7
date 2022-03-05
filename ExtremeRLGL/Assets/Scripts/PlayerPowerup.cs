@@ -23,8 +23,8 @@ public class PlayerPowerup : MonoBehaviour
         {
             powerupStates = new Dictionary<PowerUpType, PowerUpState>();
             powerupStates.Add(PowerUpType.SPEED_UP, new PowerUpState(PowerUpType.SPEED_UP));
-            powerupStates.Add(PowerUpType.SPEED_UP, new PowerUpState(PowerUpType.UNSTOPPABLE));
-            powerupStates.Add(PowerUpType.SPEED_UP, new PowerUpState(PowerUpType.INVINCIBLE));
+            powerupStates.Add(PowerUpType.UNSTOPPABLE, new PowerUpState(PowerUpType.UNSTOPPABLE));
+            powerupStates.Add(PowerUpType.INVINCIBLE, new PowerUpState(PowerUpType.INVINCIBLE));
         }
     }
 
