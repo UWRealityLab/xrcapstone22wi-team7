@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class HandPhysicalMovement : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class HandPhysicalMovement : MonoBehaviour
     public bool trackPos = true;
     public bool trackRot = true;
     public Rigidbody rigidBody = null;
+    public ClimbingMovement climbingMovement;
 
     // Serialized fields so variables can show up in the editor
     [SerializeField, Range(0f, 10f)]
@@ -29,6 +31,7 @@ public class HandPhysicalMovement : MonoBehaviour
     public Vector3 offset = new Vector3();
     public bool isLeftHand = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,39 +47,46 @@ public class HandPhysicalMovement : MonoBehaviour
 
     // updateHand is called every fixed frame-rate frame
     void updateHand(float deltaTime){
-        // Executes if the position is being tracked
-        if (trackPos)
-        {
-            rigidBody.velocity *= (1f - velocityDamping);
-            var deltaPos = targetAttach.position - m_TargetToMove.position + Vector3.Scale(m_TargetToMove.forward, offset);
-            var velocity = deltaPos / deltaTime;
-            if (!float.IsNaN(velocity.x))
-                rigidBody.velocity += (velocity * velocityScale);
-        }
+        // Only apply velocity when we are actually climbing
+        //if (climbingMovement.Climbing)
+        //{
 
-        // Executes if the rotation is being tracked
-        if (trackRot)
-        {
-            rigidBody.angularVelocity *= (1f - angVelocityDamping);
-            var deltaRot = targetAttach.rotation * Quaternion.Inverse(m_TargetToMove.rotation);
-            deltaRot.ToAngleAxis(out var angle, out var axis);
-            if (angle > 180f)
-                angle -= 360f;
-            if (Mathf.Abs(angle) > Mathf.Epsilon)
+            // Executes if the position is being tracked
+            if (trackPos)
             {
-                var angVel = (axis * (angle * Mathf.Deg2Rad)) / deltaTime;
-                if (!float.IsNaN(angVel.x))
-                    rigidBody.angularVelocity += (angVel * angVelocityScale);
+                rigidBody.velocity *= (1f - velocityDamping);
+                var deltaPos = targetAttach.position - m_TargetToMove.position + Vector3.Scale(m_TargetToMove.forward, offset);
+                var velocity = deltaPos / deltaTime;
+                if (!float.IsNaN(velocity.x))
+                    rigidBody.velocity += (velocity * velocityScale);
             }
-        }
+
+            // Executes if the rotation is being tracked
+            if (trackRot)
+            {
+                rigidBody.angularVelocity *= (1f - angVelocityDamping);
+                var deltaRot = targetAttach.rotation * Quaternion.Inverse(m_TargetToMove.rotation);
+                deltaRot.ToAngleAxis(out var angle, out var axis);
+                if (angle > 180f)
+                    angle -= 360f;
+                if (Mathf.Abs(angle) > Mathf.Epsilon)
+                {
+                    var angVel = (axis * (angle * Mathf.Deg2Rad)) / deltaTime;
+                    if (!float.IsNaN(angVel.x))
+                        rigidBody.angularVelocity += (angVel * angVelocityScale);
+                }
+            }
+        //}
     }
 
     // reduceJitter is called every fixed frame-rate frame
     void reduceJitter(){
         // Executes if the target to move has a FixedJoint component
-        if (m_TargetToMove.GetComponent<FixedJoint>()) {
+        if (m_TargetToMove.GetComponent<FixedJoint>())
+        {
             // Executes if the other hand's target to move has a FixedJoint component
-            if (otherHand.m_TargetToMove.GetComponent<FixedJoint>()) {
+            if (otherHand.m_TargetToMove.GetComponent<FixedJoint>())
+            {
                 float handDist = Vector3.Distance(m_TargetToMove.transform.position, otherHand.m_TargetToMove.transform.position);
                 float controllerDist = Vector3.Distance(transform.position, otherHand.transform.position);
                 float distRatio = Mathf.Pow(controllerDist / handDist, 2);
@@ -87,8 +97,8 @@ public class HandPhysicalMovement : MonoBehaviour
             // Executes if the other hand's target to move doesn't have a FixedJoint component
             else
             {
-                velocityScale = Mathf.Clamp( 1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
-                angVelocityScale = Mathf.Clamp( 1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
+                velocityScale = Mathf.Clamp(1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
+                angVelocityScale = Mathf.Clamp(1f - Vector3.Distance(transform.position, m_TargetToMove.position), 0.1f, 1f);
             }
         }
 

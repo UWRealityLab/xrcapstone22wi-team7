@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ClimbingMovement : MonoBehaviour
@@ -22,7 +23,7 @@ public class ClimbingMovement : MonoBehaviour
     public bool eachHandHolds = false;
 
     // Private variables
-    private RunningMovement runningMovement;
+    private RunningMovementMultiplayer runningMovement;
     private CapsuleCollider capsule = null;
     private Vector3 offset = Vector3.zero;
 
@@ -40,17 +41,31 @@ public class ClimbingMovement : MonoBehaviour
         // Get RigidBody, CapsulCollider, and RunningMovement components
         movedRigidbody = GetComponent<Rigidbody>();
         capsule = GetComponent<CapsuleCollider>();
-        runningMovement = GetComponent<RunningMovement>();
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (player.GetComponent<PhotonView>().IsMine)
+                runningMovement = player.GetComponent<RunningMovementMultiplayer>();
+        }
     }
 
     // FixedUpdate is called every fixed frame-rate frame
     void FixedUpdate()
     {
+        if (runningMovement == null)
+        {
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (player.GetComponent<PhotonView>().IsMine)
+                    runningMovement = player.GetComponent<RunningMovementMultiplayer>();
+            }
+        }
+
         if (Climbing)
         {
             // Calculates the target position of the climbing container based on the ActiveHand, floatingHand, and offset variables
             var activeHandBuff = ClimbingContainer.transform.position - ActiveHand.floatingHand.position + ActiveHand.floatingHand.forward * -offset.magnitude;
             ClimbingContainer.targetPosition = -((ActiveHand.transform.position + activeHandBuff) - transform.position);
+            Debug.Log(-((ActiveHand.transform.position + activeHandBuff) - transform.position));
         }
     }
 
@@ -157,7 +172,7 @@ public class ClimbingMovement : MonoBehaviour
             movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = false;
-            LeftHand.isGrabbing = true;;
+            LeftHand.isGrabbing = true; ;
             runningMovement.enabled = false;
             eachHandHolds = false;
         }
