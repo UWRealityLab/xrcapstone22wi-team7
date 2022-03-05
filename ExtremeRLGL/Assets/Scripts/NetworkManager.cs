@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
@@ -19,9 +20,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject joinInput;
     public GameObject singleUI;
     public TextMeshProUGUI createdRoomCode;
+    public GameObject hostUI;
+    public GameObject waitingUI;
+    public TextMeshProUGUI roomCode;
 
     [SerializeField] private byte maxPlayersPerRoom = 10;
     string gameVersion = "1";
+
+    public const byte HideUIEventCode = 1;
 
     /* FROM: https://doc.photonengine.com/en-us/pun/current/demos-and-tutorials/pun-basics-tutorial/lobby
      * Note: when overriding, most IDEs will by default implement a base call and fill that up for you automatically. 
@@ -102,6 +108,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("Leaving room.");
         PhotonNetwork.LeaveRoom();
+
+        // Go back to lobby scene and hide the mini menu (active by default so we can find it when we first start the game)
+        SceneManager.LoadScene("LobbyRestartScene"); // lobby scene but without don't destroy objects so there aren't duplicates
+        MenuButtonReactor.miniMenu.SetActive(false);
+        menu.SetActive(false);
+        roomUI.SetActive(true);
+        roomCode.text = "<b>Room Code:</b> ";
     }
 
     public void StartGame()
@@ -109,7 +122,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Starting game.");
         PhotonNetwork.CurrentRoom.IsOpen = false;
         if (PhotonNetwork.IsMasterClient)
+        {
             GameManager.gameManager.GameStart();
+
+            // Send event for others to hide UI on game start
+            SendHideUIEvent("Waiting UI");
+            SendHideUIEvent("Room Code");
+        }
+    }
+
+    public void SendHideUIEvent(string objectName)
+    {
+        object[] content = new object[] { objectName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(HideUIEventCode, content, raiseEventOptions, SendOptions.SendReliable);
     }
 
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
@@ -156,11 +182,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined a room.");
         joinErrorText.SetActive(false);
         joinUI.SetActive(false);
+        roomCode.text = "<b>Room Code:</b> " + PhotonNetwork.CurrentRoom.Name;
 
         // master client will load scene upon joining room
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel("MultiplayerGameScene");
+        } else
+        {
+            waitingUI.SetActive(true);
         }
     }
 
@@ -187,6 +217,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // Go back to lobby scene and hide the mini menu (active by default so we can find it when we first start the game)
         SceneManager.LoadScene("LobbyRestartScene"); // lobby scene but without don't destroy objects so there aren't duplicates
         MenuButtonReactor.miniMenu.SetActive(false);
+    }
+
+    public override void OnPlayerLeftRoom(Player other)
+    {
+        // if the previous master client leaves the room, another person becomes master client 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (waitingUI.activeSelf)
+            {
+                waitingUI.SetActive(false);
+                hostUI.SetActive(true);
+            }
+        }
     }
 
     // Single player UI part

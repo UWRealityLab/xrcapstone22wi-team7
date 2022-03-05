@@ -12,6 +12,10 @@ public class NetworkPlayer : MonoBehaviour
     public Transform head;
     public Transform leftHand;
     public Transform rightHand;
+    public Transform climbingLeftHand;
+    public Transform climbingRightHand;
+    public Transform climbingLeftInteractor;
+    public Transform climbingRightInteractor;
     private PhotonView photonView;
 
     public Vector3 trackingPositionOffset;
@@ -20,6 +24,8 @@ public class NetworkPlayer : MonoBehaviour
     private Transform headRig;
     private Transform leftHandRig;
     private Transform rightHandRig;
+
+    
 
     private PlayerInteraction playerInteraction;
 
@@ -75,6 +81,10 @@ public class NetworkPlayer : MonoBehaviour
             //body.rotation = new Quaternion(0, headRig.rotation.y, 0, 1);
             MapPosition(leftHand, leftHandRig);
             MapPosition(rightHand, rightHandRig);
+            //MapPosition(climbingLeftHand, leftHandRig);
+            //MapPosition(climbingRightHand, rightHandRig);
+            //MapPosition(climbingLeftInteractor, leftHandRig);
+            //MapPosition(climbingRightInteractor, rightHandRig);
         }
     }
 
