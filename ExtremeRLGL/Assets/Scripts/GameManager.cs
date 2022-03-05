@@ -6,6 +6,7 @@ using Photon.Pun;
 public enum GameStage 
 {
     Waiting,
+    Countdown,
     Playing,
     Ending
 }
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     IEnumerator StartingGame()
     {
         // Turning on the UI that goes along with the player
+        gameStage = GameStage.Countdown;
         FrontUIManager.frontUIManager.ShowWarning();
         for (int i = 10; i >= 0; i--)
         {
