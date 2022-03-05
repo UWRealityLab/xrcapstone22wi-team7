@@ -141,18 +141,18 @@ public class RunningMovementMultiplayer : MonoBehaviour
             if (!OnSlope())
             {
                 if (leftOrRight)
-                    rig.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
+                    gameObject.transform.position += LeftRunningContainer.transform.forward * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
                 else
-                    rig.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
+                    gameObject.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
             }
             else
             {
                 if (leftOrRight)
-                    rig.transform.position += Vector3.ProjectOnPlane(LeftRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
+                    gameObject.transform.position += Vector3.ProjectOnPlane(LeftRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
                 else
-                    rig.transform.position += Vector3.ProjectOnPlane(RightRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
+                    gameObject.transform.position += Vector3.ProjectOnPlane(RightRunningContainer.transform.forward, slopeHit.normal) * (leftDist + rightDist) * currentSpeed * Time.deltaTime;
             }
-            gameObject.transform.position = rig.transform.position;
+            rig.transform.position = gameObject.transform.position;
 
             leftOrRight = !leftOrRight;
 

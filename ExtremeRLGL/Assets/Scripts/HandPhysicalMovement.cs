@@ -48,8 +48,8 @@ public class HandPhysicalMovement : MonoBehaviour
     // updateHand is called every fixed frame-rate frame
     void updateHand(float deltaTime){
         // Only apply velocity when we are actually climbing
-        if (climbingMovement.Climbing)
-        {
+        //if (climbingMovement.Climbing)
+        //{
 
             // Executes if the position is being tracked
             if (trackPos)
@@ -76,7 +76,7 @@ public class HandPhysicalMovement : MonoBehaviour
                         rigidBody.angularVelocity += (angVel * angVelocityScale);
                 }
             }
-        }
+        //}
     }
 
     // reduceJitter is called every fixed frame-rate frame
