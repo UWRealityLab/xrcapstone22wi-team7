@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574509009}
   m_Layer: 0
-  m_Name: LeftRunning
+  m_Name: LeftContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2011617102}
   m_Layer: 0
-  m_Name: RightRunning
+  m_Name: RightContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1208,6 +1208,8 @@ GameObject:
   - component: {fileID: 4391274867294604247}
   - component: {fileID: 1225785165982339643}
   - component: {fileID: 8824185701360900147}
+  - component: {fileID: 1280638440439920029}
+  - component: {fileID: 3496105045247069512}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1732,6 +1734,36 @@ MonoBehaviour:
   handSide: 
   movedRigidbody: {fileID: -7270375831412029562}
   eachHandHolds: 0
+--- !u!114 &1280638440439920029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601322046471784877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd53a631b05786469634ef7a038fef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3496105045247069512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601322046471784877}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7cdaef2ed6f9b4e829f92758f956d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
+  MainCamera: {fileID: 0}
+  LeftRowingContainer: {fileID: 1574509008}
+  RightRowingContainer: {fileID: 2011617098}
+  speed: 120
 --- !u!1 &3635936008634394327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,13 +4330,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
---- !u!4 &236513610249621844 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
-  m_PrefabInstance: {fileID: 6524557478510867762}
-  m_PrefabAsset: {fileID: 0}
 --- !u!153 &236513610249621845 stripped
 ConfigurableJoint:
   m_CorrespondingSourceObject: {fileID: 6468191152703759463, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
+  m_PrefabInstance: {fileID: 6524557478510867762}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &236513610249621844 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
   m_PrefabInstance: {fileID: 6524557478510867762}
   m_PrefabAsset: {fileID: 0}
