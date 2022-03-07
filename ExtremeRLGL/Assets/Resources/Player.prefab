@@ -1734,6 +1734,7 @@ MonoBehaviour:
   handSide: 
   movedRigidbody: {fileID: -7270375831412029562}
   eachHandHolds: 0
+  player: {fileID: 0}
 --- !u!114 &1280638440439920029
 MonoBehaviour:
   m_ObjectHideFlags: 0

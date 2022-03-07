@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 40057054}
   - component: {fileID: 40057053}
   - component: {fileID: 40057058}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: FrontCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,8 +491,8 @@ Canvas:
   m_GameObject: {fileID: 40057051}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 1650555058}
+  m_RenderMode: 1
+  m_Camera: {fileID: 748958084}
   m_PlaneDistance: 1
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
@@ -691,7 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161920056}
   - component: {fileID: 161920057}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Restart Wrapper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 251065622}
   - component: {fileID: 251065624}
   - component: {fileID: 251065623}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: LightSocket (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1731,7 +1731,7 @@ GameObject:
   - component: {fileID: 388970126}
   - component: {fileID: 388970127}
   - component: {fileID: 388970128}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2801,7 +2801,7 @@ GameObject:
   - component: {fileID: 549283872}
   - component: {fileID: 549283873}
   - component: {fileID: 549283874}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3307,7 +3307,7 @@ GameObject:
   - component: {fileID: 652624661}
   - component: {fileID: 652624660}
   - component: {fileID: 652624659}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Warning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3838,6 +3838,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7f70c42e822334598bfd34854f887b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &748958082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748958083}
+  - component: {fileID: 748958084}
+  m_Layer: 0
+  m_Name: UI Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &748958083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748958082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1650555055}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &748958084
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748958082}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &795610929
 GameObject:
   m_ObjectHideFlags: 0
@@ -4079,7 +4153,7 @@ GameObject:
   - component: {fileID: 902977835}
   - component: {fileID: 902977837}
   - component: {fileID: 902977836}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4653,7 +4727,7 @@ GameObject:
   - component: {fileID: 954637743}
   - component: {fileID: 954637745}
   - component: {fileID: 954637744}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: LightPlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4772,7 +4846,7 @@ GameObject:
   - component: {fileID: 962854094}
   - component: {fileID: 962854096}
   - component: {fileID: 962854095}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: LightSocket (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5092,7 +5166,7 @@ GameObject:
   - component: {fileID: 1078196912}
   - component: {fileID: 1078196913}
   - component: {fileID: 1078196911}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: In Game Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5170,7 +5244,7 @@ GameObject:
   - component: {fileID: 1086411298}
   - component: {fileID: 1086411300}
   - component: {fileID: 1086411299}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: LightSocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5808,7 +5882,7 @@ GameObject:
   - component: {fileID: 1229942619}
   - component: {fileID: 1229942621}
   - component: {fileID: 1229942620}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: LightSocket (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6125,7 +6199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301069754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34, y: 0.1, z: 32.48}
+  m_LocalPosition: {x: -0.34, y: 0.1, z: -1.31}
   m_LocalScale: {x: 0.45, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6255,7 +6329,7 @@ GameObject:
   - component: {fileID: 1319337472}
   - component: {fileID: 1319337473}
   - component: {fileID: 1319337474}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7942,7 +8016,7 @@ GameObject:
   - component: {fileID: 1626803945}
   - component: {fileID: 1626803944}
   - component: {fileID: 1626803943}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: StartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8178,7 +8252,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 748958083}
   m_Father: {fileID: 1631857978}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8487,7 +8562,7 @@ GameObject:
   - component: {fileID: 1696462865}
   - component: {fileID: 1696462867}
   - component: {fileID: 1696462866}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9112,7 +9187,7 @@ GameObject:
   - component: {fileID: 1728256225}
   - component: {fileID: 1728256224}
   - component: {fileID: 1728256223}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10906,7 +10981,7 @@ GameObject:
   - component: {fileID: 1913121746}
   - component: {fileID: 1913121745}
   - component: {fileID: 1913121744}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11640,7 +11715,7 @@ GameObject:
   - component: {fileID: 2070050018}
   - component: {fileID: 2070050017}
   - component: {fileID: 2070050016}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Restart Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -44,13 +44,15 @@ public class RunningMovementMultiplayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        photonView = GetComponent<PhotonView>();
+        photonView = PhotonView.Get(this);
 
         rig = FindObjectOfType<XROrigin>();
-        MainCamera = rig.transform.Find("Camera Offset/Main Camera");
-        LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
-        RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
-
+        if (rig != null)
+        {
+            MainCamera = rig.transform.Find("Camera Offset/Main Camera");
+            LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
+            RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+        }
         playerInteraction = GetComponent<PlayerInteraction>();
         playerPowerup = GetComponent<PlayerPowerup>();
 
@@ -98,8 +100,11 @@ public class RunningMovementMultiplayer : MonoBehaviour
             MainCamera = rig.transform.Find("Camera Offset/Main Camera");
             LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
             RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+            rig.GetComponent<ClimbingMovement>().player = gameObject;
         }
 
+        Debug.Log(photonView == null);
+        Debug.Log(playerInteraction == null);
         if (photonView.IsMine && !playerInteraction.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing)
         {
             // Powerup: SpeedUp

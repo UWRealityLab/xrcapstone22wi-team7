@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using Photon.Pun;
+using Unity.XR.CoreUtils;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ClimbingMovement : MonoBehaviour
@@ -21,11 +22,13 @@ public class ClimbingMovement : MonoBehaviour
     public string handSide = null;
     public Rigidbody movedRigidbody;
     public bool eachHandHolds = false;
+    public GameObject player;
 
     // Private variables
     private RunningMovementMultiplayer runningMovement;
     private CapsuleCollider capsule = null;
     private Vector3 offset = Vector3.zero;
+    
 
     // onEnable is called when the object becomes enabled and active
     void OnEnable()
@@ -48,6 +51,7 @@ public class ClimbingMovement : MonoBehaviour
         }
     }
 
+
     // FixedUpdate is called every fixed frame-rate frame
     void FixedUpdate()
     {
@@ -65,7 +69,7 @@ public class ClimbingMovement : MonoBehaviour
             // Calculates the target position of the climbing container based on the ActiveHand, floatingHand, and offset variables
             var activeHandBuff = ClimbingContainer.transform.position - ActiveHand.floatingHand.position + ActiveHand.floatingHand.forward * -offset.magnitude;
             ClimbingContainer.targetPosition = -((ActiveHand.transform.position + activeHandBuff) - transform.position);
-            Debug.Log(-((ActiveHand.transform.position + activeHandBuff) - transform.position));
+            player.transform.position = gameObject.transform.position;
         }
     }
 
