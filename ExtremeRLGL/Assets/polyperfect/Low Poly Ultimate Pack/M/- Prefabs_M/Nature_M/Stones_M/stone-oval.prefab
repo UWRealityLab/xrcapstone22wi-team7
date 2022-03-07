@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7338011260243311384}
   - component: {fileID: 1969420904950094767}
   - component: {fileID: -5733389088226101835}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: stone-oval
   m_TagString: ClimbingPoint
   m_Icon: {fileID: 0}

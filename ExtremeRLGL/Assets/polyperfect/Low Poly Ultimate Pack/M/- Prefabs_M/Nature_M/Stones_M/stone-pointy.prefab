@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4595379154191175223}
   - component: {fileID: 1358152029121308789}
   - component: {fileID: -4865314399521566570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: stone-pointy
   m_TagString: ClimbingPoint
   m_Icon: {fileID: 0}
