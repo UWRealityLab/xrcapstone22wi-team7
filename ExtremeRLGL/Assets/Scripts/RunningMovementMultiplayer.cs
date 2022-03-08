@@ -25,6 +25,12 @@ public class RunningMovementMultiplayer : MonoBehaviour
     public RaycastHit slopeHit;
     public int speedUpScale;
 
+    // For jumping movement
+    public float jumpThreshold;
+    public float jumpAmount;
+    public LayerMask ground;
+    public Transform groundCheck;
+
     // Initial position coordinates
     private Vector3 initLeftPos;
     private Vector3 initRightPos;
@@ -34,6 +40,11 @@ public class RunningMovementMultiplayer : MonoBehaviour
     private Vector3 currLeftPos;
     private Vector3 currRightPos;
     private Vector3 currPlayerPos;
+
+    // Headset InputDevice and position coordinates for jumping movement
+    InputDevice headset;
+    private Vector3 initHeadsetPos;
+    private Vector3 currHeadsetPos;
 
     // Speed variable to determine how far the player moves forward
     public float speed = 80;
@@ -54,6 +65,9 @@ public class RunningMovementMultiplayer : MonoBehaviour
             LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
             RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
         }
+
+        headset = InputDevices.GetDeviceAtXRNode(XRNode.Head);
+
         playerInteraction = GetComponent<PlayerInteraction>();
         climbingMovement = GetComponent<ClimbingMovement>();
         playerPowerup = GetComponent<PlayerPowerup>();
@@ -64,6 +78,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
             initPlayerPos = rig.transform.position;
             initLeftPos = LeftHand.position;
             initRightPos = RightHand.position;
+            headset.TryGetFeatureValue(CommonUsages.devicePosition, out initHeadsetPos);
         }
     }
 
@@ -142,6 +157,9 @@ public class RunningMovementMultiplayer : MonoBehaviour
             currRightPos = RightHand.position;
             currPlayerPos = rig.transform.position;
 
+            // Get current headset coordinates (for jumping movement)
+            headset.TryGetFeatureValue(CommonUsages.devicePosition, out currHeadsetPos);
+
             // Get distance between initial and current position coordinates
             float playerDist = Vector3.Distance(initPlayerPos, currPlayerPos);
             float leftDist = Vector3.Distance(initLeftPos, currLeftPos) - playerDist;
@@ -156,6 +174,12 @@ public class RunningMovementMultiplayer : MonoBehaviour
                 rig.transform.position += RightRunningContainer.transform.forward * (leftDist + rightDist) * speed * Time.deltaTime;
             gameObject.transform.position = rig.transform.position;
             */
+
+            // check if player is jumping and if they can jump
+            if (isGrounded() && currHeadsetPos.y - initHeadsetPos.y > jumpThreshold && initHeadsetPos.y != 0)
+            {
+                gameObject.transform.position += new Vector3(0, jumpAmount, 0);
+            }
 
             if (!OnSlope())
             {
@@ -179,12 +203,14 @@ public class RunningMovementMultiplayer : MonoBehaviour
             initLeftPos = currLeftPos;
             initRightPos = currRightPos;
             initPlayerPos = currPlayerPos;
+            initHeadsetPos = currHeadsetPos;
         }
         else 
         {
             initPlayerPos = rig.transform.position;
             initLeftPos = LeftHand.position;
             initRightPos = RightHand.position;
+            initHeadsetPos = currHeadsetPos;
         }
     }
 
@@ -200,5 +226,10 @@ public class RunningMovementMultiplayer : MonoBehaviour
             }
         }
         return false;
+    }
+
+    bool isGrounded()
+    {
+        return Physics.CheckSphere(groundCheck.position, 0.05f, ground);
     }
 }
