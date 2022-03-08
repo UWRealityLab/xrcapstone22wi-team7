@@ -83,10 +83,11 @@ public class ClimbingMovement : MonoBehaviour
             Climbing = true;
             ClimbingContainer.transform.position = climbingHand.transform.position;
             offset = climbingHand.GetComponent<HandPhysicalMovement>().offset;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             climbingHand.isGrabbing = true;
             runningMovement.enabled = false;
+            
         }
     }
 
@@ -99,7 +100,7 @@ public class ClimbingMovement : MonoBehaviour
             ActiveHand = LeftHand;
             Climbing = true;
             ClimbingContainer.transform.position = LeftHand.transform.position;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = true;
@@ -113,7 +114,7 @@ public class ClimbingMovement : MonoBehaviour
             ActiveHand = RightHand;
             Climbing = true;
             ClimbingContainer.transform.position = RightHand.transform.position;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = true;
             LeftHand.isGrabbing = false;
@@ -124,7 +125,7 @@ public class ClimbingMovement : MonoBehaviour
         // Executes if neither hands are grabbing an object
         ClimbingContainer.connectedBody = null;
         Climbing = false;
-        movedRigidbody.useGravity = true;
+        // movedRigidbody.useGravity = true;
         ActiveHand = null;
         handSide = null;
         RightHand.isGrabbing = false;
@@ -141,21 +142,21 @@ public class ClimbingMovement : MonoBehaviour
             ActiveHand = RightHand;
             Climbing = true;
             ClimbingContainer.transform.position = RightHand.transform.position;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = true;
-            runningMovement.enabled = false;
+            // runningMovement.enabled = false;
         }
         if (rightButton.action.ReadValue<float>() == 1 && leftButton.action.ReadValue<float>() == 0 && RightHand.isGrabbing)
         {
             ActiveHand = RightHand;
             Climbing = true;
             ClimbingContainer.transform.position = RightHand.transform.position;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = true;
             LeftHand.isGrabbing = false;
-            runningMovement.enabled = false;
+            // runningMovement.enabled = false;
             eachHandHolds = false;
         }
         if (leftButton.action.ReadValue<float>() == 1 && LeftHand.touchCount != 0)
@@ -163,44 +164,44 @@ public class ClimbingMovement : MonoBehaviour
             ActiveHand = LeftHand;
             Climbing = true;
             ClimbingContainer.transform.position = LeftHand.transform.position;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             LeftHand.isGrabbing = true;
-            runningMovement.enabled = false;
+            // runningMovement.enabled = false;
         }
         if (rightButton.action.ReadValue<float>() == 0 && leftButton.action.ReadValue<float>() == 1 && LeftHand.isGrabbing)
         {
             ActiveHand = LeftHand;
             Climbing = true;
             ClimbingContainer.transform.position = LeftHand.transform.position;
-            movedRigidbody.useGravity = false;
+            // movedRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = true; ;
-            runningMovement.enabled = false;
+            // runningMovement.enabled = false;
             eachHandHolds = false;
         }
         if (leftButton.action.ReadValue<float>() == 0 && rightButton.action.ReadValue<float>() == 1 && LeftHand.isGrabbing && eachHandHolds)
         {
             ClimbingContainer.connectedBody = null;
             Climbing = false;
-            movedRigidbody.useGravity = true;
+            // movedRigidbody.useGravity = true;
             ActiveHand = null;
             handSide = null;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = false;
-            runningMovement.enabled = true;
+            // runningMovement.enabled = true;
         }
         if (rightButton.action.ReadValue<float>() == 0 && leftButton.action.ReadValue<float>() == 1 && RightHand.isGrabbing && eachHandHolds)
         {
             ClimbingContainer.connectedBody = null;
             Climbing = false;
-            movedRigidbody.useGravity = true;
+            // movedRigidbody.useGravity = true;
             ActiveHand = null;
             handSide = null;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = false;
-            runningMovement.enabled = true;
+            // runningMovement.enabled = true;
         }
         if (rightButton.action.ReadValue<float>() == 1 && leftButton.action.ReadValue<float>() == 1)
         {
@@ -210,12 +211,12 @@ public class ClimbingMovement : MonoBehaviour
         {
             ClimbingContainer.connectedBody = null;
             Climbing = false;
-            movedRigidbody.useGravity = true;
+            // movedRigidbody.useGravity = true;
             ActiveHand = null;
             handSide = null;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = false;
-            runningMovement.enabled = true;
+            // runningMovement.enabled = true;
             eachHandHolds = false;
         }
     }

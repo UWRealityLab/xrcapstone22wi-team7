@@ -11,6 +11,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
 
     private PhotonView photonView;
     private PlayerInteraction playerInteraction;
+    private ClimbingMovement climbingMovement;
     private PlayerPowerup playerPowerup;
 
     // Headset, controller, and container game objects
@@ -54,6 +55,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
             RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
         }
         playerInteraction = GetComponent<PlayerInteraction>();
+        climbingMovement = GetComponent<ClimbingMovement>();
         playerPowerup = GetComponent<PlayerPowerup>();
 
         if (photonView.IsMine) 
@@ -68,6 +70,18 @@ public class RunningMovementMultiplayer : MonoBehaviour
     public void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        rig = FindObjectOfType<XROrigin>();
+        if (rig != null)
+        {
+            MainCamera = rig.transform.Find("Camera Offset/Main Camera");
+            LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
+            RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+            rig.GetComponent<ClimbingMovement>().player = gameObject;
+            initPlayerPos = rig.transform.position;
+            initLeftPos = LeftHand.position;
+            initRightPos = RightHand.position;
+            Debug.Log("Running initial position reset!");
+        }
     }
 
     public void OnDisable()
@@ -103,9 +117,9 @@ public class RunningMovementMultiplayer : MonoBehaviour
             rig.GetComponent<ClimbingMovement>().player = gameObject;
         }
 
-        Debug.Log(photonView == null);
-        Debug.Log(playerInteraction == null);
-        if (photonView.IsMine && !playerInteraction.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing)
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Debug.Log(climbingMovement.Climbing);
+        if (photonView.IsMine && !playerInteraction.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing && !climbingMovement.Climbing)
         {
             // Powerup: SpeedUp
             float currentSpeed;
@@ -173,6 +187,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
             initRightPos = RightHand.position;
         }
     }
+
 
     public bool OnSlope()
     {
