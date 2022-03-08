@@ -48,6 +48,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     private bool resetPosition;
 
     private PlayerInteraction playerInteraction;
+    private ClimbingMovement climbingMovement;
     private PlayerPowerup playerPowerup;
     private Collider startLine;
     public TextMeshProUGUI movingState;
@@ -66,6 +67,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         MainCamera = rig.transform.Find("Camera Offset/Main Camera");
         LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
         RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+        climbingMovement = rig.GetComponent<ClimbingMovement>();
         playerInteraction = gameObject.GetComponent<PlayerInteraction>();
         playerPowerup = gameObject.GetComponent<PlayerPowerup>();
         if (photonView.IsMine)
@@ -130,6 +132,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
                 MainCamera = rig.transform.Find("Camera Offset/Main Camera");
                 LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
                 RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+                climbingMovement = rig.GetComponent<ClimbingMovement>();
             }
 
             // Get current position coordinates
@@ -215,6 +218,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         if (photonView.IsMine)
             movingState.text = "";
+        climbingMovement.Reset();
         playerInteraction.stopped = false;
         Teleport t = gameObject.GetComponent<Teleport>();
         if (t != null) // if it's a player

@@ -21,6 +21,7 @@ public class ClimbingMovement : MonoBehaviour
     public ClimberHand ActiveHand;
     public string handSide = null;
     public Rigidbody movedRigidbody;
+    public Rigidbody gravityRigidbody;
     public bool eachHandHolds = false;
     public GameObject player;
 
@@ -47,7 +48,10 @@ public class ClimbingMovement : MonoBehaviour
         foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (player.GetComponent<PhotonView>().IsMine)
+            {
                 runningMovement = player.GetComponent<RunningMovementMultiplayer>();
+                gravityRigidbody = player.GetComponent<Rigidbody>();
+            }
         }
     }
 
@@ -60,7 +64,10 @@ public class ClimbingMovement : MonoBehaviour
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
                 if (player.GetComponent<PhotonView>().IsMine)
+                {
                     runningMovement = player.GetComponent<RunningMovementMultiplayer>();
+                    gravityRigidbody = player.GetComponent<Rigidbody>();
+                }
             }
         }
 
@@ -83,7 +90,7 @@ public class ClimbingMovement : MonoBehaviour
             Climbing = true;
             ClimbingContainer.transform.position = climbingHand.transform.position;
             offset = climbingHand.GetComponent<HandPhysicalMovement>().offset;
-            // movedRigidbody.useGravity = false;
+            gravityRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             climbingHand.isGrabbing = true;
             runningMovement.enabled = false;
@@ -100,7 +107,7 @@ public class ClimbingMovement : MonoBehaviour
             ActiveHand = LeftHand;
             Climbing = true;
             ClimbingContainer.transform.position = LeftHand.transform.position;
-            // movedRigidbody.useGravity = false;
+            gravityRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = true;
@@ -114,7 +121,7 @@ public class ClimbingMovement : MonoBehaviour
             ActiveHand = RightHand;
             Climbing = true;
             ClimbingContainer.transform.position = RightHand.transform.position;
-            // movedRigidbody.useGravity = false;
+            gravityRigidbody.useGravity = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = true;
             LeftHand.isGrabbing = false;
@@ -125,7 +132,7 @@ public class ClimbingMovement : MonoBehaviour
         // Executes if neither hands are grabbing an object
         ClimbingContainer.connectedBody = null;
         Climbing = false;
-        // movedRigidbody.useGravity = true;
+        gravityRigidbody.useGravity = true;
         ActiveHand = null;
         handSide = null;
         RightHand.isGrabbing = false;
@@ -134,6 +141,20 @@ public class ClimbingMovement : MonoBehaviour
         eachHandHolds = false;
     }
 
+    public void Reset()
+    {
+        ClimbingContainer.connectedBody = null;
+        Climbing = false;
+        gravityRigidbody.useGravity = true;
+        ActiveHand = null;
+        handSide = null;
+        RightHand.isGrabbing = false;
+        LeftHand.isGrabbing = false;
+        runningMovement.enabled = true;
+        eachHandHolds = false;
+    }
+
+    /*
     // updateHand is called when the user presses/releases a button (i.e. is grabbing/releasing an object)
     public void updateHand(ClimberHand climbingHand)
     {
@@ -220,4 +241,5 @@ public class ClimbingMovement : MonoBehaviour
             eachHandHolds = false;
         }
     }
+    */
 }

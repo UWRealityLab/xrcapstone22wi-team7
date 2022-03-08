@@ -33,6 +33,7 @@ public class Teleport : MonoBehaviour
         {
             StartLine startLineScript = GameObject.FindGameObjectWithTag("StartLine").GetComponent<StartLine>();
             XROrigin rig = FindObjectOfType<XROrigin>();
+            rig.GetComponent<ClimbingMovement>().Reset();
             Vector3 position = startLineScript.GetNextPos();
             gameObject.transform.position = new Vector3(position.x, position.y, position.z);
             rig.transform.position = new Vector3(position.x, position.y, position.z);

@@ -132,9 +132,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
             rig.GetComponent<ClimbingMovement>().player = gameObject;
         }
 
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        Debug.Log(climbingMovement.Climbing);
-        if (photonView.IsMine && !playerInteraction.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing && !climbingMovement.Climbing)
+        if (photonView.IsMine && !playerInteraction.stopped && LeftRunningContainer != null && GameManager.gameStage == GameStage.Playing)
         {
             // Powerup: SpeedUp
             float currentSpeed;
