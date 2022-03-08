@@ -1442,7 +1442,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
@@ -1740,6 +1740,7 @@ MonoBehaviour:
   ActiveHand: {fileID: 0}
   handSide: 
   movedRigidbody: {fileID: -7270375831412029562}
+  gravityRigidbody: {fileID: 0}
   eachHandHolds: 0
   player: {fileID: 0}
 --- !u!114 &1280638440439920029
