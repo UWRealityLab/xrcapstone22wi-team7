@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour, IPunObservable
             playerNum = players.Length;
             Debug.Log("Starting the game");
             startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
-            CreateBots();
+            // CreateBots();
             StartCoroutine(StartingGame());
         }
     }
