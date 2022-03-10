@@ -1772,7 +1772,7 @@ MonoBehaviour:
   MainCamera: {fileID: 0}
   LeftRowingContainer: {fileID: 1574509008}
   RightRowingContainer: {fileID: 2011617098}
-  speed: 120
+  speed: 180
 --- !u!1 &3635936008634394327
 GameObject:
   m_ObjectHideFlags: 0

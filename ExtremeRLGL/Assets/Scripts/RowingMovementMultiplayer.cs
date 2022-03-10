@@ -30,7 +30,7 @@ public class RowingMovementMultiplayer : MonoBehaviour
     private Vector3 currPlayerPos;
 
     // Speed variable to determine how far the player moves forward
-    public float speed = 120;
+    public float speed = 180;
 
     private XROrigin rig;
     private bool leftOrRight = false;
