@@ -1442,7 +1442,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4
+    m_Bits: 0
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
@@ -1677,10 +1677,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.416788
-  m_Height: 2.638524
+  m_Radius: 0.4812868
+  m_Height: 2.7036417
   m_Direction: 1
-  m_Center: {x: 0.01756525, y: 1.3273385, z: -0.014361064}
+  m_Center: {x: 0.01756525, y: 1.3598975, z: -0.014361064}
 --- !u!114 &8824185701360900147
 MonoBehaviour:
   m_ObjectHideFlags: 0

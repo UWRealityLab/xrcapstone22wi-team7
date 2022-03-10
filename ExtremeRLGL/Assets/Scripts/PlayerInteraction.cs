@@ -28,11 +28,21 @@ public class PlayerInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // getting interaction manager
+        XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
+        simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
+
         photonView = PhotonView.Get(this);
         if (photonView.IsMine)
         {
             // Only show debug text for your player
             debugText.gameObject.SetActive(true);
+
+            // don't interact with your own player
+            simple.interactionLayers = InteractionLayerMask.GetMask("Self");
+        } else
+        {
+            simple.interactionLayers = InteractionLayerMask.GetMask("Pushing");
         }
 
         // Set up cameras
@@ -43,10 +53,6 @@ public class PlayerInteraction : MonoBehaviour
         fallenCamera.enabled = false;
         stopped = false;
 
-        // getting interaction manager
-        XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
-        simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
-
         playerPowerup = GetComponent<PlayerPowerup>();
     }
 
@@ -54,9 +60,18 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         // getting interaction manager again in case of scene change
-        // TODO: clean up code/make it so it doesn't always have to do this
+        // maybe clean up code/make it so it doesn't always have to do this
         XRSimpleInteractable simple = FindObjectOfType<XRSimpleInteractable>();
         simple.interactionManager = GameObject.Find("XR Interaction Manager").GetComponent<XRInteractionManager>();
+        if (photonView.IsMine)
+        {
+            // don't interact with your own player
+            simple.interactionLayers = InteractionLayerMask.GetMask("Self");
+        }
+        else
+        {
+            simple.interactionLayers = InteractionLayerMask.GetMask("Pushing");
+        }
     }
 
     public void startNetworkedPush()
@@ -134,7 +149,7 @@ public class PlayerInteraction : MonoBehaviour
             // Stop body from moving (stop tracking position) and rotate it so it "falls"
             animator.SetBool("isMoving", false);
             stopped = true;
-            playerBody.transform.Rotate(90, 0, 0, Space.Self);
+            playerBody.transform.Rotate(83, 0, 0, Space.Self);
 
             yield return new WaitForSeconds(seconds);
 
@@ -146,7 +161,7 @@ public class PlayerInteraction : MonoBehaviour
                 mainCamera.enabled = true;
             }
             // Undo rotation and re-track movement
-            playerBody.transform.Rotate(-90, 0, 0, Space.Self);
+            playerBody.transform.Rotate(-83, 0, 0, Space.Self);
             stopped = false;
             
         }
