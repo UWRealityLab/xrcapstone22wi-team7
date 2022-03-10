@@ -51,6 +51,7 @@ public class ClimbingMovement : MonoBehaviour
             {
                 runningMovement = player.GetComponent<RunningMovementMultiplayer>();
                 gravityRigidbody = player.GetComponent<Rigidbody>();
+                // movedRigidbody = gravityRigidbody;
             }
         }
     }
@@ -71,7 +72,7 @@ public class ClimbingMovement : MonoBehaviour
             }
         }
 
-        if (Climbing)
+        if (Climbing && GameManager.gameStage == GameStage.Playing)
         {
             // Calculates the target position of the climbing container based on the ActiveHand, floatingHand, and offset variables
             var activeHandBuff = ClimbingContainer.transform.position - ActiveHand.floatingHand.position + ActiveHand.floatingHand.forward * -offset.magnitude;
@@ -91,6 +92,7 @@ public class ClimbingMovement : MonoBehaviour
             ClimbingContainer.transform.position = climbingHand.transform.position;
             offset = climbingHand.GetComponent<HandPhysicalMovement>().offset;
             gravityRigidbody.useGravity = false;
+            //gravityRigidbody.GetComponent<Collider>().enabled = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             climbingHand.isGrabbing = true;
             runningMovement.enabled = false;
@@ -108,6 +110,7 @@ public class ClimbingMovement : MonoBehaviour
             Climbing = true;
             ClimbingContainer.transform.position = LeftHand.transform.position;
             gravityRigidbody.useGravity = false;
+            //gravityRigidbody.GetComponent<Collider>().enabled = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = false;
             LeftHand.isGrabbing = true;
@@ -122,6 +125,7 @@ public class ClimbingMovement : MonoBehaviour
             Climbing = true;
             ClimbingContainer.transform.position = RightHand.transform.position;
             gravityRigidbody.useGravity = false;
+            //gravityRigidbody.GetComponent<Collider>().enabled = false;
             ClimbingContainer.connectedBody = movedRigidbody;
             RightHand.isGrabbing = true;
             LeftHand.isGrabbing = false;
@@ -133,6 +137,7 @@ public class ClimbingMovement : MonoBehaviour
         ClimbingContainer.connectedBody = null;
         Climbing = false;
         gravityRigidbody.useGravity = true;
+        //gravityRigidbody.GetComponent<Collider>().enabled = true;
         ActiveHand = null;
         handSide = null;
         RightHand.isGrabbing = false;
@@ -146,6 +151,7 @@ public class ClimbingMovement : MonoBehaviour
         ClimbingContainer.connectedBody = null;
         Climbing = false;
         gravityRigidbody.useGravity = true;
+        //gravityRigidbody.GetComponent<Collider>().enabled = true;
         ActiveHand = null;
         handSide = null;
         RightHand.isGrabbing = false;

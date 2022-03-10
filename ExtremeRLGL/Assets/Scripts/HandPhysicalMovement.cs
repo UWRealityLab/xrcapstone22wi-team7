@@ -40,7 +40,7 @@ public class HandPhysicalMovement : MonoBehaviour
     }
 
     // FixedUpdate is called every fixed frame-rate frame
-    void FixedUpdate(){
+    void Update(){
         updateHand(Time.deltaTime);
         reduceJitter();
     }
@@ -48,22 +48,26 @@ public class HandPhysicalMovement : MonoBehaviour
     // updateHand is called every fixed frame-rate frame
     void updateHand(float deltaTime){
         // Only apply velocity when we are actually climbing
-        //if (climbingMovement.Climbing)
-        //{
+        if (!GetComponent<ClimberHand>().isGrabbing)
+        {
 
             // Executes if the position is being tracked
             if (trackPos)
             {
-                rigidBody.velocity *= (1f - velocityDamping);
-                var deltaPos = targetAttach.position - m_TargetToMove.position + Vector3.Scale(m_TargetToMove.forward, offset);
-                var velocity = deltaPos / deltaTime;
-                if (!float.IsNaN(velocity.x))
-                    rigidBody.velocity += (velocity * velocityScale);
+                /*
+        rigidBody.velocity *= (1f - velocityDamping);
+        var deltaPos = targetAttach.position - m_TargetToMove.position + Vector3.Scale(m_TargetToMove.forward, offset);
+        var velocity = deltaPos / deltaTime;
+        if (!float.IsNaN(velocity.x))
+            rigidBody.velocity += (velocity * velocityScale);
+    */
+                rigidBody.transform.position = gameObject.transform.position;
             }
 
             // Executes if the rotation is being tracked
             if (trackRot)
             {
+           /*
                 rigidBody.angularVelocity *= (1f - angVelocityDamping);
                 var deltaRot = targetAttach.rotation * Quaternion.Inverse(m_TargetToMove.rotation);
                 deltaRot.ToAngleAxis(out var angle, out var axis);
@@ -75,8 +79,10 @@ public class HandPhysicalMovement : MonoBehaviour
                     if (!float.IsNaN(angVel.x))
                         rigidBody.angularVelocity += (angVel * angVelocityScale);
                 }
+            */
+            rigidBody.transform.rotation = gameObject.transform.rotation;
             }
-        //}
+        }
     }
 
     // reduceJitter is called every fixed frame-rate frame
