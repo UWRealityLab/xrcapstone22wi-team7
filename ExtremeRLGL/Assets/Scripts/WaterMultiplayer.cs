@@ -33,20 +33,18 @@ public class WaterMultiplayer : MonoBehaviour
     {
         if (photonView.IsMine && GameManager.gameStage == GameStage.Playing)
         {
-            // Executes if this collider touches an object with the "water" tag
+            // Executes if this collider touches an object with the "RowingStart" tag
             if (other.gameObject.CompareTag("RowingStart"))
             {
-                // GameObject.FindGameObjectWithTag("Water").GetComponent<Renderer>().material.color = Color.green;
                 runningMovement.enabled = false;
                 rowingMovement.enabled = true;
                 photonView.RPC("showBoat", RpcTarget.All);
                 boatCollider.enabled = true;
             }
 
-            // Executes if this collider touches an object with the "water" tag
+            // Executes if this collider touches an object with the "RowingEnd" tag
             if (other.gameObject.CompareTag("RowingEnd"))
             {
-                // GameObject.FindGameObjectWithTag("Water").GetComponent<Renderer>().material.color = Color.green;
                 runningMovement.enabled = true;
                 rowingMovement.enabled = false;
                 photonView.RPC("hideBoat", RpcTarget.All);
@@ -54,23 +52,6 @@ public class WaterMultiplayer : MonoBehaviour
             }
         }
     }
-
-
-    //// OnTriggerExit is called when the Collider has stopped touching the trigger.
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (photonView.IsMine && GameManager.gameStage == GameStage.Playing)
-    //    {
-    //        // Executes if this collider touches an object with the "water" tag
-    //        if (other.gameObject.CompareTag("Water"))
-    //        {
-    //            // GameObject.FindGameObjectWithTag("Water").GetComponent<Renderer>().material.color = Color.red;
-    //            runningMovement.enabled = true;
-    //            rowingMovement.enabled = false;
-    //            photonView.RPC("hideBoat", RpcTarget.All);
-    //        }
-    //    }
-    //}
 
     [PunRPC]
     private void showBoat()
