@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class BotControl : MonoBehaviour
 {
-    public float speed;
+    public float speedMean;
+    public float speedStd;
+    private float speed;
     public double moveChance;
     public float moveDistanceMean;
     public float moveDistanceStd;
+    private Collider targetCollider;
     private Collider goalCollider;
-    private Vector3 goal;
+    private Collider[] checkpointColliders;
+    public int checkpointIdx = 0;
+    private Vector3 target;
     private bool moved;
     private PhotonView photonView;
     private PlayerInteraction playerInteraction;
@@ -26,8 +31,15 @@ public class BotControl : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         playerInteraction = GetComponent<PlayerInteraction>();
+        checkpointIdx = 0;
+        speed = GetRandomDistance(speedMean, speedStd);
+        goalCollider = GameObject.FindGameObjectWithTag("Goal").GetComponent<Collider>();
+        checkpointColliders = GameObject.Find("Checkpoints").GetComponentsInChildren<Collider>();
+        Debug.Log("Coliders lenght = " + checkpointColliders.Length);
+        moved = false;
     }
 
+    /*
     public void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -38,19 +50,16 @@ public class BotControl : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         goalCollider = GameObject.FindGameObjectWithTag("Goal").GetComponent<Collider>();
-        if (goalCollider != null)
-        {
-            goal = new Vector3(
-                Random.Range(goalCollider.bounds.min.x, goalCollider.bounds.max.x),
-                Random.Range(goalCollider.bounds.min.y, goalCollider.bounds.max.y),
-                Random.Range(goalCollider.bounds.min.z, goalCollider.bounds.max.z)
-            );
-        }
+        checkpointColliders = GameObject.Find("Checkpoints").GetComponentsInChildren<Collider>();
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Debug.Log("Lenght = " + checkpointColliders.Length);
         moved = false;
     }
+    */
 
     // Update is called once per frame
     void Update()
@@ -61,28 +70,31 @@ public class BotControl : MonoBehaviour
             Debug.Log("Tried to find start line");
         }
 
-        if (goalCollider == null)
+
+        if (checkpointColliders == null || goalCollider == null)
         {
             goalCollider = GameObject.FindGameObjectWithTag("Goal").GetComponent<Collider>();
-            if (goalCollider != null)
-            {
-                goal = new Vector3(
-                    Random.Range(goalCollider.bounds.min.x, goalCollider.bounds.max.x),
-                    Random.Range(goalCollider.bounds.min.y, goalCollider.bounds.max.y),
-                    Random.Range(goalCollider.bounds.min.z, goalCollider.bounds.max.z)
-                );
-            }
+            checkpointColliders = GameObject.Find("Checkpoints").GetComponentsInChildren<Collider>();
+            
         }
-        else if (photonView.IsMine && GameManager.gameStage == GameStage.Playing)
+        else if (PhotonNetwork.IsMasterClient && GameManager.gameStage == GameStage.Playing)
         {
-            Vector3 direction = goal - transform.position;
+            targetCollider = checkpointIdx < checkpointColliders.Length ? checkpointColliders[checkpointIdx] : goalCollider;
+            target = new Vector3(
+                Random.Range(targetCollider.bounds.min.x, targetCollider.bounds.max.x),
+                Random.Range(targetCollider.bounds.min.y, targetCollider.bounds.max.y),
+                Random.Range(targetCollider.bounds.min.z, targetCollider.bounds.max.z)
+            );
+
+            Vector3 direction = target - transform.position;
+            direction.Normalize();
             if (LightManager.RedlightAllOn())
             {
-                System.Random random = new System.Random();
+                System.Random random = new System.Random(gameObject.GetInstanceID());
                 double currentP = random.NextDouble();
                 if (currentP < moveChance && !moved)
                 {
-                    Debug.Log("Random Number we got is, " + currentP);
+                    Debug.Log("Robot moved");
                     OnMoved();
                 }
                 moved = true;
@@ -90,14 +102,22 @@ public class BotControl : MonoBehaviour
             else if (!playerInteraction.stopped)
             {
                 transform.Translate(direction * Time.deltaTime * speed);
+                if (checkpointIdx == 0)
+                {
+                    System.Random random = new System.Random(gameObject.GetInstanceID());
+                    double currentP = random.NextDouble();
+                    if (currentP < 0.005)
+                    {
+                        GetComponent<Rigidbody>().AddForce(Vector3.up * 2, ForceMode.Impulse);
+                    }
+                }
                 moved = false;
             }
             else
             {
                 moved = false;
             }
-
-        }
+        } 
     }
 
     private void OnMoved()
@@ -117,11 +137,12 @@ public class BotControl : MonoBehaviour
         );
         playerInteraction.stopped = false;
         gameObject.transform.position = randomPoint;
+        checkpointIdx = 0;
     }
 
     private float GetRandomDistance(double mean, double stdDev)
     {
-        System.Random rand = new System.Random(); //reuse this if you are generating many
+        System.Random rand = new System.Random(gameObject.GetInstanceID()); //reuse this if you are generating many
         double u1 = 1.0 - rand.NextDouble(); //uniform(0,1] random doubles
         double u2 = 1.0 - rand.NextDouble();
         double randStdNormal = System.Math.Sqrt(-2.0 * System.Math.Log(u1)) *
@@ -129,5 +150,18 @@ public class BotControl : MonoBehaviour
         double randNormal =
                      mean + stdDev * randStdNormal; //random normal(mean,stdDev^2)
         return (float)randNormal;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (PhotonNetwork.IsMasterClient && collision.transform.CompareTag("Checkpoint")) 
+        {
+            checkpointIdx += 1;
+            if (checkpointIdx == 1)
+                GetComponent<Rigidbody>().useGravity = false;
+            if (checkpointIdx == 3)
+                GetComponent<Rigidbody>().useGravity = true;
+            Debug.Log("checkpoint change triggered!");
+        }
     }
 }

@@ -63,7 +63,7 @@ public class Rock : MonoBehaviour, IPunObservable
                 PhotonNetwork.Destroy(gameObject);
                 Debug.Log("Rock collided!");
             }
-            else if (other.layer == LayerMask.NameToLayer("Self"))
+            else if (other.layer == LayerMask.NameToLayer("Self") || other.CompareTag("Bot"))
             {
                 Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
             }
