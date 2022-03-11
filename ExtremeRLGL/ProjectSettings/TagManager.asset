@@ -16,6 +16,7 @@ TagManager:
   - Bullet
   - RowingStart
   - RowingEnd
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

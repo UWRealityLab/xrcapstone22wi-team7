@@ -37,6 +37,7 @@ public class ClimbingMovement : MonoBehaviour
         // Executes if the left or right buttons are pressed
         if (rightButton.action != null) rightButton.action.Enable();
         if (leftButton.action != null) leftButton.action.Enable();
+        Reset();
     }
 
     // Start is called before the first frame update
@@ -78,6 +79,10 @@ public class ClimbingMovement : MonoBehaviour
             var activeHandBuff = ClimbingContainer.transform.position - ActiveHand.floatingHand.position + ActiveHand.floatingHand.forward * -offset.magnitude;
             ClimbingContainer.targetPosition = -((ActiveHand.transform.position + activeHandBuff) - transform.position);
             player.transform.position = gameObject.transform.position;
+        }
+        else
+        {
+            Reset();
         }
     }
 
