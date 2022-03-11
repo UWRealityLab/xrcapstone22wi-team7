@@ -46,6 +46,8 @@ MonoBehaviour:
   - pushPlayer
   - updateDebugText
   - AllPlayerBack
+  - hideBoat
+  - showBoat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
