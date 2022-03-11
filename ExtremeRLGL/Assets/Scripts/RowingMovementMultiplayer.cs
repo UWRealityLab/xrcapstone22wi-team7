@@ -123,22 +123,22 @@ public class RowingMovementMultiplayer : MonoBehaviour
             if (leftOrRight)
                 if (leftDistX < 0 && rightDistX < 0)
                 {
-                    rig.transform.position -= LeftRowingContainer.transform.forward * (leftDistX + rightDistX) * speed * Time.deltaTime;
+                    gameObject.transform.position -= LeftRowingContainer.transform.forward * (leftDistX + rightDistX) * speed * Time.deltaTime;
                 }
             if (leftDistY < 0 && rightDistY < 0)
             {
-                rig.transform.position -= LeftRowingContainer.transform.forward * (leftDistY + rightDistY) * speed * Time.deltaTime;
+                gameObject.transform.position -= LeftRowingContainer.transform.forward * (leftDistY + rightDistY) * speed * Time.deltaTime;
             }
             else
             if (leftDistX < 0 && rightDistX < 0)
             {
-                rig.transform.position -= RightRowingContainer.transform.forward * (leftDistX + rightDistX) * speed * Time.deltaTime;
+                gameObject.transform.position -= RightRowingContainer.transform.forward * (leftDistX + rightDistX) * speed * Time.deltaTime;
             }
             if (leftDistY < 0 && rightDistY < 0)
             {
-                rig.transform.position -= RightRowingContainer.transform.forward * (leftDistY + rightDistY) * speed * Time.deltaTime;
+                gameObject.transform.position -= RightRowingContainer.transform.forward * (leftDistY + rightDistY) * speed * Time.deltaTime;
             }
-            gameObject.transform.position = rig.transform.position;
+            rig.transform.position = gameObject.transform.position;
 
             leftOrRight = !leftOrRight;
 

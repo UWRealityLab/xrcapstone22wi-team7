@@ -13,6 +13,9 @@ TagManager:
   - Terrain
   - Climbable
   - Powerup
+  - Bullet
+  - RowingStart
+  - RowingEnd
   layers:
   - Default
   - TransparentFX
