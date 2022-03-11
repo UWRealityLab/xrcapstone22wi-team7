@@ -7,7 +7,7 @@ public enum PowerUpType
 {
     SPEED_UP,
     UNSTOPPABLE,
-    INVINCIBLE
+    INVINCIBLE,
 }
 
 public class PlayerPowerup : MonoBehaviour
@@ -25,7 +25,12 @@ public class PlayerPowerup : MonoBehaviour
             powerupStates.Add(PowerUpType.SPEED_UP, new PowerUpState(PowerUpType.SPEED_UP));
             powerupStates.Add(PowerUpType.UNSTOPPABLE, new PowerUpState(PowerUpType.UNSTOPPABLE));
             powerupStates.Add(PowerUpType.INVINCIBLE, new PowerUpState(PowerUpType.INVINCIBLE));
+
+            // Set player to layer
+            gameObject.SetLayerRecursively(LayerMask.NameToLayer("Self"));
         }
+
+       
     }
 
     // Update is called once per frame
@@ -90,7 +95,6 @@ public class PlayerPowerup : MonoBehaviour
             }
             thread = EffectDying(time);
             Debug.Log("PowerUpState Initialized");
-            Debug.Log(thread);
         }
 
         public void StartEffect(PlayerPowerup script)

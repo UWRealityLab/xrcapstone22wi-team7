@@ -58,7 +58,7 @@ public class ClimbingMovement : MonoBehaviour
 
 
     // FixedUpdate is called every fixed frame-rate frame
-    void FixedUpdate()
+    void Update()
     {
         if (runningMovement == null)
         {

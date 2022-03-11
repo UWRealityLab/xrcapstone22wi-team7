@@ -210,6 +210,9 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         playerInteraction.stopped = true;
         StartCoroutine(MovePlayer());
         triggered = true;
+        if (rig == null)
+            rig = FindObjectOfType<XROrigin>();
+        rig.GetComponent<Flash>().StartFlash(Color.red, 1f);
         Debug.Log("You moved!");
     }
 

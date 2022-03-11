@@ -151,6 +151,8 @@ public class PlayerInteraction : MonoBehaviour
             stopped = true;
             playerBody.transform.Rotate(83, 0, 0, Space.Self);
 
+            GetComponent<ClimbingMovement>().Reset();
+
             yield return new WaitForSeconds(seconds);
 
             if (!isRobot)

@@ -10,11 +10,9 @@ using Photon.Pun;
 public class Powerup : MonoBehaviour
 {
     public PowerUpType type;
-    private bool grabbable;
     // Start is called before the first frame update
     void Start()
     {
-        grabbable = gameObject.GetComponent<XRGrabInteractable>() == null;
     }
 
     // Update is called once per frame

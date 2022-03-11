@@ -33,18 +33,13 @@ public class StartLine : MonoBehaviour, IPunObservable
         float longest = -1;
         for (int i = 0; i < 3; i++)
         {
-            Debug.Log("size" + i + " :" + size[i]);
             if (size[i] > longest)
             {
-                Debug.Log("Bigger");
                 longest = size[i];
                 coordinateIdx = i;
             }
         }
-        Debug.Log("Longest length: " + longest);
-        Debug.Log("Player width: " + playerWidth);
         length = (int)(longest / playerWidth);
-        Debug.Log("Startline spaces " + length);
     }
 
     // Update is called once per frame
