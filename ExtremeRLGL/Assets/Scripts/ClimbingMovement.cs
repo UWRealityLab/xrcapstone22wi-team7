@@ -61,7 +61,7 @@ public class ClimbingMovement : MonoBehaviour
     // FixedUpdate is called every fixed frame-rate frame
     void Update()
     {
-        if (runningMovement == null)
+        if (runningMovement == null || gravityRigidbody == null)
         {
             foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
             {
@@ -79,10 +79,6 @@ public class ClimbingMovement : MonoBehaviour
             var activeHandBuff = ClimbingContainer.transform.position - ActiveHand.floatingHand.position + ActiveHand.floatingHand.forward * -offset.magnitude;
             ClimbingContainer.targetPosition = -((ActiveHand.transform.position + activeHandBuff) - transform.position);
             player.transform.position = gameObject.transform.position;
-        }
-        else
-        {
-            Reset();
         }
     }
 
@@ -141,7 +137,7 @@ public class ClimbingMovement : MonoBehaviour
         // Executes if neither hands are grabbing an object
         ClimbingContainer.connectedBody = null;
         Climbing = false;
-        gravityRigidbody.useGravity = true;
+        
         //gravityRigidbody.GetComponent<Collider>().enabled = true;
         ActiveHand = null;
         handSide = null;
@@ -149,13 +145,24 @@ public class ClimbingMovement : MonoBehaviour
         LeftHand.isGrabbing = false;
         runningMovement.enabled = true;
         eachHandHolds = false;
+        if (gravityRigidbody != null)
+        {
+            gravityRigidbody.velocity = Vector3.zero;
+            gravityRigidbody.useGravity = true;
+        } 
+        if (movedRigidbody != null)
+            movedRigidbody.velocity = Vector3.zero;
     }
 
     public void Reset()
     {
         ClimbingContainer.connectedBody = null;
         Climbing = false;
-        gravityRigidbody.useGravity = true;
+        if (gravityRigidbody != null)
+        {
+            gravityRigidbody.velocity = Vector3.zero;
+            gravityRigidbody.useGravity = true;
+        }
         //gravityRigidbody.GetComponent<Collider>().enabled = true;
         ActiveHand = null;
         handSide = null;
@@ -163,6 +170,8 @@ public class ClimbingMovement : MonoBehaviour
         LeftHand.isGrabbing = false;
         runningMovement.enabled = true;
         eachHandHolds = false;
+        if (movedRigidbody != null)
+            movedRigidbody.velocity = Vector3.zero;
     }
 
     /*

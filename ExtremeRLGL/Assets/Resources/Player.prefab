@@ -928,7 +928,7 @@ MonoBehaviour:
   trackPos: 1
   trackRot: 1
   rigidBody: {fileID: 0}
-  climbingMovement: {fileID: 8824185701360900147}
+  climbingMovement: {fileID: 0}
   velocityDamping: 1
   angVelocityDamping: 1
   velocityScale: 0.5
@@ -1207,7 +1207,6 @@ GameObject:
   - component: {fileID: 5957077921387222760}
   - component: {fileID: 4391274867294604247}
   - component: {fileID: 1225785165982339643}
-  - component: {fileID: 8824185701360900147}
   - component: {fileID: 1280638440439920029}
   - component: {fileID: 3496105045247069512}
   m_Layer: 0
@@ -1682,68 +1681,6 @@ CapsuleCollider:
   m_Height: 2.7036417
   m_Direction: 1
   m_Center: {x: 0.01756525, y: 1.3598975, z: -0.014361064}
---- !u!114 &8824185701360900147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3601322046471784877}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e29ec4dd36e3e54a8cf1d6117fc71a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RightHand: {fileID: 4648139833247439219}
-  LeftHand: {fileID: 8771009859516871548}
-  rightButton:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Right Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: b32ca7bb-c8e0-46db-8da0-9e238e35dbd7
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: c0729dcc-dd18-4854-817b-b9af040e2847
-        m_Path: <XRController>{RightHand}/grip
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Right Button
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  leftButton:
-    m_UseReference: 0
-    m_Action:
-      m_Name: Left Button
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 98f4e7a9-da55-43fb-bac9-e6c44c7a4ac9
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: 8b83d75f-9bb9-4791-9b2d-3d961262ac1e
-        m_Path: <XRController>{LeftHand}/grip
-        m_Interactions: 
-        m_Processors: 
-        m_Groups: 
-        m_Action: Left Button
-        m_Flags: 0
-      m_Flags: 0
-    m_Reference: {fileID: 0}
-  ClimbingContainer: {fileID: 236513610249621845}
-  Climbing: 0
-  ActiveHand: {fileID: 0}
-  handSide: 
-  movedRigidbody: {fileID: -7270375831412029562}
-  gravityRigidbody: {fileID: 0}
-  eachHandHolds: 0
-  player: {fileID: 0}
 --- !u!114 &1280638440439920029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1775,7 +1712,7 @@ MonoBehaviour:
   MainCamera: {fileID: 0}
   LeftRowingContainer: {fileID: 1574509008}
   RightRowingContainer: {fileID: 2011617098}
-  speed: 120
+  speed: 240
 --- !u!1 &3635936008634394327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4024,7 +3961,7 @@ MonoBehaviour:
   trackPos: 1
   trackRot: 1
   rigidBody: {fileID: 0}
-  climbingMovement: {fileID: 8824185701360900147}
+  climbingMovement: {fileID: 0}
   velocityDamping: 1
   angVelocityDamping: 1
   velocityScale: 0.5
@@ -4464,11 +4401,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
---- !u!153 &236513610249621845 stripped
-ConfigurableJoint:
-  m_CorrespondingSourceObject: {fileID: 6468191152703759463, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
-  m_PrefabInstance: {fileID: 6524557478510867762}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &236513610249621844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6468191152703759462, guid: efd7deeb86bc7ff44848c92984709210, type: 3}
