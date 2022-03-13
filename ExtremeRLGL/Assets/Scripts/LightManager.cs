@@ -24,6 +24,7 @@ public class LightManager : MonoBehaviour, IPunObservable
     private static bool[] redLightOn;
 
     private IEnumerator turningThread;
+    public AudioSource soundEffect;
 
     public void Awake()
     {
@@ -107,13 +108,21 @@ public class LightManager : MonoBehaviour, IPunObservable
         {
             yield return new WaitForSeconds(GetRandomTime(greenLightTimeMean, greenLightTimeStd));
             redLightOn[0] = true;
+            soundEffect.Play();
             yield return new WaitForSeconds(1.0f);
+            soundEffect.Pause();
             redLightOn[1] = true;
+            soundEffect.Play();
             yield return new WaitForSeconds(1.0f);
+            soundEffect.Pause();
             redLightOn[2] = true;
+            soundEffect.Play();
             yield return new WaitForSeconds(1.0f);
+            soundEffect.Pause();
             redLightOn[3] = true;
+            soundEffect.Play();
             yield return new WaitForSeconds(GetRandomTime(redLightTimeMean, redLightTimeStd));
+            soundEffect.Stop();
             for (int i = 0; i < redLightOn.Length; i++)
             {
                 redLightOn[i] = false;

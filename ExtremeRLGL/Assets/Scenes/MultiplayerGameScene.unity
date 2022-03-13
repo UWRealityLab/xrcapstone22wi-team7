@@ -5908,6 +5908,7 @@ MonoBehaviour:
   - {fileID: 388970128}
   - {fileID: 1728256223}
   lightPlate: {fileID: 954637742}
+  soundEffect: {fileID: 1650555059}
 --- !u!1 &1086411297
 GameObject:
   m_ObjectHideFlags: 0
@@ -7288,7 +7289,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2b6a49e3ffdbf734ea066f1df3d24d3e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -9383,9 +9384,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2b6a49e3ffdbf734ea066f1df3d24d3e, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.125
+  m_audioClip: {fileID: 8300000, guid: 434003ca1ae3d4c488737d1f7a8e465f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
