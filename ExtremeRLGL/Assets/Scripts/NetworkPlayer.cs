@@ -97,6 +97,9 @@ public class NetworkPlayer : MonoBehaviour
         //target.position = rigTransform.position;
         //target.rotation = rigTransform.rotation;
 
+        // this makes the arm tracking simpler - really only relies on controller rotation - but seems to prevent arms from getting stuck behind model
+        trackingPositionOffset = gameObject.transform.position;
+
         target.position = rigTransform.TransformPoint(trackingPositionOffset);
         target.rotation = rigTransform.rotation * Quaternion.Euler(trackingRotationOffset);
 
