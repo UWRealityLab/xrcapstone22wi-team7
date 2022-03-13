@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Unity.XR.CoreUtils;
-public class FlashBomb : MonoBehaviour, IPunObservable
+public class FlashBomb : MonoBehaviour
 {
     public bool grabbed = false;
     public bool meGrabbed = false;
@@ -58,6 +58,7 @@ public class FlashBomb : MonoBehaviour, IPunObservable
         }
     }
 
+    /*
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -75,12 +76,25 @@ public class FlashBomb : MonoBehaviour, IPunObservable
             grabbed = (bool)stream.ReceiveNext();
         }
     }
+    */
 
     public void Grabbed()
     {
         Debug.Log("Got Grabbed");
-        grabbed = true;
+        photonView.RPC("AllGrabbed", RpcTarget.All);
         meGrabbed = true;
+    }
+
+    [PunRPC]
+    public void AllGrabbed()
+    {
+        grabbed = true;
+    }
+
+    [PunRPC]
+    public void DestroyAll()
+    {
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -92,7 +106,7 @@ public class FlashBomb : MonoBehaviour, IPunObservable
         }
         else
         {
-            if (other.layer == LayerMask.NameToLayer("Self"))
+            if (other.layer == LayerMask.NameToLayer("Self") && meGrabbed)
             {
                 Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
             }
@@ -100,7 +114,7 @@ public class FlashBomb : MonoBehaviour, IPunObservable
             {
                 XROrigin rig = FindObjectOfType<XROrigin>();
                 rig.GetComponent<Flash>().StartFlash(Color.white, 0.5f);
-                PhotonNetwork.Destroy(gameObject);
+                photonView.RPC("DestroyAll", RpcTarget.All);
                 Debug.Log("Flash bomb collided!");
             }
         }

@@ -49,6 +49,9 @@ public class RunningMovementMultiplayer : MonoBehaviour
     // Speed variable to determine how far the player moves forward
     public float speed = 80;
 
+    // animator
+    public Animator animator;
+
     private XROrigin rig;
     private bool leftOrRight = false;
 
@@ -86,7 +89,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         rig = FindObjectOfType<XROrigin>();
-        if (rig != null)
+        if (photonView.IsMine && rig != null)
         {
             MainCamera = rig.transform.Find("Camera Offset/Main Camera");
             LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
@@ -124,11 +127,11 @@ public class RunningMovementMultiplayer : MonoBehaviour
     void Update()
     {
         rig = FindObjectOfType<XROrigin>();
-        if (rig != null)
+        if (photonView.IsMine && rig != null)
         {
             MainCamera = rig.transform.Find("Camera Offset/Main Camera");
             LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
-            RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+            RightHand = rig.transform.Find("Camera Offset/RightHand Controller"); 
             rig.GetComponent<ClimbingMovement>().player = gameObject;
         }
 
@@ -160,6 +163,13 @@ public class RunningMovementMultiplayer : MonoBehaviour
 
             // Get distance between initial and current position coordinates
             float playerDist = Vector3.Distance(initPlayerPos, currPlayerPos);
+            if (playerDist > 0.02)
+            {
+                animator.SetBool("isMoving", true);
+            } else
+            {
+                animator.SetBool("isMoving", false);
+            }
             float leftDist = Vector3.Distance(initLeftPos, currLeftPos) - playerDist;
             float rightDist = Vector3.Distance(initRightPos, currRightPos) - playerDist;
 
