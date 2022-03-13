@@ -15,6 +15,7 @@ public class Rock : MonoBehaviour, IPunObservable
         photonView = PhotonView.Get(this);
         grabbed = false;
         meGrabbed = false;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     // Update is called once per frame
@@ -46,6 +47,7 @@ public class Rock : MonoBehaviour, IPunObservable
         Debug.Log("Got Grabbed");
         grabbed = true;
         meGrabbed = true;
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     private void OnCollisionEnter(Collision collision)

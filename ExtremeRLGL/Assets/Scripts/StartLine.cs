@@ -54,7 +54,10 @@ public class StartLine : MonoBehaviour
     public Vector3 GetNextPos()
     {
         Vector3 pos = gameObject.GetComponent<Collider>().bounds.min;
-        pos[coordinateIdx] = pos[coordinateIdx] + NextFloat(0, longest);
+        if (!PhotonNetwork.IsMasterClient)
+            pos[coordinateIdx] = pos[coordinateIdx] + NextFloat(0, longest);
+        else
+            pos[coordinateIdx] = pos[coordinateIdx] + longest / 2;
         pos[1] = pos[1] + 0.5f;
         return pos;
     }

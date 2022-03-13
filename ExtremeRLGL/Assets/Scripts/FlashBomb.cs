@@ -29,6 +29,7 @@ public class FlashBomb : MonoBehaviour
         }
 
         camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 
     // Update is called once per frame
@@ -89,6 +90,7 @@ public class FlashBomb : MonoBehaviour
     public void AllGrabbed()
     {
         grabbed = true;
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     [PunRPC]
