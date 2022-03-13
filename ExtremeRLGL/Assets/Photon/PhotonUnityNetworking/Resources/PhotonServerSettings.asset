@@ -48,6 +48,12 @@ MonoBehaviour:
   - AllPlayerBack
   - hideBoat
   - showBoat
+  - AllGrabbed
+  - incrementIdx
+  - PlayerBack
+  - DestroyAll
+  - updateIdx
+  - ResetPlayerPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

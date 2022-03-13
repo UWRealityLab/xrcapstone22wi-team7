@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour, IPunObservable
     public GameObject botPrefab;
     private Collider startLine;
     private int playerNum;
+    private PhotonView photonView;
 
     private List<FinishedPlayer> finishedPlayer;
 
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour, IPunObservable
         playerObjects = new Dictionary<int, GameObject>();
         isPausing = false;
         isOnline = false;
+        photonView = PhotonView.Get(this);    
     }
 
 
@@ -90,6 +92,17 @@ public class GameManager : MonoBehaviour, IPunObservable
         
     }
 
+    [PunRPC]
+    public void ResetPlayerPosition()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            player.GetComponent<Teleport>().ToStartLine();
+        }
+        Debug.Log("Player position reset");
+    }
+
     public void GameStart()
     {
         if (!isOnline || PhotonNetwork.IsMasterClient)
@@ -99,6 +112,7 @@ public class GameManager : MonoBehaviour, IPunObservable
             playerNum = players.Length;
             Debug.Log("Starting the game");
             startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
+            photonView.RPC("ResetPlayerPosition", RpcTarget.All);
             CreateBots();
             StartCoroutine(StartingGame());
         }
@@ -157,21 +171,10 @@ public class GameManager : MonoBehaviour, IPunObservable
         }
     }
 
-    [PunRPC]
-    public void AllPlayerBack(GameObject[] players)
-    {
-        foreach (GameObject player in players)
-        {
-            player.GetComponent<Teleport>().ToStartLine();
-        }
-    }
-
     public void GameRestart()
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            AllPlayerBack(players);
             GameObject[] bots = GameObject.FindGameObjectsWithTag("Bot");
             foreach (GameObject bot in bots)
             {

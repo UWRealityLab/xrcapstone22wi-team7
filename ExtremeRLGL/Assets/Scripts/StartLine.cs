@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class StartLine : MonoBehaviour, IPunObservable
+public class StartLine : MonoBehaviour
 {
     private int length;
     private int currentIdx = 4;
     private int coordinateIdx;
     public float playerWidth;
+    private PhotonView photonView;
 
+    /*
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -23,11 +25,13 @@ public class StartLine : MonoBehaviour, IPunObservable
             currentIdx = (int)stream.ReceiveNext();
         }
     }
+    */
 
 
     // Start is called before the first frame update
     void Start()
     {
+        photonView = PhotonView.Get(this);
         Vector3 size = gameObject.GetComponent<Collider>().bounds.size;
 
         float longest = -1;
@@ -55,7 +59,14 @@ public class StartLine : MonoBehaviour, IPunObservable
         pos[coordinateIdx] = pos[coordinateIdx] + playerWidth * (currentIdx % length);
         pos[1] = pos[1] + 0.5f;
         currentIdx++;
+        photonView.RPC("updateIdx", RpcTarget.All, currentIdx);
         Debug.Log(pos);
         return pos;
+    }
+
+    [PunRPC]
+    public void updateIdx(int newIdx)
+    {
+        currentIdx = newIdx;
     }
 }
