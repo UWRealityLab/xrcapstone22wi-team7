@@ -43,6 +43,7 @@ public class PlayerInteraction : MonoBehaviour
         } else
         {
             simple.interactionLayers = InteractionLayerMask.GetMask("Pushing");
+            GetComponent<Rigidbody>().isKinematic = true;
         }
 
         // Set up cameras

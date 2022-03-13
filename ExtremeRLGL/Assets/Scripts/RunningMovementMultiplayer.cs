@@ -86,7 +86,7 @@ public class RunningMovementMultiplayer : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         rig = FindObjectOfType<XROrigin>();
-        if (rig != null)
+        if (photonView.IsMine && rig != null)
         {
             MainCamera = rig.transform.Find("Camera Offset/Main Camera");
             LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
@@ -124,11 +124,11 @@ public class RunningMovementMultiplayer : MonoBehaviour
     void Update()
     {
         rig = FindObjectOfType<XROrigin>();
-        if (rig != null)
+        if (photonView.IsMine && rig != null)
         {
             MainCamera = rig.transform.Find("Camera Offset/Main Camera");
             LeftHand = rig.transform.Find("Camera Offset/LeftHand Controller");
-            RightHand = rig.transform.Find("Camera Offset/RightHand Controller");
+            RightHand = rig.transform.Find("Camera Offset/RightHand Controller"); 
             rig.GetComponent<ClimbingMovement>().player = gameObject;
         }
 
