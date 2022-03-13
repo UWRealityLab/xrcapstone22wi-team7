@@ -4166,22 +4166,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: map
       objectReference: {fileID: 0}
-    - target: {fileID: 5993144182571685655, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 5993144182802467277, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 5993144183501230762, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 5993144184015069554, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
-      propertyPath: m_Layer
-      value: 14
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef0c2c38168a56d4498ba4d36b342743, type: 3}
 --- !u!1 &1484722737
