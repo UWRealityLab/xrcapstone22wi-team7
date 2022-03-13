@@ -125,12 +125,14 @@ public class LightManager : MonoBehaviour, IPunObservable
             yield return new WaitForSeconds(1.0f);
             lightSound.Stop();
             yield return new WaitForSeconds(GetRandomTime(redLightTimeMean, redLightTimeStd));
+            dingSound.Play();
             
             for (int i = 0; i < redLightOn.Length; i++)
             {
                 redLightOn[i] = false;
             }
             Debug.Log("Turnning every light back to green");
+            
         }
     }
 

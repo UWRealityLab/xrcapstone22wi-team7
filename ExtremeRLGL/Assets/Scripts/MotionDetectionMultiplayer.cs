@@ -183,12 +183,13 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             {
                 //Debug.Log("Freeze");
                 // GetComponent<Renderer>().material.color = Color.red;
-                if (!alreadyPlayingAudio)
-                {
-                    audioSource.Stop();
-                    audioSource.PlayOneShot(dingSound);
-                    alreadyPlayingAudio = true;
-                }
+
+                //if (!alreadyPlayingAudio)
+                //{
+                //    audioSource.Stop();
+                //    audioSource.PlayOneShot(dingSound);
+                //    alreadyPlayingAudio = true;
+                //}
             }
         }
         else if (!LightManager.RedlightAllOn())
