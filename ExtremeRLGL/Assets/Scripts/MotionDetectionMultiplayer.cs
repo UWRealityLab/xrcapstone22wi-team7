@@ -161,8 +161,6 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             {
                 if (!triggered && !playerPowerup.isActivate(PowerUpType.UNSTOPPABLE))
                     OnMoved();
-
-                animator.SetBool("isMoving", true);
             }
 
             // Executes if calculated distances are less than their respective thresholds
@@ -170,8 +168,6 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             {
                 //Debug.Log("Freeze");
                 // GetComponent<Renderer>().material.color = Color.red;
-
-                animator.SetBool("isMoving", false);
             }
         }
         else if (!LightManager.RedlightAllOn())
