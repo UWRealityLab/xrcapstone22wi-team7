@@ -13,6 +13,7 @@ public class WaterMultiplayer : MonoBehaviour
 
     public GameObject boat;
     public Collider boatCollider;
+    private bool on;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,18 @@ public class WaterMultiplayer : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (photonView.IsMine && GameManager.gameStage != GameStage.Playing && on)
+        {
+            runningMovement.enabled = true;
+            rowingMovement.enabled = false;
+            photonView.RPC("hideBoat", RpcTarget.All);
+            boatCollider.enabled = false;
+            on = false;
+        }
+    }
+
     // OnTriggerEnter is called when a GameObject collides with another GameObject.
     private void OnTriggerEnter(Collider other)
     {
@@ -40,6 +53,7 @@ public class WaterMultiplayer : MonoBehaviour
                 rowingMovement.enabled = true;
                 photonView.RPC("showBoat", RpcTarget.All);
                 boatCollider.enabled = true;
+                on = true;
             }
 
             // Executes if this collider touches an object with the "RowingEnd" tag
@@ -49,6 +63,7 @@ public class WaterMultiplayer : MonoBehaviour
                 rowingMovement.enabled = false;
                 photonView.RPC("hideBoat", RpcTarget.All);
                 boatCollider.enabled = false;
+                on = false;
             }
         }
     }
