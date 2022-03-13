@@ -5,10 +5,8 @@ using Photon.Pun;
 
 public class StartLine : MonoBehaviour
 {
-    private int length;
-    private int currentIdx = 4;
     private int coordinateIdx;
-    public float playerWidth;
+    private float longest;
     private PhotonView photonView;
 
     /*
@@ -17,12 +15,14 @@ public class StartLine : MonoBehaviour
         if (stream.IsWriting)
         {
             // We own this player: send the others our data
+            Debug.Log("Sent currentIdx = " + currentIdx);
             stream.SendNext(currentIdx);
         }
         else
         {
             // Network player, receive data
             currentIdx = (int)stream.ReceiveNext();
+            Debug.Log("Recieved currentIdx = " + currentIdx);
         }
     }
     */
@@ -34,7 +34,7 @@ public class StartLine : MonoBehaviour
         photonView = PhotonView.Get(this);
         Vector3 size = gameObject.GetComponent<Collider>().bounds.size;
 
-        float longest = -1;
+        longest = -1;
         for (int i = 0; i < 3; i++)
         {
             if (size[i] > longest)
@@ -43,7 +43,6 @@ public class StartLine : MonoBehaviour
                 coordinateIdx = i;
             }
         }
-        length = (int)(longest / playerWidth);
     }
 
     // Update is called once per frame
@@ -54,19 +53,26 @@ public class StartLine : MonoBehaviour
 
     public Vector3 GetNextPos()
     {
-        Debug.Log("Current startLine Index:" + currentIdx);
         Vector3 pos = gameObject.GetComponent<Collider>().bounds.min;
-        pos[coordinateIdx] = pos[coordinateIdx] + playerWidth * (currentIdx % length);
+        pos[coordinateIdx] = pos[coordinateIdx] + NextFloat(0, longest);
         pos[1] = pos[1] + 0.5f;
-        currentIdx++;
-        photonView.RPC("updateIdx", RpcTarget.All, currentIdx);
-        Debug.Log(pos);
         return pos;
     }
 
-    [PunRPC]
-    public void updateIdx(int newIdx)
+    private float NextFloat(float min, float max)
     {
-        currentIdx = newIdx;
+        System.Random random = new System.Random();
+        double val = (random.NextDouble() * (max - min) + min);
+        return (float)val;
     }
+
+    /*
+    [PunRPC]
+    public void updateIdx()
+    {
+        currentIdx++;
+        Debug.Log("Index updated into" + currentIdx);
+    }
+    */
+
 }
