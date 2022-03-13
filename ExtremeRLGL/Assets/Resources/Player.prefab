@@ -1570,6 +1570,7 @@ MonoBehaviour:
     m_Bits: 1024
   groundCheck: {fileID: 9119737070326992747}
   speed: 240
+  animator: {fileID: 4412153811984381101}
 --- !u!114 &-1549997215884751634
 MonoBehaviour:
   m_ObjectHideFlags: 0
