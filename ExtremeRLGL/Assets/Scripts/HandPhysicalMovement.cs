@@ -50,17 +50,17 @@ public class HandPhysicalMovement : MonoBehaviour
         // Only apply velocity when we are actually climbing
         if (!GetComponent<ClimberHand>().isGrabbing)
         {
-
+            
             // Executes if the position is being tracked
             if (trackPos)
             {
-                /*
-        rigidBody.velocity *= (1f - velocityDamping);
-        var deltaPos = targetAttach.position - m_TargetToMove.position + Vector3.Scale(m_TargetToMove.forward, offset);
-        var velocity = deltaPos / deltaTime;
-        if (!float.IsNaN(velocity.x))
-            rigidBody.velocity += (velocity * velocityScale);
-    */
+                /*      
+              rigidBody.velocity *= (1f - velocityDamping);
+              var deltaPos = targetAttach.position - m_TargetToMove.position + Vector3.Scale(m_TargetToMove.forward, offset);
+              var velocity = deltaPos / deltaTime;
+              if (!float.IsNaN(velocity.x))
+                  rigidBody.velocity += (velocity * velocityScale);
+          */
                 rigidBody.transform.position = gameObject.transform.position;
             }
 
