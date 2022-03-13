@@ -6,20 +6,28 @@ using Photon.Pun;
 
 public class RestartButton : MonoBehaviour
 {
-    private GameObject button;
+    private GameObject restartButton;
+    private GameObject leaveButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        button = gameObject.transform.GetChild(0).gameObject;
-        button.SetActive(false);
-        button.GetComponent<Button>().onClick.AddListener(RestartGame);
+        restartButton = gameObject.transform.GetChild(0).gameObject;
+        restartButton.SetActive(false);
+
+        leaveButton = gameObject.transform.GetChild(1).gameObject;
+        leaveButton.SetActive(false);
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
         Debug.Log("Restarting the game!");
         GameManager.gameManager.GameRestart();
+    }
+
+    public void LeaveGame()
+    {
+        PhotonNetwork.Disconnect();
     }
 
     // Update is called once per frame
@@ -27,11 +35,13 @@ public class RestartButton : MonoBehaviour
     {
         if (GameManager.gameStage == GameStage.Ending && PhotonNetwork.IsMasterClient)
         {
-            button.SetActive(true);
+            restartButton.SetActive(true);
+            // leaveButton.SetActive(true);
         }
         else 
         {
-            button.SetActive(false);
+            restartButton.SetActive(false);
+            leaveButton.SetActive(false);
         }
     }
 }

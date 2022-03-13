@@ -58,6 +58,12 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     // Animator
     public Animator animator;
 
+    // Audio
+    public AudioSource audioSource;
+    public AudioClip dingSound;
+    public AudioClip bzzSound;
+    public bool alreadyPlayingAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +80,8 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             movingState.text = "";
         triggered = false;
         resetPosition = false;
+
+        audioSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
     }
 
     public void OnEnable()
@@ -108,6 +116,8 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        audioSource = GameObject.Find("UI Camera").GetComponent<AudioSource>();
+
         if (startLine == null)
         {
             startLine = GameObject.FindGameObjectWithTag("StartLine").GetComponent<Collider>();
@@ -160,7 +170,12 @@ public class MotionDetectionMultiplayer : MonoBehaviour
                 cameraRotDist > cameraRotThreshold || leftRotDist > handRotThreshold || rightRotDist > handRotThreshold)
             {
                 if (!triggered && !playerPowerup.isActivate(PowerUpType.UNSTOPPABLE))
+                {
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(bzzSound);
+                    alreadyPlayingAudio = true;
                     OnMoved();
+                }
             }
 
             // Executes if calculated distances are less than their respective thresholds
@@ -168,11 +183,19 @@ public class MotionDetectionMultiplayer : MonoBehaviour
             {
                 //Debug.Log("Freeze");
                 // GetComponent<Renderer>().material.color = Color.red;
+
+                //if (!alreadyPlayingAudio)
+                //{
+                //    audioSource.Stop();
+                //    audioSource.PlayOneShot(dingSound);
+                //    alreadyPlayingAudio = true;
+                //}
             }
         }
         else if (!LightManager.RedlightAllOn())
         {
             resetPosition = false;
+            alreadyPlayingAudio = false;
         }
     }
 

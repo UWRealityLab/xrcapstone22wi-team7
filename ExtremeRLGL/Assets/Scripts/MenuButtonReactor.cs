@@ -21,7 +21,7 @@ public class MenuButtonReactor : MonoBehaviour
 
     public void onMenuButtonEvent(bool pressed)
     {
-        bool validGameStage = GameManager.gameStage == GameStage.Playing || GameManager.gameStage == GameStage.Countdown;
+        bool validGameStage = GameManager.gameStage == GameStage.Playing || GameManager.gameStage == GameStage.Countdown || GameManager.gameStage == GameStage.Ending;
         if (SceneManager.GetActiveScene().name == "MultiplayerGameScene" && validGameStage)
         {
             if (alreadyOpen && pressed)

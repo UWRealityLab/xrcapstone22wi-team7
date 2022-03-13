@@ -71,7 +71,7 @@ public class NetworkPlayer : MonoBehaviour
             if (rig != null)
             {
                 // make sure rig is same as gameObject's positiom (deals with wonky hand tracking before game starts)
-                rig.transform.position = gameObject.transform.position;
+                //rig.transform.position = gameObject.transform.position;
 
                 headRig = rig.transform.Find("Camera Offset/Main Camera");
                 leftHandRig = rig.transform.Find("Camera Offset/LeftHand Controller");
