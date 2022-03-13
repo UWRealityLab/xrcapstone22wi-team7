@@ -21,6 +21,8 @@ public class MiniMenuMovement : MonoBehaviour
         {
             // Move menu to player
             MenuButtonReactor.miniMenu.transform.position = gameObject.transform.position + new Vector3(0f, 1.4f, 2.4f);
+
+            GameObject.Find("Canvas").transform.position = gameObject.transform.position + new Vector3(0f, 1.4f, 2.4f);
         }
     }
 }

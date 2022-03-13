@@ -1592,6 +1592,10 @@ MonoBehaviour:
   handRotThreshold: 12
   movingState: {fileID: 161061372}
   animator: {fileID: 4412153811984381101}
+  audioSource: {fileID: 0}
+  dingSound: {fileID: 8300000, guid: 8239e0e1189e1c748b5d7742903b8eaf, type: 3}
+  bzzSound: {fileID: 8300000, guid: 7edac91c70b562148ba0726904bf5c27, type: 3}
+  alreadyPlayingAudio: 0
 --- !u!114 &2439450006051917942
 MonoBehaviour:
   m_ObjectHideFlags: 0
