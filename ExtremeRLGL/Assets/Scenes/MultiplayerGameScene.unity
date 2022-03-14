@@ -3227,8 +3227,8 @@ MonoBehaviour:
   - {fileID: 388970128}
   - {fileID: 1728256223}
   lightPlate: {fileID: 954637742}
-  lightSound: {fileID: 1650555059}
-  dingSound: {fileID: 748958085}
+  audioSource: {fileID: 1338201726}
+  beepSound: {fileID: 8300000, guid: caa5d9964f58c0349a5d21f75670b114, type: 3}
 --- !u!1 &1086411297
 GameObject:
   m_ObjectHideFlags: 0
@@ -4946,11 +4946,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 434003ca1ae3d4c488737d1f7a8e465f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: caa5d9964f58c0349a5d21f75670b114, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

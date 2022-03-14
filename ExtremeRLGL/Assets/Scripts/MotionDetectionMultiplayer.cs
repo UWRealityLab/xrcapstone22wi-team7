@@ -62,7 +62,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip dingSound;
     public AudioClip bzzSound;
-    public bool alreadyPlayingAudio;
+    public bool alreadyPlayedAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -173,7 +173,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
                 {
                     audioSource.Stop();
                     audioSource.PlayOneShot(bzzSound);
-                    alreadyPlayingAudio = true;
+                    alreadyPlayedAudio = true;
                     OnMoved();
                 }
             }
@@ -184,18 +184,18 @@ public class MotionDetectionMultiplayer : MonoBehaviour
                 //Debug.Log("Freeze");
                 // GetComponent<Renderer>().material.color = Color.red;
 
-                //if (!alreadyPlayingAudio)
+                // ding doesn't work properly
+                //if (!triggered && !alreadyPlayedAudio)
                 //{
                 //    audioSource.Stop();
                 //    audioSource.PlayOneShot(dingSound);
-                //    alreadyPlayingAudio = true;
+                //    alreadyPlayedAudio = true;
                 //}
             }
         }
         else if (!LightManager.RedlightAllOn())
         {
             resetPosition = false;
-            alreadyPlayingAudio = false;
         }
     }
 
@@ -253,6 +253,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         }
         ResetInitialPositions();
         triggered = false;
+        alreadyPlayedAudio = false;
         Debug.Log("Has been punished.");
     }
 }
