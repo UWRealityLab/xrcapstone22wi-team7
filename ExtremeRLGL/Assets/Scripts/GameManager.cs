@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour, IPunObservable
             // hardcode 1 for now
             int numOfBot = 3;
             for (int i = 0; i < numOfBot; i++)
-                PhotonNetwork.Instantiate(botPrefab.name, startLine.GetComponent<StartLine>().GetNextPos(), transform.rotation);
+                PhotonNetwork.Instantiate(botPrefab.name, startLine.GetComponent<StartLine>().GetNextPos(true), transform.rotation);
         }
     }
 

@@ -8,6 +8,7 @@ public class StartLine : MonoBehaviour
     private int coordinateIdx;
     private float longest;
     private PhotonView photonView;
+    private System.Random random;
 
     /*
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -33,7 +34,7 @@ public class StartLine : MonoBehaviour
     {
         photonView = PhotonView.Get(this);
         Vector3 size = gameObject.GetComponent<Collider>().bounds.size;
-
+        random = new System.Random();
         longest = -1;
         for (int i = 0; i < 3; i++)
         {
@@ -62,9 +63,17 @@ public class StartLine : MonoBehaviour
         return pos;
     }
 
+    public Vector3 GetNextPos(bool bot)
+    {
+        Vector3 pos = gameObject.GetComponent<Collider>().bounds.min;
+        pos[coordinateIdx] = pos[coordinateIdx] + NextFloat(0, longest);
+        pos[1] = pos[1] + 0.5f;
+        return pos;
+    }
+
+
     private float NextFloat(float min, float max)
     {
-        System.Random random = new System.Random();
         double val = (random.NextDouble() * (max - min) + min);
         return (float)val;
     }
