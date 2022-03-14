@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 
 public class LightManager : MonoBehaviour, IPunObservable
@@ -24,8 +25,12 @@ public class LightManager : MonoBehaviour, IPunObservable
     private static bool[] redLightOn;
 
     private IEnumerator turningThread;
-    public AudioSource lightSound;
-    public AudioSource dingSound;
+
+    public AudioSource audioSource;
+    public AudioClip beepSound;
+
+    public const byte PlayAudioSourceEventCode = 2;
+
 
     public void Awake()
     {
@@ -109,32 +114,33 @@ public class LightManager : MonoBehaviour, IPunObservable
         {
             yield return new WaitForSeconds(GetRandomTime(greenLightTimeMean, greenLightTimeStd));
             redLightOn[0] = true;
-            lightSound.Play();
+            SendPlayAudioSourceEvent("Main Camera"); // main camera has audio source attached
             yield return new WaitForSeconds(1.0f);
-            lightSound.Pause();
             redLightOn[1] = true;
-            lightSound.Play();
+            SendPlayAudioSourceEvent("Main Camera");
             yield return new WaitForSeconds(1.0f);
-            lightSound.Pause();
             redLightOn[2] = true;
-            lightSound.Play();
+            SendPlayAudioSourceEvent("Main Camera");
             yield return new WaitForSeconds(1.0f);
-            lightSound.Pause();
             redLightOn[3] = true;
-            lightSound.Play();
-            yield return new WaitForSeconds(1.0f);
-            lightSound.Stop();
+            SendPlayAudioSourceEvent("Main Camera");
             yield return new WaitForSeconds(GetRandomTime(redLightTimeMean, redLightTimeStd));
-            dingSound.Play();
             
             for (int i = 0; i < redLightOn.Length; i++)
             {
                 redLightOn[i] = false;
             }
-            Debug.Log("Turnning every light back to green");
-            
+            Debug.Log("Turning every light back to green");
         }
     }
+
+    public void SendPlayAudioSourceEvent(string objectName)
+    {
+        object[] content = new object[] { objectName };
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
+        PhotonNetwork.RaiseEvent(PlayAudioSourceEventCode, content, raiseEventOptions, SendOptions.SendReliable);
+    }
+
 
     public void TurnOnLights()
     {
