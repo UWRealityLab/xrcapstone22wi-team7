@@ -21,6 +21,7 @@ public class Checkpoint : MonoBehaviour
         if (GameManager.gameStage != GameStage.Playing)
         {
             GetComponent<Renderer>().enabled = true;
+            firstTimeReached = false;
         }
     }
 
