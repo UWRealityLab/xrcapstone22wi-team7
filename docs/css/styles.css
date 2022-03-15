@@ -11260,3 +11260,22 @@ header.masthead .site-heading .h1 {
   width: 100% !important;
   height: 100% !important;
 }
+/* Style buttons */
+.download-btn {
+  background-color: #495057;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.download-btn:hover {
+  background-color: #212529;
+  color: white;
+}
+
+.download-btn > a, .download-btn > a:hover {
+  color: white;
+}
