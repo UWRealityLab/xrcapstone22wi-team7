@@ -245,7 +245,7 @@ public class MotionDetectionMultiplayer : MonoBehaviour
         Teleport t = gameObject.GetComponent<Teleport>();
         if (t != null) // if it's a player
         {
-            t.ToStartLine();
+            t.ToCheckpoint();
         }
         else // if it's a bot
         {

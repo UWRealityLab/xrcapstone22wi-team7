@@ -108,7 +108,7 @@ public class FlashBomb : MonoBehaviour
         }
         else
         {
-            if (other.layer == LayerMask.NameToLayer("Self") && meGrabbed)
+            if ((other.layer == LayerMask.NameToLayer("Self") || other.layer == LayerMask.NameToLayer("Rig")) && meGrabbed)
             {
                 Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
             }

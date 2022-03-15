@@ -33,11 +33,7 @@ public class WaterMultiplayer : MonoBehaviour
     {
         if (photonView.IsMine && GameManager.gameStage != GameStage.Playing && on)
         {
-            runningMovement.enabled = true;
-            rowingMovement.enabled = false;
-            photonView.RPC("hideBoat", RpcTarget.All);
-            boatCollider.enabled = false;
-            on = false;
+            EndRowing();
         }
     }
 
@@ -59,13 +55,18 @@ public class WaterMultiplayer : MonoBehaviour
             // Executes if this collider touches an object with the "RowingEnd" tag
             if (other.gameObject.CompareTag("RowingEnd"))
             {
-                runningMovement.enabled = true;
-                rowingMovement.enabled = false;
-                photonView.RPC("hideBoat", RpcTarget.All);
-                boatCollider.enabled = false;
-                on = false;
+                EndRowing();
             }
         }
+    }
+
+    public void EndRowing()
+    {
+        runningMovement.enabled = true;
+        rowingMovement.enabled = false;
+        photonView.RPC("hideBoat", RpcTarget.All);
+        boatCollider.enabled = false;
+        on = false;
     }
 
     [PunRPC]
