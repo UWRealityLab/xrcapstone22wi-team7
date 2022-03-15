@@ -314,14 +314,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Move forward in the game by swinging your arms (like if you were actually
-    running). <br>
+  m_text: 'Move forward by swinging your arms (like if you were actually running)
+    and jump past obstacles in your way. <br>
 
-    While running, you might need to jump past some obstacles
-    in your way. <br>
+    There are various power-ups/items
+    in the map (e.g. speed boost, flash bomb, etc.) that you can try using. <br>
 
-    You can also knock down other players by hovering over
-    them and holding the grip (grab) button for 3 seconds before releasing.'
+    You
+    can also knock down other players by hovering over them and holding the grip
+    (grab) button for 3 seconds before releasing.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4746,12 +4747,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Welcome to Extreme Red Light Green Light! <br>
 
-    The basic premise
-    of the game is to stay still when all lights turn red. If you move, you will
-    be sent back to the beginning. Your goal is to reach the finish line before time
-    runs out.<br>
+    Your goal is to be
+    the first to reach the finish line before time runs out. The game ends when a
+    bot or player reaches the end. <br>
 
-    Press the next button to learn how to play the game.
+    When all lights turn red, you must stay
+    still. If you move, you will be sent back to the last checkpoint reached.<br>
 
 '
   m_isRightToLeft: 0
