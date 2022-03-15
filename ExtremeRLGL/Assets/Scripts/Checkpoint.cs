@@ -5,6 +5,10 @@ using Photon.Pun;
 
 public class Checkpoint : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip soundClip;
+    public bool firstTimeReached = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,11 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine) 
         {
+            if (!firstTimeReached)
+            {
+                firstTimeReached = true;
+                audioSource.PlayOneShot(soundClip, .8f);
+            }
             other.GetComponent<Teleport>().checkpoint = GetComponent<Collider>();
             GetComponent<Renderer>().enabled = false;
             Debug.Log("Hit checkpoint!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
